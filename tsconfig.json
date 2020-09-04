@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "jsx": "react",
+    "sourceMap": true,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true, 
+    "esModuleInterop": true,
+    "preserveConstEnums": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"],
+      "@assets/*": ["src/assets/*"],
+      "@images/*": ["src/assets/images/*"],
+    }
+  },
+}
