@@ -28,6 +28,12 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 0,
       },
     },
+    {
+      files: ['src/*.ts', 'src/**/*.ts', 'src/*.tsx', 'src/**/*.tsx'],
+      rules: {
+        'no-undef': 'off',
+      },
+    },
   ],
   // env环境变量配置，形如console属性只有在browser环境下才会存在，如果没有设置会报console is undefined。
   env: {
