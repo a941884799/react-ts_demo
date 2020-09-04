@@ -15,7 +15,9 @@ module.exports = {
   ],
   plugins: ['@typescript-eslint'], //定义了该eslint文件所依赖的插件
   rules: {
-    'import/no-unresolved': ['error'],
+    'import/no-unresolved': 2,
+    'no-const-assign': 2,
+    'no-undef': 2,
   },
   ignorePatterns: ['_import_production.jsx'], // 这个文件eslint有bug
   // 针对某一类文件进行特定配置
