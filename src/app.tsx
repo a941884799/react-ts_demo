@@ -8,8 +8,7 @@ import {globalVar} from '@utils/publick'
 import {c} from '@src/utils'
 // import _ from 'lodash'
 const a = 123
-const a = 123
-const a = 123
+a = 3
 // 注册全局变量，解决按需引入polyfill的缺陷
 globalVar()
 
