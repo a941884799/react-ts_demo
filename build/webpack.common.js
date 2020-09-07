@@ -6,7 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = env => ({
-  entry: path.resolve(__dirname, '../src/app'),
+  entry: path.resolve(__dirname, '../src/index'),
   output: {
     path: path.resolve(__dirname, '../dist'),
   },

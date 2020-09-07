@@ -12,11 +12,12 @@ module.exports = {
     'prettier/@typescript-eslint',
     // 启用eslint-plugin-prettier和eslint-config-prettier。这会将prettier错误作为ESLint错误来展示。确保这个配置放到数组的最后。
     'plugin:prettier/recommended',
-    'eslint:recommended',
+    // 'eslint:recommended',
   ],
   plugins: ['react', 'prettier', '@typescript-eslint'], //定义了该eslint文件所依赖的插件
   rules: {
-    'import/no-unresolved': 2,
+    // 'import/no-unresolved': 2,
+    'no-undef': 2,
   },
   ignorePatterns: ['_import_production.jsx'], // 这个文件eslint有bug
   // 针对某一类文件进行特定配置
