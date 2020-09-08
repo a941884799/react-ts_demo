@@ -12,23 +12,15 @@ module.exports = {
     'prettier/@typescript-eslint',
     // 启用eslint-plugin-prettier和eslint-config-prettier。这会将prettier错误作为ESLint错误来展示。确保这个配置放到数组的最后。
     'plugin:prettier/recommended',
-    // 'eslint:recommended',
   ],
   plugins: ['react', 'prettier', '@typescript-eslint'], //定义了该eslint文件所依赖的插件
   rules: {
-    // 'import/no-unresolved': 2,
     'no-undef': 2,
+    'no-global-assign': 2,
   },
   ignorePatterns: ['_import_production.jsx'], // 这个文件eslint有bug
   // 针对某一类文件进行特定配置
-  overrides: [
-    {
-      files: ['./build/*.js'],
-      rules: {
-        '@typescript-eslint/no-var-requires': 0,
-      },
-    },
-  ],
+  overrides: [{files: ['./build/*.js'], rules: {'@typescript-eslint/no-var-requires': 0}}],
   // env环境变量配置，形如console属性只有在browser环境下才会存在，如果没有设置会报console is undefined。
   env: {
     node: true,
@@ -41,6 +33,7 @@ module.exports = {
       pragma: 'React',
       version: 'detect',
     },
+    // 让 import/parsers 能解析ts文件的导入
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
@@ -59,9 +52,14 @@ module.exports = {
       jsx: true,
     },
   },
+  // 防止使用全局变量时报错 'readonly' 'writable' 'off'
   globals: {
-    // name1: 'writable',
-    // name2: 'readonly',
-    JSX: true,
+    Types: 'readonly',
+    JSX: 'readonly',
+    _: 'readonly',
+    boolean_true: 'readonly',
+    age: 'readonly',
+    name: 'readonly',
+    globalObj: 'readonly',
   },
 }

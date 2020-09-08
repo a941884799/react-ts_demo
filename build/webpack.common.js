@@ -1,6 +1,7 @@
 /** @format */
 
 const path = require('path')
+const Webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -61,12 +62,23 @@ module.exports = env => ({
     ],
   },
   plugins: [
+    // 定义全局常量
+    new Webpack.DefinePlugin({
+      boolean_true: JSON.stringify(true),
+      age: JSON.stringify(25),
+      name: JSON.stringify('王龙岗'),
+      globalObj: JSON.stringify({name: '王龙岗', sex: '男', age: 25}),
+    }),
+    // 全局引入lodash，并命名为_
+    new Webpack.ProvidePlugin({
+      _: 'lodash',
+    }),
     new HtmlWebpackPlugin({
       favicon: path.resolve(__dirname, '../src/assets/images/favicon.ico'),
-      template: path.resolve(__dirname, '../public/index.html'),
+      template: path.resolve(__dirname, '../template/index.html'),
     }),
     new CopyWebpackPlugin({
-      patterns: [{from: 'public', to: 'public'}],
+      patterns: [{from: 'static', to: 'static'}],
     }),
   ],
   resolve: {
