@@ -17,10 +17,16 @@ module.exports = {
   rules: {
     'no-undef': 2,
     'no-global-assign': 2,
+    '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/explicit-module-boundary-types': 0,
+    'import/named': 0,
   },
   ignorePatterns: ['_import_production.jsx'], // 这个文件eslint有bug
   // 针对某一类文件进行特定配置
-  overrides: [{files: ['./build/*.js'], rules: {'@typescript-eslint/no-var-requires': 0}}],
+  overrides: [
+    {files: ['./build/*.js'], rules: {'@typescript-eslint/no-var-requires': 0}},
+    {files: ['./src/*/*.d.ts'], rules: {'no-undef': 0}},
+  ],
   // env环境变量配置，形如console属性只有在browser环境下才会存在，如果没有设置会报console is undefined。
   env: {
     node: true,
@@ -54,7 +60,8 @@ module.exports = {
   },
   // 防止使用全局变量时报错 'readonly' 'writable' 'off'
   globals: {
-    Types: 'readonly',
+    commonTypes: 'readonly',
+    storeTypes: 'readonly',
     JSX: 'readonly',
     _: 'readonly',
     boolean_true: 'readonly',

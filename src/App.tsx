@@ -2,8 +2,10 @@
 
 import React, {useEffect} from 'react'
 import {Switch, Route, Link} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
+import {ActionTypes} from '@store/actions'
 import {history} from './index'
-
+import './store'
 console.log(_, name, age, globalObj, boolean_true)
 const App = (): JSX.Element => {
   useEffect(() => {
@@ -40,8 +42,11 @@ const App = (): JSX.Element => {
 
 export default App
 
-function Home(props: Types.obj) {
-  return <h2>Home</h2>
+function Home() {
+  const dispatch = useDispatch()
+  const todos: [] = useSelector(store => store.todos)
+  console.log(todos)
+  return <h2 onClick={() => dispatch({type: ActionTypes.ADD_TODO, text: todos.length})}>Home{todos.map(i => i)}</h2>
 }
 
 function About() {

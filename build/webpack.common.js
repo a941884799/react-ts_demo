@@ -84,10 +84,12 @@ module.exports = env => ({
   resolve: {
     alias: {
       '@src': path.resolve(__dirname, '../src'),
+      '@utils': path.resolve(__dirname, '../src/utils'),
+      '@store': path.resolve(__dirname, '../src/store'),
       '@components': path.resolve(__dirname, '../src/components'),
       '@assets': path.resolve(__dirname, '../src'),
+      '@styles': path.resolve(__dirname, '../src/assets/styles'),
       '@images': path.resolve(__dirname, '../src/assets/images'),
-      '@utils': path.resolve(__dirname, '../src/utils'),
     },
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.scss'],
   },

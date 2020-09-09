@@ -16,8 +16,10 @@
       "@src/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@utils/*": ["src/utils/*"],
+      "@store/*": ["src/store/*"],
       "@assets/*": ["src/assets/*"],
       "@images/*": ["src/assets/images/*"],
+      "@styles/*": ["src/assets/styles/*"],
     }
   },
 }

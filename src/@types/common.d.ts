@@ -1,6 +1,6 @@
 /** @format */
 // 声名全局变量
 
-declare namespace Types {
+declare namespace commonTypes {
   type obj = Record<string, unknown>
 }
