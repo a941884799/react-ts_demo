@@ -12,14 +12,14 @@ module.exports = {
     'prettier/@typescript-eslint',
     // 启用eslint-plugin-prettier和eslint-config-prettier。这会将prettier错误作为ESLint错误来展示。确保这个配置放到数组的最后。
     'plugin:prettier/recommended',
+    'eslint:recommended',
   ],
-  plugins: ['react', 'prettier', '@typescript-eslint'], //定义了该eslint文件所依赖的插件
+  plugins: ['react', 'prettier', '@typescript-eslint'], // 定义了该eslint文件所依赖的插件
   rules: {
-    'no-undef': 2,
-    'no-global-assign': 2,
     '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
     'import/named': 0,
+    'no-unused-vars': 0,
   },
   ignorePatterns: ['_import_production.jsx'], // 这个文件eslint有bug
   // 针对某一类文件进行特定配置
@@ -27,7 +27,7 @@ module.exports = {
     {files: ['./build/*.js'], rules: {'@typescript-eslint/no-var-requires': 0}},
     {files: ['./src/*/*.d.ts'], rules: {'no-undef': 0}},
   ],
-  // env环境变量配置，形如console属性只有在browser环境下才会存在，如果没有设置会报console is undefined。
+  // Env环境变量配置，形如console属性只有在browser环境下才会存在，如果没有设置会报console is undefined。
   env: {
     node: true,
     browser: true,
@@ -60,13 +60,13 @@ module.exports = {
   },
   // 防止使用全局变量时报错 'readonly' 'writable' 'off'
   globals: {
-    commonTypes: 'readonly',
+    globalTypes: 'readonly',
     storeTypes: 'readonly',
     JSX: 'readonly',
     _: 'readonly',
-    boolean_true: 'readonly',
-    age: 'readonly',
-    name: 'readonly',
+    globalBoolean: 'readonly',
+    globalAge: 'readonly',
+    globalName: 'readonly',
     globalObj: 'readonly',
   },
 }

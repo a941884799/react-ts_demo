@@ -5,5 +5,5 @@ declare namespace storeTypes {
     type: string
     [propName in string]: string
   }
-  type ReducerType = (state: any, action: action) => any
+  type Reducer = (state: any, action: action) => any
 }

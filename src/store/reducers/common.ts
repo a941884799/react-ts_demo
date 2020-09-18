@@ -1,11 +1,10 @@
 /** @format */
 import {cr} from '@utils/index'
-import {commonTypes} from '@store/actions/common'
+import {Types as commonTypes} from '@store/actions/common'
 
 const commonReducer: commonTypes.obj = {
   todos: cr([], {
     [commonTypes.ADD_TODO](state, action) {
-      console.log(state, action.text)
       return state.concat([action.text])
     },
   }),

@@ -64,9 +64,9 @@ module.exports = env => ({
   plugins: [
     // 定义全局常量
     new Webpack.DefinePlugin({
-      boolean_true: JSON.stringify(true),
-      age: JSON.stringify(25),
-      name: JSON.stringify('王龙岗'),
+      globalBoolean: JSON.stringify(true),
+      globalAge: JSON.stringify(25),
+      globalName: JSON.stringify('王龙岗'),
       globalObj: JSON.stringify({name: '王龙岗', sex: '男', age: 25}),
     }),
     // 全局引入lodash，并命名为_

@@ -3,15 +3,19 @@
 import React, {useEffect} from 'react'
 import {Switch, Route, Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {ActionTypes} from '@store/actions'
+import {Types, add} from '@store/actions/common'
 import {history} from './index'
 import './store'
-console.log(_, name, age, globalObj, boolean_true)
+
 const App = (): JSX.Element => {
   useEffect(() => {
+    // 监听路由变化，跳转Users页面时取消监听
     const unlisten = history.listen(location => {
-      if (location.pathname === '/users') unlisten()
-      console.log(location)
+      console.log(`当前地址为${location.pathname}`)
+      if (location.pathname === '/users') {
+        unlisten()
+        console.log('取消监听路由变化')
+      }
     })
   }, [])
   return (
@@ -34,19 +38,24 @@ const App = (): JSX.Element => {
         <Route path="/users">
           <Users />
         </Route>
-        <Route path="/" component={() => <Home {...{1: '123'}} />}></Route>
+        <Route path="/" component={() => <Home />}></Route>
       </Switch>
     </div>
   )
 }
 
-export default App
-
 function Home() {
   const dispatch = useDispatch()
   const todos: [] = useSelector(store => store.todos)
-  console.log(todos)
-  return <h2 onClick={() => dispatch({type: ActionTypes.ADD_TODO, text: todos.length})}>Home{todos.map(i => i)}</h2>
+  const counter: number = useSelector(store => store.counter)
+  console.log('Home 重新渲染')
+  return (
+    <>
+      <h2>Home</h2>
+      <h4 onClick={() => dispatch({type: Types.ADD_TODO, text: todos.length})}>todos:{todos.map(i => i)}</h4>
+      <h4 onClick={() => dispatch(add)}>counter: {counter} </h4>
+    </>
+  )
 }
 
 function About() {
@@ -56,3 +65,5 @@ function About() {
 function Users() {
   return <h2>Users</h2>
 }
+
+export default App

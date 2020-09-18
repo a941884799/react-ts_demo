@@ -6,9 +6,9 @@ export const globalVar = (): void => {
 }
 
 // reducer生成器
-export const cr = (initialState: any, handlers: commonTypes.obj) => {
+export const cr = (initialState: any, handlers: globalTypes.obj) => {
   return function reducer(state = initialState, action: storeTypes.action) {
-    if (handlers.hasOwnProperty(action.type)) {
+    if (handlers[action.type]) {
       return handlers[action.type](state, action)
     }
     return state
