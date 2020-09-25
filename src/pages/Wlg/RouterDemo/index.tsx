@@ -26,7 +26,9 @@ const RouterDemo = ({history}: {history: History; location: Location}) => {
       }
     })
   }, [])
-  return <div>{count === null ? '禁闭模式已关闭' : count <= 3 ? msgList[count] : '傻子吧,教都教不会'}</div>
+  return (
+    <div>{count === null ? '禁闭模式已关闭' : count <= 3 ? msgList[count] : '傻子吧,教都教不会,你倒是点首页啊'}</div>
+  )
 }
 
 export default RouterDemo
