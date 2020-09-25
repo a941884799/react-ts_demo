@@ -1,0 +1,42 @@
+/** @format */
+
+.root-layout {
+  .root-header {
+    position: relative;
+    padding-left: 200px;
+    .logo {
+      position: absolute;
+      left: 0;
+      z-index: 10;
+      width: 200px;
+      height: 100%;
+      text-align: center;
+      color: #fff;
+      font-size: 24px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+  .root-sider {
+    overflow-y: auto;
+    overflow-x: hidden;
+    .root-sider-menus{
+      height: auto;
+      min-height: '100%';
+      border-right: 0
+    }
+  }
+  .root-content-container {
+    padding: 0 24px 24px;
+    .root-breadcrumb {
+      margin: 16px 0;
+    }
+    .root-content {
+      margin: 0;
+      padding: 24px;
+      min-height: 280px;
+      background: #fff;
+    }
+  }
+}
+
+
