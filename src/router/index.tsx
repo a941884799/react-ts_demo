@@ -6,7 +6,7 @@ import React from 'react'
 import {Route, Switch, Redirect} from 'react-router'
 import {createHashHistory} from 'history'
 import Home from '@pages/Home' // 首页组件
-import ReduxDemoRoutes from '@router/ReduxDemo'
+import WlgRoutes from '@src/router/Wlg'
 // 引入各模块路由配置
 
 // 全局 history
@@ -21,7 +21,7 @@ export const routesConfig: routerTypes.RouteConfig[] = [
     title: '首页',
     hideSider: true,
   },
-  ReduxDemoRoutes,
+  WlgRoutes,
 ]
 // 依赖工具
 export const pathToKey = new Map()

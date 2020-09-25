@@ -117,7 +117,7 @@ const MyLayout = () => {
           className="root-header-menus"
           theme="dark"
           mode="horizontal"
-          selectedKeys={[currentRoute.key]}
+          selectedKeys={[currentRootRoute.key]}
           onClick={toPage}>
           {routesConfig.map((rootRoute: routerTypes.RouteConfig) => (
             <Menu.Item key={rootRoute.key}>{rootRoute.title}</Menu.Item>
