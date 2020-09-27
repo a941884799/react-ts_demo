@@ -21,7 +21,7 @@ export const globalVar = (): void => {
  * @return {reducer} 返回一个 reducer 函数
  */
 export const cr = (initialState: any, handlers: any) => {
-  return function reducer(state = initialState, action: storeTypes.action) {
+  return function reducer(state = initialState, action: Types.Action) {
     if (handlers[action.type]) {
       return handlers[action.type](state, action)
     }
@@ -37,7 +37,7 @@ export const cr = (initialState: any, handlers: any) => {
  * @param {array} excludeKeys 要排除的属性列表
  * @return {object} 返回一个过滤后的对象
  */
-export const filterObj = (obj: globalTypes.obj, excludeKeys: Array<string>) => {
+export const filterObj = (obj: Types.Obj, excludeKeys: Array<string>) => {
   const newObj = {...obj}
   Object.keys(newObj).forEach(key => {
     if (excludeKeys.includes(key)) delete newObj[key]

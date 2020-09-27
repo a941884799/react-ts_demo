@@ -60,14 +60,13 @@ module.exports = {
   },
   // 防止使用全局变量时报错 'readonly' 'writable' 'off'
   globals: {
-    globalTypes: 'readonly',
-    storeTypes: 'readonly',
-    routerTypes: 'readonly',
-    JSX: 'readonly',
-    _: 'readonly',
+    // 在webpack plugins中定义的全局常量
+    _: 'readonly', // Lodash
     globalBoolean: 'readonly',
     globalAge: 'readonly',
     globalName: 'readonly',
     globalObj: 'readonly',
+    // 全局ts类型命名空间
+    Types: 'readonly',
   },
 }

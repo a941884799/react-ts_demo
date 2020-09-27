@@ -2,7 +2,7 @@
 import {cr} from '@utils/index'
 import {Types as commonTypes} from '@store/actions/common'
 
-const commonReducer: globalTypes.obj = {
+const commonReducer: Types.Obj = {
   todos: cr([], {
     [commonTypes.ADD_TODO](state: any[], action: {text: any}) {
       return state.concat([action.text])

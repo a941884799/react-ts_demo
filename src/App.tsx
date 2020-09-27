@@ -1,9 +1,9 @@
 /** @format */
 
 import React from 'react'
-import MyLayout from '@src/Layout'
+import Layout from '@src/Layout'
 import './store'
 
-const App = (): JSX.Element => <MyLayout />
+const App = (): React.ReactElement => <Layout />
 
 export default App

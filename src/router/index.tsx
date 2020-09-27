@@ -13,7 +13,7 @@ import WlgRoutes from '@src/router/Wlg'
 export const globalHistory = createHashHistory()
 
 // 项目路由配置集合
-export const routesConfig: routerTypes.RouteConfig[] = [
+export const routesConfig: Types.RouteConfig[] = [
   {
     key: 'Home',
     component: Home,
@@ -39,7 +39,7 @@ routesConfig.forEach(route => createRoute(route))
  * @param route // 当前路由
  * @param parent // 父路由
  */
-function createRoute(route: routerTypes.RouteConfig, parentKey?: string, rootKey?: string) {
+function createRoute(route: Types.RouteConfig, parentKey?: string, rootKey?: string) {
   const {key, component: Component, path, redirect, children} = route
 
   // 依赖工具收集

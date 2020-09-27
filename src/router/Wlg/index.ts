@@ -3,7 +3,7 @@
 import ReduxDemo from '@pages/Wlg/ReduxDemo'
 import RouterDemo from '@pages/Wlg/RouterDemo'
 
-const WlgRoutes: routerTypes.RouteConfig = {
+const WlgRoutes: Types.RouteConfig = {
   title: '王某的demo',
   key: 'Wlg',
   path: '/Wlg',

@@ -35,6 +35,8 @@
       padding: 24px;
       min-height: 280px;
       background: #fff;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
   }
 }

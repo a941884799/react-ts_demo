@@ -1,7 +1,7 @@
 /** @format */
 
-declare namespace routerTypes {
-  type RouteConfig = {
+declare namespace Types {
+  export interface RouteConfig {
     title: string // 路由的标题
     key: string // 路由的key，不能重复
     parentKey?: string // 父路由的key值
