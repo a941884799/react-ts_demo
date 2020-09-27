@@ -6,7 +6,7 @@
 import React from 'react'
 import './index.scss'
 const Home = (props: any) => {
-  return <div className="page-Home">欢迎来到王某的作品</div>
+  return <div className="page-Home">欢迎欢迎......</div>
 }
 
 export default Home

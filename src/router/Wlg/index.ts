@@ -4,21 +4,21 @@ import ReduxDemo from '@pages/Wlg/ReduxDemo'
 import RouterDemo from '@pages/Wlg/RouterDemo'
 
 const WlgRoutes: Types.RouteConfig = {
-  title: '王某的demo',
+  title: "Wlg'sDemo",
   key: 'Wlg',
   path: '/Wlg',
   redirect: '/Wlg/ReduxDemo',
   isMenu: true,
   children: [
     {
-      title: 'Wlg的redux demo',
+      title: 'ReduxDemo',
       key: 'WlgReduxDemo',
       path: '/Wlg/ReduxDemo',
       isMenu: true,
       component: ReduxDemo,
     },
     {
-      title: 'Wlg的router demo',
+      title: 'RouterDemo',
       key: 'WlgRouterDemo',
       path: '/Wlg/RouterDemo',
       isMenu: true,

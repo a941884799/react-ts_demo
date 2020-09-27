@@ -25,7 +25,7 @@ module.exports = {
   // 针对某一类文件进行特定配置
   overrides: [
     {files: ['./build/*.js'], rules: {'@typescript-eslint/no-var-requires': 0}},
-    {files: ['./src/*/*.d.ts'], rules: {'no-undef': 0, '@typescript-eslint/no-unused-vars': 0}},
+    {files: ['./src/*/*.d.ts'], rules: {'no-undef': 0}},
   ],
   // Env环境变量配置，形如console属性只有在browser环境下才会存在，如果没有设置会报console is undefined。
   env: {
@@ -43,10 +43,14 @@ module.exports = {
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
+    // 默认使用根目录的tsconfig.json
     'import/resolver': {
-      // 默认使用根目录的tsconfig.json
       typescript: {
         alwaysTryTypes: true,
+      },
+      webpack: {
+        config: 'build/webpack.dev.js',
+        env: {mode: 'dev'},
       },
     },
   },

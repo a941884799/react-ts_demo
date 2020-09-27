@@ -1,4 +1,5 @@
 /** @format */
+@import '~@styles/variable';
 
 .root-layout {
   .root-header {
@@ -32,11 +33,12 @@
     }
     .root-content {
       margin: 0;
-      padding: 24px;
       min-height: 280px;
       background: #fff;
       overflow-y: auto;
       overflow-x: hidden;
+      border: 1px solid #e5e5e5;
+      box-shadow: $box-shadow-base;
     }
   }
 }

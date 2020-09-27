@@ -41,6 +41,8 @@ const RouteToBreadcrumbList = (route: Types.RouteConfig): React.ReactNode => {
     currentRoute = keyToRoute.get(currentRoute.parentKey)
     RouteList.unshift(currentRoute)
   }
+  // 只有一条则不显示面包屑
+  if (RouteList.length === 1) return null
   return RouteList.map((route: Types.RouteConfig, idx: number) => (
     <Breadcrumb.Item key={route.key || idx} href={`#${route.path}`}>
       {route.title}
@@ -111,7 +113,7 @@ const MyLayout = () => {
   return (
     <Layout className="root-layout">
       <Header className="root-header">
-        <div className="logo">王某的作品</div>
+        <div className="logo">react+ts demo</div>
         {/* 顶部导航,只渲染根路由 */}
         <Menu
           className="root-header-menus"
