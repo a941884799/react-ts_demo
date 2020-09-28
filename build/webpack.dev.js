@@ -7,7 +7,7 @@ const path = require('path')
 module.exports = env =>
   merge(common(env), {
     mode: 'development',
-    devtool: 'inline-cheap-source-map', // 可以切换成"inline-source-map"，但是对性能有影响
+    devtool: 'inline-source-map', // 可以切换成"inline-cheap-source-map"优化性能，但是不利于debug
     output: {
       filename: 'bundle.js',
     },
