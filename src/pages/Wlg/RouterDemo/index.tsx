@@ -3,7 +3,7 @@
  * WangLonggang 的 RouterDemo
  * */
 import React, {useCallback, useEffect, useState} from 'react'
-import {PageHeader, Tag, Button, message} from 'antd'
+import {PageHeader, Tag, Button, message, Spin} from 'antd'
 import {History} from 'history' // ts类型
 import './index.scss'
 import {pathToRoute} from '@router/index'
@@ -67,6 +67,8 @@ const RouterDemo = ({history}: {history: History}) => {
           </Button>,
         ]}
       />
+      <Spin tip="路由监听中..." spinning={unlisten} />
+      <Spin tip="路由拦截中..." spinning={unblock} />
     </div>
   )
 }

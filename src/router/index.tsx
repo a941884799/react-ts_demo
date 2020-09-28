@@ -6,8 +6,8 @@ import React from 'react'
 import {Route, Switch, Redirect} from 'react-router'
 import {createHashHistory} from 'history'
 import Home from '@pages/Home' // 首页组件
-import WlgRoutes from '@src/router/Wlg'
 // 引入各模块路由配置
+import WlgRoutes from '@src/router/Wlg'
 
 // 全局 history
 export const globalHistory = createHashHistory()

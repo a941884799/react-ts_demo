@@ -1,7 +1,8 @@
 /** @format */
-
+import React from 'react'
 import ReduxDemo from '@pages/Wlg/ReduxDemo'
 import RouterDemo from '@pages/Wlg/RouterDemo'
+import {DatabaseFilled} from '@ant-design/icons'
 
 const WlgRoutes: Types.RouteConfig = {
   title: "Wlg'sDemo",
@@ -16,6 +17,7 @@ const WlgRoutes: Types.RouteConfig = {
       path: '/Wlg/ReduxDemo',
       isMenu: true,
       component: ReduxDemo,
+      icon: <DatabaseFilled />,
     },
     {
       title: 'RouterDemo',
@@ -23,6 +25,7 @@ const WlgRoutes: Types.RouteConfig = {
       path: '/Wlg/RouterDemo',
       isMenu: true,
       component: RouterDemo,
+      icon: <DatabaseFilled />,
     },
   ],
 }
