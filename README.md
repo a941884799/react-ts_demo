@@ -20,6 +20,8 @@
     // 指定vscode的eslint所处理的文件的后缀
     "extensions": [".js", ".jsx", ".ts", ".tsx"]
   },
+  //  语言标识符数组，用于指定要对其执行验证的文件。默认为["javascript", "javascriptreact"]。
+  "eslint.validate": ["javascript", "javascriptreact", "typescript","typescriptreact", "html"],
   // 将eslint添加为可选的格式化程序(2.1.10版eslint插件此选项失效,使用2.1.8版本)
   "eslint.format.enable": true,
   // 保存时自动修复
