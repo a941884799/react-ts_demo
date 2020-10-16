@@ -6,7 +6,6 @@
 {
   "terminal.integrated.shell.windows": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
   "files.autoSave": "off",
-  "git.enableSmartCommit": true,
   "editor.tabSize": 2,
   "workbench.iconTheme": "vscode-icons",
   "workbench.tree.indent": 8,
@@ -20,12 +19,11 @@
     // 指定vscode的eslint所处理的文件的后缀
     "extensions": [".js", ".jsx", ".ts", ".tsx"]
   },
-  //  语言标识符数组，用于指定要对其执行验证的文件。默认为["javascript", "javascriptreact"]。
   "eslint.validate": ["javascript", "javascriptreact", "typescript","typescriptreact", "html"],
   // 将eslint添加为可选的格式化程序(2.1.10版eslint插件此选项失效,使用2.1.8版本)
   "eslint.format.enable": true,
   // 保存时自动修复
-  "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
+  "editor.codeActionsOnSave": { "source.fixAll.eslint": false },
   // 使用prettier作为默认格式化程序
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   // 将eslint作为以下文件默认格式化程序
@@ -36,8 +34,10 @@
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   // 取消自动更新扩展程序及vscode版本
-  "extensions.autoUpdate": false,
   "extensions.autoCheckUpdates": false,
+  "extensions.autoUpdate": false,
   "update.enableWindowsBackgroundUpdates": false,
+  // git配置
+  "git.enableSmartCommit": true,
 }
 ```
