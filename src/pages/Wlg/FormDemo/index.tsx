@@ -20,7 +20,7 @@ import {
 } from 'antd';
 import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
 import './index.scss';
-console.log(123456);
+
 const formLayout = {
 	labelAlign: 'right',
 	labelCol: { span: 2 },
