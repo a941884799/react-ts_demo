@@ -8,7 +8,7 @@
     "dev": "npm start",
     "test": "webpack --watch --config build/webpack.prod.js --env.mode=test",
     "build": "webpack --config build/webpack.prod.js --env.mode=prod",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix src ./"
+    "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx src/"
   },
   "husky": {
     "hooks": {

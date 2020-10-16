@@ -8,9 +8,9 @@
  * @return
  */
 export const globalVar = (): void => {
-  // 将Promise抛出为全局对象
-  window.Promise = Promise
-}
+	// 将Promise抛出为全局对象
+	window.Promise = Promise;
+};
 
 /**
  * @Descripttion: redux 模块 的reducer生成器
@@ -21,13 +21,13 @@ export const globalVar = (): void => {
  * @return {reducer} 返回一个 reducer 函数
  */
 export const cr = (initialState: any, handlers: any) => {
-  return function reducer(state = initialState, action: Types.Action) {
-    if (handlers[action.type]) {
-      return handlers[action.type](state, action)
-    }
-    return state
-  }
-}
+	return function reducer(state = initialState, action: Types.Action) {
+		if (handlers[action.type]) {
+			return handlers[action.type](state, action);
+		}
+		return state;
+	};
+};
 
 /**
  * @Descripttion: 过滤对象中的某些属性
@@ -38,9 +38,9 @@ export const cr = (initialState: any, handlers: any) => {
  * @return {object} 返回一个过滤后的对象
  */
 export const filterObj = (obj: Types.Obj, excludeKeys: Array<string>) => {
-  const newObj = {...obj}
-  Object.keys(newObj).forEach(key => {
-    if (excludeKeys.includes(key)) delete newObj[key]
-  })
-  return newObj
-}
+	const newObj = { ...obj };
+	Object.keys(newObj).forEach(key => {
+		if (excludeKeys.includes(key)) delete newObj[key];
+	});
+	return newObj;
+};
