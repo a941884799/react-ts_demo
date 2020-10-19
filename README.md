@@ -23,7 +23,7 @@
   // 将eslint添加为可选的格式化程序(2.1.10版eslint插件此选项失效,使用2.1.8版本)
   "eslint.format.enable": true,
   // 保存时自动修复
-  "editor.codeActionsOnSave": { "source.fixAll.eslint": false },
+  "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
   // 使用prettier作为默认格式化程序
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   // 将eslint作为以下文件默认格式化程序

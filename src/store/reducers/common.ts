@@ -8,12 +8,15 @@ const commonReducer: Types.Obj = {
 			return state.concat([action.text]);
 		},
 	}),
-	counter: cr(0, {
+	counter: cr(1, {
 		[commonTypes.INCREMENT](state: number) {
 			return state + 1;
 		},
 		[commonTypes.DECREMENT](state: number) {
 			return state - 1;
+		},
+		[commonTypes.UPDATA](state: number, { number }: { number: number }) {
+			return number;
 		},
 	}),
 };

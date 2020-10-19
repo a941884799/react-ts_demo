@@ -1,5 +1,5 @@
 /** @format */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* 入口文件 全局配置 */
 import React from 'react';
 import { render } from 'react-dom';
 import { Router } from 'react-router-dom';
@@ -22,8 +22,8 @@ locale('zh-cn');
 // 配置全局 message
 message.config({
 	top: 30,
-	duration: 5,
-	maxCount: 3,
+	duration: 2,
+	maxCount: 2,
 	prefixCls: 'my-message ant-message',
 });
 
