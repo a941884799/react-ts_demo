@@ -3,7 +3,7 @@
  * WangLonggang 的 ReduxDemo
  * */
 import React from 'react';
-import { Space, Button, Input, InputNumber, List, Card } from 'antd';
+import { Space, Input, InputNumber, List, Card } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Types } from '@store/actions/common';
 
