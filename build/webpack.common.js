@@ -1,10 +1,10 @@
 /** @format */
 
-const path = require('path')
-const Webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const path = require('path');
+const Webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = env => ({
   entry: path.resolve(__dirname, '../src/index'),
@@ -19,7 +19,7 @@ module.exports = env => ({
         exclude: path.resolve(__dirname, '../node_modules'),
         options: {
           presets: ['@babel/env', '@babel/preset-react', '@babel/preset-typescript'],
-          plugins: [['@babel/plugin-transform-runtime', {corejs: 3}]],
+          plugins: [['@babel/plugin-transform-runtime', { corejs: 3 }]],
         },
       },
       {
@@ -39,7 +39,7 @@ module.exports = env => ({
           env.mode === 'prod'
             ? {
                 loader: MiniCssExtractPlugin.loader,
-                options: {esModule: true},
+                options: { esModule: true },
               }
             : 'style-loader',
           'css-loader',
@@ -67,7 +67,7 @@ module.exports = env => ({
       globalBoolean: JSON.stringify(true),
       globalAge: JSON.stringify(25),
       globalName: JSON.stringify('王龙岗'),
-      globalObj: JSON.stringify({name: '王龙岗', sex: '男', age: 25}),
+      globalObj: JSON.stringify({ name: '王龙岗', sex: '男', age: 25 }),
     }),
     // 全局引入lodash，并命名为_
     new Webpack.ProvidePlugin({
@@ -78,7 +78,7 @@ module.exports = env => ({
       template: path.resolve(__dirname, '../template/index.html'),
     }),
     new CopyWebpackPlugin({
-      patterns: [{from: 'static', to: 'static'}],
+      patterns: [{ from: 'static', to: 'static' }],
     }),
   ],
   resolve: {
@@ -95,4 +95,4 @@ module.exports = env => ({
     },
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.scss'],
   },
-})
+});
