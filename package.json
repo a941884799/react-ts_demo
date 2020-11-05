@@ -8,11 +8,12 @@
     "dev": "npm start",
     "test": "webpack --watch --config build/webpack.prod.js --env.mode=test",
     "build": "webpack --config build/webpack.prod.js --env.mode=prod",
-    "lint": "lint-staged"
+    "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx ./",
+    "precommit": "lint-staged"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "npm run precommit"
     }
   },
   "lint-staged": {

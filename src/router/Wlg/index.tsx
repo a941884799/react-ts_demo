@@ -5,7 +5,7 @@ import RouterDemo from '@pages/Wlg/RouterDemo';
 import FormDemo from '@pages/Wlg/FormDemo';
 import { DatabaseFilled } from '@ant-design/icons';
 
-const WlgRoutes: Types.RouteConfig = {
+const WlgRoutes: Route.RouteConfig = {
 	title: "Wlg'sDemo",
 	key: 'Wlg',
 	path: '/Wlg',

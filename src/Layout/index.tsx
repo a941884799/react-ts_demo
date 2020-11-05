@@ -2,7 +2,7 @@
 /**
  * 整体页面布局文件
  */
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, ReactNode } from 'react';
 import { Layout, Menu, Breadcrumb, message } from 'antd';
 // import {UserOutlined, LaptopOutlined, NotificationOutlined} from '@ant-design/icons'
 import './index.scss';
@@ -12,9 +12,9 @@ import { useLocation, useHistory } from 'react-router';
 import { filterObj } from '@utils/index';
 const { SubMenu, ItemGroup } = Menu;
 const { Header, Content, Sider } = Layout;
-
+type RouteConfig = Route.RouteConfig;
 // 排除路由配置中非 菜单组件props的属性
-const filterRouteConfig = (route: Types.RouteConfig) => {
+const filterRouteConfig = (route: RouteConfig) => {
 	const excludeKeys = ['rootKey', 'parentKey', 'hideSider', 'isMenu', 'menuCategory', 'component', 'children'];
 	return filterObj(route, excludeKeys);
 };
@@ -22,7 +22,7 @@ const filterRouteConfig = (route: Types.RouteConfig) => {
 // 获取openKeys(当前展开的 SubMenu 菜单项 key 数组)
 const getOpenKeys = (parentKey: string): string[] => {
 	if (!parentKey) return [];
-	const parentRoute: Types.RouteConfig = keyToRoute.get(parentKey);
+	const parentRoute: RouteConfig = keyToRoute.get(parentKey);
 	const OpenKeys: string[] = parentRoute.menuCategory === 'SubMenu' ? [parentKey] : [];
 	return OpenKeys.concat(getOpenKeys(parentRoute?.parentKey));
 };
@@ -31,11 +31,11 @@ const getOpenKeys = (parentKey: string): string[] => {
  * @Descripttion: 根据路由配置设置面包屑
  * @Author: WangLonggang
  * @Date: 2020-09-24 11:41:48
- * @param {Types.RouteConfig} route 路由配置
+ * @param {RouteConfig} route 路由配置
  * @return {ReactNode} 格式化后的数据
  */
-const RouteToBreadcrumbList = (route: Types.RouteConfig): React.ReactNode => {
-	const RouteList: Types.RouteConfig[] = [route];
+const RouteToBreadcrumbList = (route: RouteConfig): React.ReactNode => {
+	const RouteList: RouteConfig[] = [route];
 	let currentRoute = route;
 	while (currentRoute.parentKey) {
 		currentRoute = keyToRoute.get(currentRoute.parentKey);
@@ -43,7 +43,7 @@ const RouteToBreadcrumbList = (route: Types.RouteConfig): React.ReactNode => {
 	}
 	// 只有一条则不显示面包屑
 	if (RouteList.length === 1) return null;
-	return RouteList.map((route: Types.RouteConfig, idx: number) => (
+	return RouteList.map((route: RouteConfig, idx: number) => (
 		<Breadcrumb.Item key={route.key || idx} href={`#${route.path}`}>
 			{route.title}
 		</Breadcrumb.Item>
@@ -53,15 +53,15 @@ const RouteToBreadcrumbList = (route: Types.RouteConfig): React.ReactNode => {
  * @Descripttion: 根据路由配置设置侧边导航栏
  * @Author: WangLonggang
  * @Date: 2020-09-24 11:41:48
- * @param {Types.RouteConfig} route 路由配置
+ * @param {RouteConfig} route 路由配置
  * @return {ReactNode} 格式化后的数据
  */
-const RouteToMenuList = (route: Types.RouteConfig): React.ReactNode => {
+const RouteToMenuList = (route: RouteConfig): React.ReactNode => {
 	const { isMenu, children } = route;
 	if (!isMenu) return null;
 	// 存在子路由时遍历子路由配置渲染子节点
 	if (children) {
-		return children.map((sonRoute: any) => {
+		return children.map((sonRoute: unknown) => {
 			switch (sonRoute.menuCategory) {
 				case 'SubMenu':
 					return <SubMenu {...filterRouteConfig(sonRoute)}>{RouteToMenuList(sonRoute)}</SubMenu>;
@@ -79,14 +79,14 @@ const RouteToMenuList = (route: Types.RouteConfig): React.ReactNode => {
 /**
  * 我的页面布局主组件
  * */
-const MyLayout = () => {
+const MyLayout = (): ReactNode => {
 	// 获取当前根路由配置
 	const location = useLocation();
 	const history = useHistory();
 	// 当前路由
-	const currentRoute: Types.RouteConfig = pathToRoute.get(location.pathname) || {};
+	const currentRoute: RouteConfig = pathToRoute.get(location.pathname) || {};
 	// 当前根路由
-	const currentRootRoute: Types.RouteConfig = keyToRoute.get(currentRoute.rootKey) || currentRoute;
+	const currentRootRoute: RouteConfig = keyToRoute.get(currentRoute.rootKey) || currentRoute;
 	// 展开的 SubMenu 菜单项 key 数组
 	const [openKeys, setOpenKeys] = useState([]);
 
@@ -122,7 +122,7 @@ const MyLayout = () => {
 					selectedKeys={[currentRootRoute.key]}
 					onClick={toPage}
 				>
-					{routesConfig.map((rootRoute: Types.RouteConfig) => (
+					{routesConfig.map((rootRoute: RouteConfig) => (
 						<Menu.Item key={rootRoute.key}>{rootRoute.title}</Menu.Item>
 					))}
 				</Menu>
@@ -130,7 +130,7 @@ const MyLayout = () => {
 			<Layout>
 				{/* 根据当前根路由配置设置侧边导航栏 */}
 				{(function () {
-					const { hideSider }: any = currentRootRoute;
+					const { hideSider }: unknown = currentRootRoute;
 					// 隐藏侧边导航栏
 					if (hideSider) return <></>;
 					return (

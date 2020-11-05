@@ -12,21 +12,18 @@ module.exports = {
 		'prettier/@typescript-eslint',
 		// 启用eslint-plugin-prettier和eslint-config-prettier。这会将prettier错误作为ESLint错误来展示。确保这个配置放到数组的最后。
 		'plugin:prettier/recommended',
-		'eslint:recommended',
+		// 'eslint:recommended',
 	],
 	plugins: ['react', 'prettier', '@typescript-eslint'], // 定义了该eslint文件所依赖的插件
 	rules: {
-		'@typescript-eslint/no-explicit-any': 0,
-		'@typescript-eslint/explicit-module-boundary-types': 0,
-		'import/named': 2,
-		'no-unused-vars': 0,
+		'import/named': 2, // 确保命名导入对应于远程文件中的命名导出
+		// '@typescript-eslint/no-explicit-any': 2, // 禁止使用any类型
+		// '@typescript-eslint/explicit-module-boundary-types': 0, // 要求定义函数返回值和参数的显式类型
 	},
-	ignorePatterns: ['_import_production.jsx'], // 这个文件eslint有bug
+	// 忽略文件和目录
+	ignorePatterns: ['./node_modules', './dis'],
 	// 针对某一类文件进行特定配置
-	overrides: [
-		{ files: ['./build/*.js'], rules: { '@typescript-eslint/no-var-requires': 0 } },
-		{ files: ['./src/*/*.d.ts'], rules: { 'no-undef': 0 } },
-	],
+	overrides: [{ files: ['./build/*.js'], rules: { '@typescript-eslint/no-var-requires': 0 } }],
 	// Env环境变量配置，形如console属性只有在browser环境下才会存在，如果没有设置会报console is undefined。
 	env: {
 		node: true,
@@ -39,18 +36,19 @@ module.exports = {
 			pragma: 'React',
 			version: 'detect',
 		},
-		// 让 import/parsers 能解析ts文件的导入
 		'import/parsers': {
+			// 扩展文件后缀，识别.ts,.tsx文件
 			'@typescript-eslint/parser': ['.ts', '.tsx'],
 		},
-		// 默认使用根目录的tsconfig.json
 		'import/resolver': {
+			// 解析 typescript 配置
 			typescript: {
-				alwaysTryTypes: true,
+				alwaysTryTypes: true, // 默认使用根目录的tsconfig.json
 			},
+			// 解析 webpack 配置
 			webpack: {
-				config: 'build/webpack.dev.js',
-				env: { mode: 'dev' },
+				config: 'build/webpack.dev.js', // 使用 build/webpack.dev.js 的配置
+				env: { mode: 'dev' }, // 给 webpack 注入环境变量
 			},
 		},
 	},
@@ -70,7 +68,5 @@ module.exports = {
 		globalAge: 'readonly',
 		globalName: 'readonly',
 		globalObj: 'readonly',
-		// 全局ts类型命名空间
-		Types: 'readonly',
 	},
 };

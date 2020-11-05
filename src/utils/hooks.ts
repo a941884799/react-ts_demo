@@ -11,7 +11,7 @@ import { useState, useEffect, useRef, SetStateAction } from 'react';
  * @param {S | (() => S)} initialState 初始状态,选填
  * @return 返回处理后的state、setStateSafe
  */
-export function useStateSafe<S>(initialState?: S | (() => S)) {
+export function useStateSafe<S>(initialState?: S | (() => S)): [S, S | (() => S)] {
 	const [state, setState] = useState<S>(initialState);
 	const isMounted = useRef(true);
 	useEffect(() => () => (isMounted.current = false), []);

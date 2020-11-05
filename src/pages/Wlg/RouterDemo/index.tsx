@@ -2,7 +2,7 @@
 /**
  * WangLonggang 的 RouterDemo
  * */
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import { PageHeader, Tag, Button, message, Spin } from 'antd';
 import { History } from 'history'; // ts类型
 import './index.scss';
@@ -10,7 +10,7 @@ import { pathToRoute } from '@router/index';
 
 let initUnlisten = null;
 let initUnblock = null;
-const RouterDemo = ({ history }: { history: History }) => {
+const RouterDemo = ({ history }: { history: History }): ReactNode => {
 	const [unlisten, setUnlisten] = useState<() => void>(() => initUnlisten);
 	const [unblock, setUnblock] = useState<() => void>(() => initUnblock);
 	// 开启路由监听

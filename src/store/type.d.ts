@@ -1,9 +1,9 @@
 /** @format */
 
-declare namespace Types {
+declare namespace Store {
 	export interface Action {
 		type: string;
 		[propName: string]: string;
 	}
-	export type Reducer = (state: any, action: action) => any;
+	export type Reducer = (state: unknown, action: Action) => unknown;
 }

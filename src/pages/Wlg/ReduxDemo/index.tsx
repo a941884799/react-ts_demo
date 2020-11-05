@@ -2,15 +2,15 @@
 /**
  * WangLonggang 的 ReduxDemo
  * */
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Space, Input, InputNumber, List, Card } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Types } from '@store/actions/common';
 
-const ReduxDemo = () => {
+const ReduxDemo = (): ReactNode => {
 	const dispatch = useDispatch();
-	const todos: [] = useSelector((store: any) => store.todos);
-	const counter: number = useSelector((store: any) => store.counter);
+	const todos: [] = useSelector((store: unknown) => store.todos);
+	const counter: number = useSelector((store: unknown) => store.counter);
 	console.log('Home 重新渲染');
 	return (
 		<Space direction="vertical">

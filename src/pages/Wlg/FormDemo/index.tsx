@@ -1,7 +1,7 @@
 /**
  * WangLonggang 的 ReduxDemo
  * */
-import React from 'react';
+import React, { ReactNode } from 'react';
 // import {useDispatch, useSelector} from 'react-redux'
 // import {Types, add} from '@store/actions/common'
 import {
@@ -38,7 +38,7 @@ const normFile = e => {
 /**
  * 页面主组件
  */
-const ReduxDemo = () => {
+const ReduxDemo = (): ReactNode => {
 	const onFinish = values => {
 		console.log(values);
 	};
