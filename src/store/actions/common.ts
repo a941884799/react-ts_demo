@@ -8,7 +8,7 @@ const INCREMENT = 'INCREMENT';
 const DECREMENT = 'DECREMENT';
 const UPDATA = 'UPDATA';
 
-export const Types = {
+export const ActionTypes = {
 	ADD_TODO,
 	INCREMENT,
 	DECREMENT,

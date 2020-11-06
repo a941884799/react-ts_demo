@@ -1,6 +1,6 @@
 /** @format */
-import { Types as commonTypes } from '@store/actions/common';
+import { ActionTypes as commonActionTypes } from '@store/actions/common';
 
 export const ActionTypes = {
-	...commonTypes,
+	...commonActionTypes,
 };

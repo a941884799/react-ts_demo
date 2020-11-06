@@ -4,15 +4,16 @@
  */
 import React, { useState, useCallback, useEffect, ReactNode } from 'react';
 import { Layout, Menu, Breadcrumb, message } from 'antd';
-// import {UserOutlined, LaptopOutlined, NotificationOutlined} from '@ant-design/icons'
-import './index.scss';
 // 路由配置
 import RouterComponents, { pathToRoute, keyToRoute, keyToPath, routesConfig } from '@router/index';
 import { useLocation, useHistory } from 'react-router';
 import { filterObj } from '@utils/index';
+import './index.scss';
+
 const { SubMenu, ItemGroup } = Menu;
 const { Header, Content, Sider } = Layout;
 type RouteConfig = Route.RouteConfig;
+
 // 排除路由配置中非 菜单组件props的属性
 const filterRouteConfig = (route: RouteConfig) => {
 	const excludeKeys = ['rootKey', 'parentKey', 'hideSider', 'isMenu', 'menuCategory', 'component', 'children'];

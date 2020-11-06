@@ -20,14 +20,13 @@ export const globalVar = (): void => {
  * @param {any} handlers 处理器，处理action
  * @return {reducer} 返回一个 reducer 函数
  */
-export const cr = (initialState: unknown, handlers: Record<string, Store.Reducer>): Store.Reducer => {
-	return function reducer(state = initialState, action: Store.Action): unknown {
+export const cr = (initialState: unknown, handlers: Record<string, Store.Reducer>): Store.Reducer =>
+	function reducer(state = initialState, action: Store.Action): unknown {
 		if (handlers[action.type]) {
 			return handlers[action.type](state, action);
 		}
 		return state;
 	};
-};
 
 /**
  * @Descripttion: 过滤对象中的某些属性

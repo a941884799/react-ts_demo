@@ -5,7 +5,7 @@
 import React, { ReactNode } from 'react';
 import { Space, Input, InputNumber, List, Card } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { Types } from '@store/actions/common';
+import { ActionTypes } from '@store/actions/common';
 
 const ReduxDemo = (): ReactNode => {
 	const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const ReduxDemo = (): ReactNode => {
 				size="large"
 				placeholder="请输入todos列表要添加的内容"
 				style={{ width: 500 }}
-				onSearch={value => dispatch({ type: Types.ADD_TODO, text: value })}
+				onSearch={value => dispatch({ type: ActionTypes.ADD_TODO, text: value })}
 				enterButton="添加"
 			/>
 			<div>
@@ -27,7 +27,7 @@ const ReduxDemo = (): ReactNode => {
 					min="1"
 					max="4"
 					value={counter}
-					onChange={value => dispatch({ type: Types.UPDATA, number: value })}
+					onChange={value => dispatch({ type: ActionTypes.UPDATA, number: value })}
 				/>
 			</div>
 			<List

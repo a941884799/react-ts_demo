@@ -17,13 +17,19 @@ module.exports = {
 	plugins: ['react', 'prettier', '@typescript-eslint'], // 定义了该eslint文件所依赖的插件
 	rules: {
 		'import/named': 2, // 确保命名导入对应于远程文件中的命名导出
+		'arrow-body-style': ['error', 'as-needed'],
 		// '@typescript-eslint/no-explicit-any': 2, // 禁止使用any类型
 		// '@typescript-eslint/explicit-module-boundary-types': 0, // 要求定义函数返回值和参数的显式类型
 	},
 	// 忽略文件和目录
 	ignorePatterns: ['./node_modules', './dis'],
 	// 针对某一类文件进行特定配置
-	overrides: [{ files: ['./build/*.js'], rules: { '@typescript-eslint/no-var-requires': 0 } }],
+	overrides: [
+		{
+			files: ['./build/*.js'],
+			rules: { '@typescript-eslint/no-var-requires': 0 },
+		},
+	],
 	// Env环境变量配置，形如console属性只有在browser环境下才会存在，如果没有设置会报console is undefined。
 	env: {
 		node: true,
