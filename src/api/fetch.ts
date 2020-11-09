@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosError, AxiosResponse, AxiosInstance } from 'axios';
 import Cookies from 'js-cookie';
-import handleError from '@utils/handleError';
+// 全局提示错误信息
+import { handleError } from '@utils/api';
 
 // 获取当前网页域名
 const baseURL = location.href.replace(/^(https?:\/\/.*?)(\/.*)?$/, ($0, $1) => $1);
@@ -53,13 +54,4 @@ fetch.interceptors.response.use(
 	},
 );
 
-const fn = async () => {
-	try {
-		const res = await fetch.get('/static/data.json');
-		console.log(res, 'res');
-	} catch (error) {
-		console.log(error, 'error');
-	}
-};
-
-fn();
+export default fetch;

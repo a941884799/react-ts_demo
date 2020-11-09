@@ -1,19 +1,28 @@
-/** @format */
-/* 入口文件 全局配置 */
+/**
+ * 入口文件
+ */
 import React from 'react';
 import { render } from 'react-dom';
-import { Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from '@store';
-import { globalHistory } from '@router';
 import App from './App';
-import 'antd/dist/antd.css'; // 引入antd组件库样式
-import '@styles/global'; // 引入全局样式
-import { globalVar } from '@utils';
+import '@styles/global';
+import { globalVar } from '@utils/index';
+
+/** =========== router全局配置 =========== **/
+import { Router } from 'react-router-dom';
+import { globalHistory } from '@router/index';
+
+/** =========== redux全局配置 =========== **/
+import { Provider } from 'react-redux';
+import store from '@store/index';
+
+/** =========== antd全局配置 =========== **/
+// 引入antd组件库样式
+import 'antd/dist/antd.css';
 
 // 修改 antd 组件默认文案为中文
 import { ConfigProvider, message } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
+
 // 设置 moment 为中文格式
 import { locale } from 'moment';
 import 'moment/locale/zh-cn';
