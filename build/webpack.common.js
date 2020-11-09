@@ -7,7 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = env => ({
-	entry: path.resolve(__dirname, '../src/index'),
+	entry: [path.resolve(__dirname, '../src/index'), path.resolve(__dirname, '../src/api/fetch.ts')],
 	output: {
 		path: path.resolve(__dirname, '../dist'),
 	},
@@ -27,7 +27,7 @@ module.exports = env => ({
 				test: /\.(j|t)sx?$/,
 				loader: 'eslint-loader',
 				exclude: [path.resolve(__dirname, '../node_modules'), path.resolve(__dirname, '../dist')],
-				// include: [path.resolve(__dirname, '../src/pages/EmergencyResponse/VpnViolation')],
+				// include: [path.resolve(__dirname, '../src')],
 				options: {
 					// cache: true,
 					// fix: true
@@ -84,6 +84,7 @@ module.exports = env => ({
 	resolve: {
 		alias: {
 			'@src': path.resolve(__dirname, '../src'),
+			'@api': path.resolve(__dirname, '../src/api'),
 			'@pages': path.resolve(__dirname, '../src/pages'),
 			'@utils': path.resolve(__dirname, '../src/utils'),
 			'@store': path.resolve(__dirname, '../src/store'),

@@ -23,21 +23,20 @@
   // 将eslint添加为可选的格式化程序(2.1.10版eslint插件此选项失效,使用2.1.8版本)
   "eslint.format.enable": true,
   // 保存时自动修复
-  "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
+  "editor.codeActionsOnSave": { "source.fixAll.eslint": true, },
   // 使用prettier作为默认格式化程序
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   // 将eslint作为以下文件默认格式化程序
   "[javascript]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
   "[javascriptreact]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
   "[typescript]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
+  "[typescriptreact]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
   // 取消自动更新扩展程序及vscode版本
   "extensions.autoCheckUpdates": false,
   "extensions.autoUpdate": false,
   "update.enableWindowsBackgroundUpdates": false,
   // git配置
   "git.enableSmartCommit": true,
+  "diffEditor.ignoreTrimWhitespace": true,
 }
 ```

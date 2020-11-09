@@ -1,5 +1,5 @@
 /** @format */
-import { cr } from '@utils/index';
+import { cr } from '@utils';
 import { ActionTypes } from '@store/actions/common';
 
 const commonReducer: Record<string, Store.Reducer> = {

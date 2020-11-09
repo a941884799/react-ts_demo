@@ -4,12 +4,12 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from '@store/index';
-import { globalHistory } from '@router/index';
+import store from '@store';
+import { globalHistory } from '@router';
 import App from './App';
 import 'antd/dist/antd.css'; // 引入antd组件库样式
 import '@styles/global'; // 引入全局样式
-import { globalVar } from '@utils/index';
+import { globalVar } from '@utils';
 
 // 修改 antd 组件默认文案为中文
 import { ConfigProvider, message } from 'antd';

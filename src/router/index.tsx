@@ -3,7 +3,7 @@
  * 路由配置,侧边导航栏只展示前三层路由
  */
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { createHashHistory } from 'history';
 import Home from '@pages/Home'; // 首页组件
 // 引入各模块路由配置
@@ -58,7 +58,7 @@ function createRoute(route: Route.RouteConfig, parentKey?: string, rootKey?: str
 		// 重定向
 		RouteList.push(<Redirect exact from={path} to={redirect} key={path} />);
 	} else if (Component) {
-		RouteList.push(<Route trict exact key={key} path={path} component={Component} />);
+		RouteList.push(<Route trict exact key={key} path={path} render={props => <Component {...props} />} />);
 	}
 	// 创建子路由
 	if (children?.length) children.forEach(childRoute => createRoute(childRoute, route.key, rootKey || route.key));
@@ -70,7 +70,7 @@ const RouterComponents = (): ReactNode => (
 		{RouteList.concat(
 			<Redirect exact from="/" to="/Home" key="/" />,
 			<Route path="*" key="404">
-				<div style={{ fontSize: 20, marginTop: 300, textAlign: 'center' }}>404,该模块还未上线</div>
+				<div style={{ fontSize: 20, marginTop: 300, textAlign: 'center' }}>404</div>
 			</Route>,
 		)}
 	</Switch>

@@ -9,7 +9,7 @@ module.exports = env =>
 		mode: 'development',
 		devtool: 'source-map', // 可以切换成"inline-cheap-source-map"优化性能，但是不利于debug
 		output: {
-			filename: 'bundle.js',
+			filename: 'main.js',
 		},
 		devServer: {
 			contentBase: path.resolve(__dirname, '../dist'),
@@ -35,14 +35,14 @@ module.exports = env =>
 			proxy: [
 				{
 					'/capi': {
-						target: 'http://devcsigssd.oa.com/',
+						target: 'http://baidu.com',
 						changeOrigin: true,
 						pathRewrite: { '^/capi': '' }, // 重写路径
 					},
 				},
 				{
-					context: ['/capi', '/user', '/uploadfile', '/nonstandardApi'],
-					target: 'http://devcsigssd.oa.com/',
+					context: ['/api1', '/api2', '/api3', '/api4', '/api5'],
+					target: 'http://baidu.com',
 					changeOrigin: true,
 				},
 			],
