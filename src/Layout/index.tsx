@@ -5,7 +5,7 @@
 import React, { useState, useCallback, useEffect, ReactNode } from 'react';
 import { Layout, Menu, Breadcrumb, message } from 'antd';
 // 路由配置
-import RouterComponents, { pathToRoute, keyToRoute, keyToPath, routesConfig } from '@router';
+import RouterComponents, { pathToRoute, keyToRoute, keyToPath, routesConfig } from '@router/index';
 import { useLocation, useHistory } from 'react-router';
 import { filterObj } from '@utils/index';
 import './index.scss';

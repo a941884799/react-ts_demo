@@ -12,7 +12,6 @@ module.exports = {
 		'prettier/@typescript-eslint',
 		// 启用eslint-plugin-prettier和eslint-config-prettier。这会将prettier错误作为ESLint错误来展示。确保这个配置放到数组的最后。
 		'plugin:prettier/recommended',
-		// 'eslint:recommended',
 	],
 	plugins: ['react', 'prettier', '@typescript-eslint'], // 定义了该eslint文件所依赖的插件
 	rules: {
@@ -22,7 +21,7 @@ module.exports = {
 		// '@typescript-eslint/explicit-module-boundary-types': 0, // 要求定义函数返回值和参数的显式类型
 	},
 	// 忽略文件和目录
-	ignorePatterns: ['./node_modules', './dis'],
+	ignorePatterns: ['node_modules', 'dist'],
 	// 针对某一类文件进行特定配置
 	overrides: [
 		{

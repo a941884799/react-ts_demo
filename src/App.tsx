@@ -9,7 +9,6 @@ const App = (): ReactNode => {
 	useEffect(() => {
 		if (!UserInfo) dispatch(fetchUserInfo);
 	}, []);
-	console.log('App');
 	return <Layout />;
 };
 

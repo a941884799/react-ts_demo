@@ -19,7 +19,7 @@ module.exports = env => ({
 				exclude: path.resolve(__dirname, '../node_modules'),
 				options: {
 					presets: ['@babel/env', '@babel/preset-react', '@babel/preset-typescript'],
-					plugins: [['@babel/plugin-transform-runtime', { corejs: 3 }]],
+					plugins: [['@babel/plugin-transform-runtime', { corejs: 3 }], ['@babel/plugin-syntax-dynamic-import']],
 				},
 			},
 			{

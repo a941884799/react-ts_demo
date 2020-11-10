@@ -2,13 +2,15 @@
 /**
  * 路由配置,侧边导航栏只展示前三层路由
  */
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import TransitionComponent from '@components/base-ui/TransitionComponent';
 import { createHashHistory } from 'history';
 import Home from '@pages/Home'; // 首页组件
 // 引入各模块路由配置
 import WlgRoutes from '@src/router/Wlg';
-
+// 用来装载路由组件
+import loadable from '@src/components/loadable';
 // 全局 history
 export const globalHistory = createHashHistory();
 
@@ -53,12 +55,12 @@ function createRoute(route: Route.RouteConfig, parentKey?: string, rootKey?: str
 	if (parentKey) route.parentKey = parentKey;
 	// 记录根路由key值
 	if (rootKey) route.rootKey = rootKey;
-	// 添加 Route 组件
 	if (redirect) {
-		// 重定向
+		// 添加 Redirect 组件
 		RouteList.push(<Redirect exact from={path} to={redirect} key={path} />);
 	} else if (Component) {
-		RouteList.push(<Route trict exact key={key} path={path} render={props => <Component {...props} />} />);
+		// 添加 Route 组件,如果Component是Promise,则用lazy包装
+		RouteList.push(<Route trict exact key={key} path={path} component={Component} />);
 	}
 	// 创建子路由
 	if (children?.length) children.forEach(childRoute => createRoute(childRoute, route.key, rootKey || route.key));
@@ -66,14 +68,16 @@ function createRoute(route: Route.RouteConfig, parentKey?: string, rootKey?: str
 
 // 路由组件
 const RouterComponents = (): ReactNode => (
-	<Switch>
-		{RouteList.concat(
-			<Redirect exact from="/" to="/Home" key="/" />,
-			<Route path="*" key="404">
-				<div style={{ fontSize: 20, marginTop: 300, textAlign: 'center' }}>404</div>
-			</Route>,
-		)}
-	</Switch>
+	<Suspense fallback={<TransitionComponent />}>
+		<Switch>
+			{RouteList.concat(
+				<Redirect exact from="/" to="/Home" key="/" />,
+				<Route path="*" key="404">
+					<div style={{ fontSize: 20, marginTop: 300, textAlign: 'center' }}>404</div>
+				</Route>,
+			)}
+		</Switch>
+	</Suspense>
 );
 
 export default RouterComponents;

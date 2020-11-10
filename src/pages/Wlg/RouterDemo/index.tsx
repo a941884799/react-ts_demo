@@ -10,7 +10,9 @@ import { pathToRoute } from '@router/index';
 
 let initUnlisten = null;
 let initUnblock = null;
-const RouterDemo = ({ history }: { history: History }): ReactNode => {
+const RouterDemo = ({ history, ...props }: { history: History }): ReactNode => {
+	console.log(props, history);
+
 	const [unlisten, setUnlisten] = useState<() => void>(() => initUnlisten);
 	const [unblock, setUnblock] = useState<() => void>(() => initUnblock);
 	// 开启路由监听
