@@ -7,7 +7,7 @@ import { Space, Input, InputNumber, List, Card } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActionTypes } from '@store/actions/common';
 
-const ReduxDemo = (props: unknown): ReactNode => {
+const ReduxDemo = (): ReactNode => {
 	const dispatch = useDispatch();
 	const todos: [] = useSelector((store: unknown) => store.todos);
 	const counter: number = useSelector((store: unknown) => store.counter);

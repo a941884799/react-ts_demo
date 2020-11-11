@@ -1,39 +1,34 @@
-/** @format */
-
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin'); // 设置内联脚本
-// 设置optimization.minimizer会覆盖webpack提供的默认设置，因此需要重新制定
-const TerserPlugin = require('terser-webpack-plugin'); // 最小化js
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 最小化css
 const merge = require('webpack-merge');
-const common = require('./webpack.common');
+// webpack通用配置
+const commonConfig = require('./webpack.common')({ mode: 'prod' });
+// 删除文件
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// 本插件会将 CSS 提取到单独的文件中，为每个包含 CSS 的 JS 文件创建一个 CSS 文件，并且支持 CSS 和 SourceMaps 的按需加载。
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// 最小化js
+const TerserPlugin = require('terser-webpack-plugin');
+// 最小化css
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-module.exports = env =>
-	merge(common(env), {
-		mode: 'production',
-		output: {
-			filename: 'js/[name].[contenthash:8].js',
-			publicPath: '/',
-		},
-		stats: 'errors-only',
-		optimization: {
-			minimizer: [new TerserPlugin({}), new OptimizeCSSAssetsPlugin({})],
-			moduleIds: 'hashed',
-			runtimeChunk: {
-				name: 'runtime',
-			},
-		},
-		plugins: [
-			new CleanWebpackPlugin({
-				cleanAfterEveryBuildPatterns: ['dist'],
-			}),
-			new ScriptExtHtmlWebpackPlugin({
-				inline: /runtime\..*\.js$/,
-			}),
-			new MiniCssExtractPlugin({
-				filename: 'css/[name].[contenthash:8].css',
-			}),
-			new OptimizeCSSAssetsPlugin(),
-		],
-	});
+module.exports = merge(commonConfig, {
+	mode: 'production',
+	stats: {
+		warnings: false, // 取消警告信息
+		children: false, // 取消子级信息
+		modules: false, // 取消模块构建信息
+	},
+	output: {
+		filename: 'js/[name].[contenthash:8].js',
+		publicPath: '/',
+	},
+	plugins: [
+		new CleanWebpackPlugin({
+			cleanAfterEveryBuildPatterns: ['dist'], // 打包时先删除dist目录
+		}),
+		new MiniCssExtractPlugin({
+			filename: 'css/[name].[contenthash:8].css',
+		}),
+		new TerserPlugin(),
+		new OptimizeCSSAssetsPlugin(),
+	],
+});

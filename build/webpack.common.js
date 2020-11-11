@@ -4,13 +4,22 @@ const path = require('path');
 const Webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// 获取MiniCssExtractPlugin的loader
+const MiniCssExtractPluginLoader = require('mini-css-extract-plugin').loader;
+// 设置内联脚本
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 module.exports = env => ({
-	entry: [path.resolve(__dirname, '../src/index'), path.resolve(__dirname, '../src/api/fetch.ts')],
-	output: {
-		path: path.resolve(__dirname, '../dist'),
+	// 入口
+	entry: [path.resolve(__dirname, '../src/index')],
+	// 出口
+	output: { path: path.resolve(__dirname, '../dist') },
+	// 优化
+	optimization: {
+		// 创建一个 所有chunk 共享的运行时文件,别名为 runtime
+		runtimeChunk: { name: 'runtime' },
 	},
+	// 模组
 	module: {
 		rules: [
 			{
@@ -28,20 +37,13 @@ module.exports = env => ({
 				loader: 'eslint-loader',
 				exclude: [path.resolve(__dirname, '../node_modules'), path.resolve(__dirname, '../dist')],
 				// include: [path.resolve(__dirname, '../src')],
-				options: {
-					// cache: true,
-					// fix: true
-				},
+				options: { cache: true, fix: false },
 			},
 			{
 				test: /\.(sa|sc|c)ss$/,
 				use: [
-					env.mode === 'prod'
-						? {
-								loader: MiniCssExtractPlugin.loader,
-								options: { esModule: true },
-						  }
-						: 'style-loader',
+					// 生产环境使用 MiniCssExtractPlugin.loader拆除css,开发环境使用 style-loader
+					env.mode === 'prod' ? { loader: MiniCssExtractPluginLoader, options: { esModule: true } } : 'style-loader',
 					'css-loader',
 					'sass-loader',
 				],
@@ -61,6 +63,7 @@ module.exports = env => ({
 			},
 		],
 	},
+	// 插件
 	plugins: [
 		// 定义全局常量
 		new Webpack.DefinePlugin({
@@ -73,13 +76,17 @@ module.exports = env => ({
 		new Webpack.ProvidePlugin({
 			_: 'lodash',
 		}),
+		// 直接拷贝 static 目录的东西,不进行打包压缩
+		new CopyWebpackPlugin({
+			patterns: [{ from: 'static', to: 'static' }],
+		}),
+		// 使用 template 目录设为 index.html 作为html模板
 		new HtmlWebpackPlugin({
 			favicon: path.resolve(__dirname, '../src/assets/images/favicon.ico'),
 			template: path.resolve(__dirname, '../template/index.html'),
 		}),
-		new CopyWebpackPlugin({
-			patterns: [{ from: 'static', to: 'static' }],
-		}),
+		// 将运行时模块内联到html中
+		new ScriptExtHtmlWebpackPlugin({ inline: /^runtime.*\.js$/ }),
 	],
 	resolve: {
 		alias: {
