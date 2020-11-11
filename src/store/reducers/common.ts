@@ -1,5 +1,5 @@
 /** @format */
-import { cr } from '@utils';
+import { cr } from '@utils/store';
 import { ActionTypes } from '@store/actions/common';
 
 // 用户信息类型

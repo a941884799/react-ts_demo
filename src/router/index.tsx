@@ -4,13 +4,11 @@
  */
 import React, { Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import TransitionComponent from '@components/base-ui/TransitionComponent';
+import TransitionComponent from '@src/components/TransitionComponent';
 import { createHashHistory } from 'history';
 import Home from '@pages/Home'; // 首页组件
 // 引入各模块路由配置
 import WlgRoutes from '@src/router/Wlg';
-// 用来装载路由组件
-import loadable from '@src/components/loadable';
 // 全局 history
 export const globalHistory = createHashHistory();
 

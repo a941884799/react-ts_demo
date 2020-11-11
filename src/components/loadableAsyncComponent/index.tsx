@@ -1,6 +1,6 @@
 /**
  * @name loadable
- * @desc 使用 React16+ 自带的 Suspense lazy 动态引入组件(实现按需引入组件，进行代码分隔)
+ * @desc 使用 React16+ 的 Suspense lazy 引入异步组件(实现按需引入，进行代码分隔)
  * @desc 在webpack2+中使用import(),它会自动分割代码
  * @time 2020年11月10日 09:40:42 星期二
  * @param {() => Promise<ReactNode>} loader 例：() => import('@pages/Home')
@@ -8,7 +8,7 @@
  * @return  {ReactNode} 返回一个异步加载的组件
  */
 import React, { ReactNode, lazy, Suspense } from 'react';
-import TransitionComponent from '@components/base-ui/TransitionComponent';
+import TransitionComponent from '@src/components/TransitionComponent';
 
 const loadable = (loader: () => Promise<ReactNode>, Loading?: ReactNode): ReactNode => {
 	const AsyncComponent = lazy(loader);

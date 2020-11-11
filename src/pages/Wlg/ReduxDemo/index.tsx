@@ -8,11 +8,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ActionTypes } from '@store/actions/common';
 
 const ReduxDemo = (props: unknown): ReactNode => {
-	console.log(props, 'props');
 	const dispatch = useDispatch();
 	const todos: [] = useSelector((store: unknown) => store.todos);
 	const counter: number = useSelector((store: unknown) => store.counter);
-	console.log('Home 重新渲染');
 	return (
 		<Space direction="vertical">
 			<Input.Search

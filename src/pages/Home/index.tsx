@@ -3,6 +3,6 @@
  * */
 import React, { ReactNode } from 'react';
 import './index.scss';
-const Home = (): ReactNode => <div className="page-Home">欢迎欢迎......</div>;
+const Home = (): ReactNode => <div className="page-Home"></div>;
 
 export default Home;
