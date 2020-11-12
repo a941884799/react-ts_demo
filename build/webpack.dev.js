@@ -10,7 +10,7 @@ module.exports = merge(commonConfig, {
 	},
 	devServer: {
 		contentBase: path.resolve(__dirname, '../dist'),
-		publicPath: '/data',
+		publicPath: '/',
 		compress: true, // 为每个静态文件开启 gzip 压缩
 		hot: true, // 自动添加 HMR 插件,热模块更新
 		inline: true, // 启用内联模式(inline mode),构建消息将会出现在浏览器控制台,默认为true
