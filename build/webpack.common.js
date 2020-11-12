@@ -4,9 +4,7 @@ const path = require('path');
 const Webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-// 获取MiniCssExtractPlugin的loader
 const MiniCssExtractPluginLoader = require('mini-css-extract-plugin').loader;
-// 设置内联脚本
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 module.exports = env => ({
@@ -86,7 +84,7 @@ module.exports = env => ({
 			template: path.resolve(__dirname, '../template/index.html'),
 		}),
 		// 将运行时模块内联到html中
-		new ScriptExtHtmlWebpackPlugin({ inline: /^runtime.*\.js$/ }),
+		new ScriptExtHtmlWebpackPlugin({ inline: /runtime(\..*)?\.js$/ }),
 	],
 	resolve: {
 		alias: {
