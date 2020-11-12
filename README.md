@@ -12,6 +12,7 @@
   "prettier.useEditorConfig": true,
   "prettier.semi": true, // 是否带分号
   "prettier.singleQuote": true, // 是否为单引号
+  "prettier.useTabs": true, // 使用Tab进行缩进
   "files.eol": "\n",
   "javascript.validate.enable": false, // 关闭vscode默认js检测程序
   "typescript.validate.enable": false, // 关闭vscode默认ts检测程序
