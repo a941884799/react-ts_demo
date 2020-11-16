@@ -25,19 +25,19 @@ module.exports = merge(commonConfig, {
 		open: true, // 自动打开浏览器
 		openPage: 'http://localhost:9000', // 指定要打开的页面
 		// 正向代理
-		// proxy: [
-		// 	{
-		// 		'/api0': {
-		// 			target: 'http://baidu.com',
-		// 			changeOrigin: true,
-		// 			pathRewrite: { '^/api0': '' }, // 重写路径
-		// 		},
-		// 	},
-		// 	{
-		// 		context: ['/api1', '/api2', '/api3', '/api4', '/api5'],
-		// 		target: 'http://baidu.com',
-		// 		changeOrigin: true,
-		// 	},
-		// ],
+		proxy: [
+			{
+				context: ['api'],
+				target: 'http://localhost:3000',
+				changeOrigin: true,
+				pathRewrite: { '^/api': '' }, // 重写路径
+			},
+			{
+				context: ['/api1', '/api2', '/api3', '/api4', '/api5'],
+				target: 'http://baidu.com',
+				changeOrigin: true,
+				pathRewrite: { '^/api[1-9]': '' }, // 重写路径
+			},
+		],
 	},
 });
