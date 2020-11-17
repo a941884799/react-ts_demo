@@ -27,16 +27,17 @@ module.exports = merge(commonConfig, {
 		// 正向代理
 		proxy: [
 			{
-				context: ['api'],
+				context: ['/api6'],
 				target: 'http://localhost:3000',
-				changeOrigin: true,
+				changeOrigin: true, // 默认值：false - true为开启跨域代理
 				pathRewrite: { '^/api': '' }, // 重写路径
+				// secure: false, // 接受运行在 HTTPS 上，且使用了无效证书的后端服务器
 			},
 			{
 				context: ['/api1', '/api2', '/api3', '/api4', '/api5'],
-				target: 'http://baidu.com',
+				target: 'http://localhost:3000',
 				changeOrigin: true,
-				pathRewrite: { '^/api[1-9]': '' }, // 重写路径
+				pathRewrite: { '^/api[1-5]': '' },
 			},
 		],
 	},

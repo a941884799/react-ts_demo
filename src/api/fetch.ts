@@ -5,14 +5,14 @@ import { handleError } from '@utils/api';
 
 // 获取当前网页域名
 const baseURL = location.href.replace(/^(https?:\/\/.*?)(\/.*)?$/, ($0, $1) => $1);
-console.log(baseURL);
+
 // 接口公共参数
 const publicData = {};
 const publicParams = {};
 
 // 创建axios实例
 const fetch: AxiosInstance = axios.create({
-	baseURL: baseURL.replace('9000', '3000'), // 设置请求的baseURL
+	baseURL, // 设置请求的baseURL
 	// headers: {}, // 设置 request headers
 	timeout: 30000, // 请求超时时间
 });
