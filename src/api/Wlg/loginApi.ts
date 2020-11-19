@@ -8,5 +8,5 @@ import { createGetApi } from '@utils/api';
  * @return {AxiosPromise<UserInfo>}
  */
 
-export const getUserInfo = createGetApi('/api1/user');
-// export const getUserInfo = createGetApi('/static/userInfo.json');
+// export const getUserInfo = createGetApi('/api1/user');
+export const getUserInfo = createGetApi('/static/userInfo.json');

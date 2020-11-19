@@ -1,180 +1,148 @@
 /**
- * WangLonggang 的 ReduxDemo
+ * WangLonggang 的 FormDemo
  * */
-import React, { ReactNode } from 'react';
+import React, { ReactNode, Fragment, useState, useEffect } from 'react';
+import { useStateSafe } from '@utils/hooks';
 // import {useDispatch, useSelector} from 'react-redux'
 // import {Types, add} from '@store/actions/common'
-import {
-	Form,
-	Select,
-	PageHeader,
-	InputNumber,
-	Switch,
-	Radio,
-	Slider,
-	Button,
-	Upload,
-	Rate,
-	Checkbox,
-	Tag,
-} from 'antd';
-import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
+import { Form, Spin, Input, PageHeader, Radio, Button, Checkbox, Tag, Select } from 'antd';
+// api接口
+import { getFormMock } from '@api/Wlg/FormDemoApi';
 import './index.scss';
+
+interface Config {
+	label: string;
+	type: string;
+	parantItemId?: number | string; // 父控件的Id值
+	options: [
+		{
+			itemName: string;
+			itemId: number | string;
+			children?: [Config];
+		},
+	];
+}
 
 const formLayout = {
 	labelAlign: 'right',
-	labelCol: { span: 2 },
-	wrapperCol: { span: 7 },
+	// labelCol: { span: 3 },
+	wrapperCol: { span: 16 },
 };
 
-const normFile = e => {
-	console.log('Upload event:', e);
-	if (Array.isArray(e)) {
-		return e;
-	}
-	return e && e.fileList;
-};
+// 将 itemName itemId 转为 label value
+const mapOptions = (options: Array<{ itemName: string; itemId: number }>) =>
+	options.map(({ itemName: label, itemId: value }) => ({ label, value }));
 
 /**
  * 页面主组件
  */
-const ReduxDemo = (): ReactNode => {
-	const onFinish = values => {
-		console.log(values);
-	};
+const FormDemo = (): ReactNode => {
+	// 经 Form.useForm() 创建的 form 控制实例，不提供时会自动创建
 	const [form] = Form.useForm();
+	// 表单配置数据
+	const [Configs, setConfigs] = useStateSafe<[Config] | []>([]);
+	// 当前表单值
+	const [FieldsValue, setFieldsValue] = useStateSafe({});
+	// 表单配置数据加载状态
+	const [Loading, setLoading] = useStateSafe(true);
+	// 提交表单且数据验证成功后回调事件
+	const onFinish = values => {
+		console.log('onFinish', values);
+	};
+	// 加载表单配置数据
+	const getConfigs = async () => {
+		setLoading(true);
+		try {
+			const res = await getFormMock();
+			if (res?.data) setConfigs(res.data);
+		} catch (error) {}
+		setLoading(false);
+	};
+	// parantName 父控件name字段
+	const render = (Configs: [Config]) =>
+		Configs.map((config: Config) => {
+			let Dom;
+			const { label, type, props = {} } = config;
+			const name = config.name || label; // 配置数据没有写name字段，暂用 label 代替
+			switch (type) {
+				case 'radio':
+					Dom = (
+						<Form.Item label={label} name={name} {...props}>
+							<Radio.Group options={mapOptions(config.options || [])} />
+						</Form.Item>
+					);
+					break;
+				case 'checkbox':
+					Dom = (
+						<Form.Item label={label} name={name} {...props}>
+							<Checkbox.Group options={mapOptions(config.options || [])} />
+						</Form.Item>
+					);
+					break;
+				case 'input':
+					if (Array.isArray(config.options)) {
+						console.log(name);
+						Dom = (
+							<Form.Item label={label} {...props}>
+								<Input.Group compact>
+									{config.options.map((item, index) => (
+										<Form.Item key={index} name={name[index]}>
+											<Input {...item} />
+										</Form.Item>
+									))}
+								</Input.Group>
+							</Form.Item>
+						);
+					} else {
+						Dom = (
+							<Form.Item key={index} {...props}>
+								<Input />
+							</Form.Item>
+						);
+					}
+					break;
+			}
+			return (
+				<Fragment key={label}>
+					{Dom}
+					{(() => {
+						// 渲染子控件(过滤掉存在子控件或没被选中的)
+						const childrenList = [];
+						config.options
+							.filter(i => i.children && (FieldsValue[name] === i.itemId || FieldsValue[name]?.includes?.(i.itemId)))
+							.forEach(({ children }) => childrenList.push(...children));
+						if (childrenList.length === 0) return <></>;
+						return render(childrenList, name);
+					})()}
+				</Fragment>
+			);
+		});
+	// 进入页面，默认表单配置数据
+	useEffect(() => {
+		getConfigs();
+	}, []);
 	return (
-		<div className="page-WlgReduxDemo">
+		<div className="page-WlgFormDemo">
 			<PageHeader title="表单练习" subTitle="This is Form demo" tags={<Tag color="red">demo</Tag>} />
-			<Form
-				name="validate_other"
-				{...formLayout}
-				form={form}
-				onFinish={onFinish}
-				initialValues={{
-					rate: 3.5,
-				}}
-			>
-				<Form.Item label="纯文本项">
-					<span className="ant-form-text">表单demo</span>
-				</Form.Item>
-				<Form.Item name="layout" label="表单布局" rules={[{ required: true, message: '请选择表单布局' }]}>
-					<Radio.Group
-						optionType="button"
-						options={[
-							{ label: '水平', value: 'horizontal' },
-							{ label: '垂直', value: 'vertical' },
-							{ label: '内联', value: 'inline' },
-						]}
-					/>
-				</Form.Item>
-				<Form.Item name="nationality" label="民族" hasFeedback rules={[{ required: true, message: '请选择你的民族!' }]}>
-					<Select
-						placeholder="请选择一个民族"
-						options={[
-							{ label: '汉族', value: '汉族' },
-							{ label: '藏族', value: '藏族' },
-							{ label: '壮族', value: '壮族' },
-							{ label: '苗族', value: '苗族' },
-							{ label: '其它', value: '其它' },
-						]}
-					/>
-				</Form.Item>
-				<Form.Item name="sex" label="性别">
-					<Radio.Group>
-						<Radio value={1}>男</Radio>
-						<Radio value={2}>女</Radio>
-					</Radio.Group>
-				</Form.Item>
-				<Form.Item label="年龄">
-					<Form.Item name="age" noStyle>
-						<InputNumber min={1} max={100} />
-					</Form.Item>
-					<span className="ant-form-text"> 1-100</span>
-				</Form.Item>
-				<Form.Item name="switch" label="是否单身" valuePropName="checked">
-					<Switch checkedChildren="是" unCheckedChildren="否" />
-				</Form.Item>
-				<Form.Item name={['favorite', 'hobby']} label="爱好">
-					<Checkbox.Group
-						style={{ width: '100%' }}
-						options={[
-							{ label: '抽烟', value: 1 },
-							{ label: '喝酒', value: 2 },
-							{ label: '烫头', value: 3 },
-							{ label: '敲代码', value: 4 },
-							{ label: '***', value: 5, disabled: true },
-						]}
-					/>
-				</Form.Item>
-				<Form.Item
-					name={['favorite', 'color']}
-					label="喜欢的颜色"
-					rules={[
-						{ required: true, message: '请选择你喜欢的颜色!' },
-						{ type: 'array', message: '值类型不对!' },
-					]}
+			<Spin tip="正在加载表单" spinning={Loading}>
+				<Form
+					name="WlgFormDemo"
+					{...formLayout}
+					form={form}
+					initialValues={{}}
+					onValuesChange={(changedFields, allFields) => setFieldsValue(allFields)}
+					onFinish={onFinish}
 				>
-					<Select
-						mode="multiple"
-						placeholder="请选择你喜欢的颜色"
-						options={[
-							{ label: '红色', value: 'red' },
-							{ label: '绿色', value: 'green' },
-							{ label: '蓝色', value: 'blue' },
-						]}
-					/>
-				</Form.Item>
-				<Form.Item name="temperature" label="体温">
-					<Slider
-						max={100}
-						included={false}
-						tipFormatter={value => `${value}°C`}
-						marks={{
-							0: '0°C',
-							26: '26°C',
-							37: '37°C',
-							100: {
-								style: { color: '#f50' },
-								label: <strong>100°C</strong>,
-							},
-						}}
-					/>
-				</Form.Item>
-				<Form.Item name="rate" label="自评">
-					<Rate />
-				</Form.Item>
-				<Form.Item
-					name="upload"
-					label="上传"
-					valuePropName="fileList"
-					getValueFromEvent={normFile}
-					extra="longgggggggggg"
-				>
-					<Upload name="logo" action="/upload.do" listType="picture">
-						<Button icon={<UploadOutlined />}>点击上传</Button>
-					</Upload>
-				</Form.Item>
-
-				<Form.Item label="拖拽上传">
-					<Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={normFile} noStyle>
-						<Upload.Dragger name="files" action="/upload.do">
-							<p className="ant-upload-drag-icon">
-								<InboxOutlined />
-							</p>
-							<p className="ant-upload-text">单击或拖动文件到该区域以上传</p>
-							<p className="ant-upload-hint">支持单次或批量上传</p>
-						</Upload.Dragger>
+					{render(Configs)}
+					<Form.Item key="submit" label=" " colon={false}>
+						<Button type="primary" htmlType="submit">
+							提交
+						</Button>
 					</Form.Item>
-				</Form.Item>
-				<Form.Item wrapperCol={{ span: 12, offset: 2 }}>
-					<Button type="primary" htmlType="submit">
-						提交
-					</Button>
-				</Form.Item>
-			</Form>
+				</Form>
+			</Spin>
 		</div>
 	);
 };
 
-export default ReduxDemo;
+export default FormDemo;

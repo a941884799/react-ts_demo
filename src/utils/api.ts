@@ -1,6 +1,6 @@
 import fetch from '@api/fetch';
 import { AxiosError } from 'axios';
-import { message as MessageFn } from 'antd';
+import { message as antdMessage } from 'antd';
 
 type Params = Record<string, unknown>;
 /**
@@ -49,5 +49,5 @@ const ErrorCodeMap: Record<unknown, string> = {
 export const handleError = (error: AxiosError): void => {
 	const { response, message, Message, Code } = error;
 	const msg = ErrorStatusMap[response?.status] || ErrorCodeMap[Code] || Message || message;
-	return MessageFn.error(msg || '服务器异常，请稍后再试');
+	return antdMessage.error(msg || '服务器异常，请稍后再试');
 };

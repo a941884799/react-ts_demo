@@ -1,0 +1,346 @@
+{
+	"code": 0,
+	"msg": "",
+	"data": [
+		{
+			"label": "处理决定",
+			"type": "radio",
+			"props": {},
+			"options": [
+				{
+					"itemName": "驳回补充凭证",
+					"itemId": "1001",
+					"children": [
+						{
+							"label": "决定原因",
+							"type": "radio",
+							"props": {},
+							"options": [
+								{
+									"itemName": "举证不充分",
+									"itemId": "1001001"
+								},
+								{
+									"itemName": "举证资料模糊不清",
+									"itemId": "1001002"
+								}
+							]
+						}
+					]
+				},
+				{
+					"itemName": "拒绝售后",
+					"itemId": "1002",
+					"children": [
+						{
+							"label": "决定原因",
+							"type": "radio",
+							"options": [
+								{
+									"itemName": "套保用户",
+									"itemId": "1002001"
+								},
+								{
+									"itemName": "防拆标撕毁人为损坏",
+									"itemId": "1002002"
+								},
+								{
+									"itemName": "买家不想售后了",
+									"itemId": "1002003"
+								},
+								{
+									"itemName": "过期了",
+									"itemId": "1002004"
+								},
+								{
+									"itemName": "二次维修了",
+									"itemId": "1002005"
+								},
+								{
+									"itemName": "人为损坏",
+									"itemId": "1002006"
+								},
+								{
+									"itemName": "快件延期",
+									"itemId": "1002007"
+								},
+								{
+									"itemName": "快递丢失",
+									"itemId": "1002008"
+								}
+							]
+						}
+					]
+				},
+				{
+					"itemName": "同意售后",
+					"itemId": "1003",
+					"children": [
+						{
+							"label": "发布项",
+							"type": "checkbox",
+							"props": {},
+							"options": [
+								{
+									"itemName": "开机情况",
+									"itemId": "1003001",
+									"children": [
+										{
+											"label": "开机情况",
+											"type": "radio",
+											"props": {},
+											"options": [
+												{
+													"itemName": "开不开机1",
+													"itemId": "1003001001"
+												},
+												{
+													"itemName": "开不开机2",
+													"itemId": "1003001002"
+												},
+												{
+													"itemName": "开不开机3",
+													"itemId": "1003001003"
+												},
+												{
+													"itemName": "开不开机4",
+													"itemId": "1003001004"
+												}
+											]
+										}
+									]
+								},
+								{
+									"itemName": "机身外观",
+									"itemId": "1003002",
+									"children": [
+										{
+											"label": "机身外观",
+											"type": "radio",
+											"props": {},
+											"options": [
+												{
+													"itemName": "机身外观1",
+													"itemId": "1003001001"
+												},
+												{
+													"itemName": "机身外观2",
+													"itemId": "1003001002"
+												},
+												{
+													"itemName": "机身外观3",
+													"itemId": "1003001003"
+												},
+												{
+													"itemName": "机身外观4",
+													"itemId": "1003001004"
+												}
+											]
+										}
+									]
+								},
+								{
+									"itemName": "机身是否弯曲",
+									"itemId": "1003003",
+									"children": [
+										{
+											"label": "机身是否弯曲",
+											"type": "radio",
+											"props": {},
+											"options": [
+												{
+													"itemName": "机身是否弯曲1",
+													"itemId": "1003001001"
+												},
+												{
+													"itemName": "机身是否弯曲2",
+													"itemId": "1003001002"
+												},
+												{
+													"itemName": "机身是否弯曲3",
+													"itemId": "1003001003"
+												},
+												{
+													"itemName": "机身是否弯曲4",
+													"itemId": "1003001004"
+												}
+											]
+										}
+									]
+								},
+								{
+									"itemName": "屏幕外观",
+									"itemId": "1003004",
+									"children": [
+										{
+											"label": "屏幕外观",
+											"type": "radio",
+											"props": {},
+											"options": [
+												{
+													"itemName": "屏幕外观1",
+													"itemId": "1003001001"
+												},
+												{
+													"itemName": "屏幕外观2",
+													"itemId": "1003001002"
+												},
+												{
+													"itemName": "屏幕外观3",
+													"itemId": "1003001003"
+												},
+												{
+													"itemName": "屏幕外观4",
+													"itemId": "1003001004"
+												}
+											]
+										}
+									]
+								},
+								{
+									"itemName": "屏幕显示",
+									"itemId": "1003005",
+									"children": [
+										{
+											"label": "屏幕显示",
+											"type": "radio",
+											"props": {},
+											"options": [
+												{
+													"itemName": "屏幕显示",
+													"itemId": "1003001001"
+												},
+												{
+													"itemName": "屏幕显示2",
+													"itemId": "1003001002"
+												},
+												{
+													"itemName": "屏幕显示3",
+													"itemId": "1003001003"
+												},
+												{
+													"itemName": "屏幕显示4",
+													"itemId": "1003001004"
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"label": "竞品价(元)",
+							"type": "input",
+							"name": [["竞品价(元)", "有此问题价格"], ["竞品价(元)", "无此问题价格"]],
+							"props": {
+								"className": "inputList"
+							},
+							"options": [
+								{ "placeholder": "有此问题价格" },
+								{ "placeholder": "无此问题价格" }
+							]
+						},
+						{
+							"label": "协商结果",
+							"type": "radio",
+							"props": {},
+							"options": [
+								{
+									"itemName": "召回质检",
+									"itemId": "1004001",
+									"children": [
+										{
+											"label": "召回原因",
+											"type": "radio",
+											"props": {},
+											"options": [
+												{
+													"itemName": "买家不同意补差",
+													"itemId": "1004001001"
+												},
+												{
+													"itemName": "卖家不同意补差",
+													"itemId": "1004001002"
+												}
+											]
+										}
+									]
+								},
+								{
+									"itemName": "同意补差",
+									"itemId": "1004002",
+									"children": [
+										{
+											"label": "责任归属",
+											"type": "radio",
+											"props": {},
+											"options": [
+												{
+													"itemName": "卖家责任",
+													"itemId": "1004002001",
+													"children": [
+														{
+															"label": "问题一级分类",
+															"type": "radio",
+															"props": {},
+															"options": [
+																{
+																	"itemName": "高危项目",
+																	"itemId": "1004002001001"
+																},
+																{
+																	"itemName": "高危项目2",
+																	"itemId": "1004002001002"
+																},
+																{
+																	"itemName": "高危项目3",
+																	"itemId": "1004002001003"
+																},
+																{
+																	"itemName": "高危项目4",
+																	"itemId": "1004002001004"
+																}
+															]
+														},
+														{
+															"label": "建议补差金额",
+															"type": "String",
+															"value": "0",
+															"props": {}
+														},
+														{
+															"label": "卖家补差(元)",
+															"type": "input",
+															"props": {}
+														},
+														{
+															"label": "平台补差(元)",
+															"type": "input",
+															"props": {}
+														}
+													]
+												},
+												{
+													"itemName": "平台责任",
+													"itemId": "1004002002"
+												},
+												{
+													"itemName": "业务责任",
+													"itemId": "1004002003"
+												},
+												{
+													"itemName": "站点责任",
+													"itemId": "1004002004"
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

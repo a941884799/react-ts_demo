@@ -42,7 +42,7 @@ module.exports = env => ({
 				use: [
 					// 生产环境使用 MiniCssExtractPlugin.loader拆除css,开发环境使用 style-loader
 					env.mode === 'prod' ? { loader: MiniCssExtractPluginLoader, options: { esModule: true } } : 'style-loader',
-					'css-loader',
+					{ loader: 'css-loader', options: { sourceMap: true } },
 					'sass-loader',
 				],
 			},

@@ -29,6 +29,16 @@ export function filterObj(obj: Record<unknown, unknown>, excludeKeys: Array<unkn
 }
 
 /**
+ * @desc 检查 obj 是否包含 key
+ * @param {Object} obj 要检查的对象
+ * @param {string} key 要检查的key
+ * @return  {boolean}
+ */
+export function hasOwn(obj: Record<string, unknown>, key: string): boolean {
+	return obj && hasOwnProperty.call(obj, key);
+}
+
+/**
  * @name getType
  * @desc 获取某个元素的类型
  * @author 王龙岗

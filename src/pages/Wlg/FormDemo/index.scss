@@ -1,5 +1,28 @@
-.page-WlgRouterDemo {
-  .ant-page-header {
-    padding: 0;
+.page-WlgFormDemo {
+  .ant-form {
+    padding: 20px;
+    padding-top: 0;
+    .ant-form-item-label {
+      width: 120px;
+      margin-right: 10px;
+    }
+    .ant-form-item-control {
+      max-width: 800px;
+    }
+    .ant-radio-wrapper, .ant-checkbox-wrapper {
+      min-width: 160px;
+    }
+    // 发布项值 样式
+    .fbxList {
+      .ant-form-item-control-input-content {
+        .ant-form-item-label {
+          flex: 0 0 100%;
+        }
+        .ant-form-item-control {
+          padding: 10px;
+          border: 1px solid #dddddd;
+        }
+      }
+    }
   }
 }
