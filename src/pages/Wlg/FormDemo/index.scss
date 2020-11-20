@@ -15,8 +15,11 @@
     .ant-input {
       max-width: 400px;
     }
-    // 发布项值 样式
-    .fbxList {
+    .ant-btn {
+      margin-right: 15px;
+    }
+    // 发布项值 垂直样式
+    .vertical-form-item {
       .ant-form-item-control-input-content {
         .ant-form-item-label {
           flex: 0 0 100%;

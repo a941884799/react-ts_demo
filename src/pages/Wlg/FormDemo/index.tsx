@@ -116,7 +116,7 @@ const FormDemo = (): ReactNode => {
 						if (childrenList.length === 0) return <></>;
 						if (type === 'checkbox') {
 							return (
-								<Form.Item label={label + '值'} className="fbxList">
+								<Form.Item label={label + '值'} className="vertical-form-item">
 									{render(childrenList, name)}
 								</Form.Item>
 							);
