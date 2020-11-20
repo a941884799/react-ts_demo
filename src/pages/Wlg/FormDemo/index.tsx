@@ -1,11 +1,9 @@
 /**
  * WangLonggang 的 FormDemo
  * */
-import React, { ReactNode, Fragment, useState, useEffect } from 'react';
+import React, { ReactNode, Fragment, useEffect } from 'react';
 import { useStateSafe } from '@utils/hooks';
-// import {useDispatch, useSelector} from 'react-redux'
-// import {Types, add} from '@store/actions/common'
-import { Form, Spin, Input, PageHeader, Radio, Button, Checkbox, Tag, Select } from 'antd';
+import { Form, Spin, Input, PageHeader, Radio, Button, Checkbox, Tag } from 'antd';
 // api接口
 import { getFormMock } from '@api/Wlg/FormDemoApi';
 import './index.scss';
@@ -23,9 +21,11 @@ interface Config {
 	];
 }
 
+// 记录的表单值，反正跳转页面时被销毁
+let recordedValues = {};
+
 const formLayout = {
 	labelAlign: 'right',
-	// labelCol: { span: 3 },
 	wrapperCol: { span: 16 },
 };
 
@@ -42,13 +42,14 @@ const FormDemo = (): ReactNode => {
 	// 表单配置数据
 	const [Configs, setConfigs] = useStateSafe<[Config] | []>([]);
 	// 当前表单值
-	const [FieldsValue, setFieldsValue] = useStateSafe({});
+	const [FieldsValue, setFieldsValue] = useStateSafe(recordedValues);
 	// 表单配置数据加载状态
 	const [Loading, setLoading] = useStateSafe(true);
 	// 提交表单且数据验证成功后回调事件
 	const onFinish = values => {
 		console.log('onFinish', values);
 	};
+
 	// 加载表单配置数据
 	const getConfigs = async () => {
 		setLoading(true);
@@ -58,7 +59,6 @@ const FormDemo = (): ReactNode => {
 		} catch (error) {}
 		setLoading(false);
 	};
-	// parantName 父控件name字段
 	const render = (Configs: [Config]) =>
 		Configs.map((config: Config) => {
 			let Dom;
@@ -87,7 +87,6 @@ const FormDemo = (): ReactNode => {
 					);
 					break;
 				case 'input':
-					console.log(props);
 					Dom = Array.isArray(config.options) ? (
 						<Form.Item label={label} {...props}>
 							<Input.Group compact>
@@ -109,7 +108,7 @@ const FormDemo = (): ReactNode => {
 				<Fragment key={label}>
 					{Dom}
 					{(() => {
-						// 渲染子控件(过滤掉存在子控件或没被选中的)
+						// 渲染子控件(过滤掉不存在children(子控件)或没被选中的项)
 						const childrenList = [];
 						config.options
 							?.filter(i => i.children && (FieldsValue[name] === i.itemId || FieldsValue[name]?.includes?.(i.itemId)))
@@ -127,9 +126,10 @@ const FormDemo = (): ReactNode => {
 				</Fragment>
 			);
 		});
-	// 进入页面，默认表单配置数据
+	// 进入页面，默认请求表单配置数据，填充记录的表单值
 	useEffect(() => {
 		getConfigs();
+		form.setFieldsValue(recordedValues);
 	}, []);
 	return (
 		<div className="page-WlgFormDemo">
@@ -140,7 +140,10 @@ const FormDemo = (): ReactNode => {
 					{...formLayout}
 					form={form}
 					initialValues={{}}
-					onValuesChange={(changedFields, allFields) => setFieldsValue(allFields)}
+					onValuesChange={(changedFields, allFields) => {
+						recordedValues = { ...allFields };
+						setFieldsValue({ ...allFields });
+					}}
 					onFinish={onFinish}
 				>
 					<Form.Item label="动态表单练习"></Form.Item>
@@ -148,6 +151,9 @@ const FormDemo = (): ReactNode => {
 					<Form.Item key="submit" label=" " colon={false}>
 						<Button type="primary" htmlType="submit">
 							提交
+						</Button>
+						<Button htmlType="button" onClick={() => form.resetFields()}>
+							重置
 						</Button>
 					</Form.Item>
 				</Form>
