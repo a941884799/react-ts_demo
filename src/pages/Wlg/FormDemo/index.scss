@@ -12,15 +12,20 @@
     .ant-radio-wrapper, .ant-checkbox-wrapper {
       min-width: 160px;
     }
+    .ant-input {
+      max-width: 400px;
+    }
     // 发布项值 样式
     .fbxList {
       .ant-form-item-control-input-content {
         .ant-form-item-label {
           flex: 0 0 100%;
+          text-align: left;
         }
         .ant-form-item-control {
           padding: 10px;
           border: 1px solid #dddddd;
+          border-radius: 4px;
         }
       }
     }

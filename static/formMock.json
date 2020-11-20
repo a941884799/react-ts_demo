@@ -5,7 +5,9 @@
 		{
 			"label": "处理决定",
 			"type": "radio",
-			"props": {},
+			"props": {
+				"rules": [{ "required": true, "message": "请选择处理决定" }]
+			},
 			"options": [
 				{
 					"itemName": "驳回补充凭证",
@@ -14,7 +16,9 @@
 						{
 							"label": "决定原因",
 							"type": "radio",
-							"props": {},
+							"props": {
+								"rules": [{ "required": true, "message": "请选择决定原因" }]
+							},
 							"options": [
 								{
 									"itemName": "举证不充分",
@@ -35,6 +39,9 @@
 						{
 							"label": "决定原因",
 							"type": "radio",
+							"props": {
+								"rules": [{ "required": true, "message": "请选择决定原因" }]
+							},
 							"options": [
 								{
 									"itemName": "套保用户",
@@ -79,7 +86,9 @@
 						{
 							"label": "发布项",
 							"type": "checkbox",
-							"props": {},
+							"props": {
+								"rules": [{ "required": true, "message": "请选择发布项" }]
+							},
 							"options": [
 								{
 									"itemName": "开机情况",
@@ -88,7 +97,9 @@
 										{
 											"label": "开机情况",
 											"type": "radio",
-											"props": {},
+											"props": {
+												"rules": [{ "required": true, "message": "请选择开机情况" }]
+											},
 											"options": [
 												{
 													"itemName": "开不开机1",
@@ -117,7 +128,9 @@
 										{
 											"label": "机身外观",
 											"type": "radio",
-											"props": {},
+											"props": {
+												"rules": [{ "required": true, "message": "请选择机身外观" }]
+											},
 											"options": [
 												{
 													"itemName": "机身外观1",
@@ -146,7 +159,9 @@
 										{
 											"label": "机身是否弯曲",
 											"type": "radio",
-											"props": {},
+											"props": {
+												"rules": [{ "required": true, "message": "请选择机身是否弯曲" }]
+											},
 											"options": [
 												{
 													"itemName": "机身是否弯曲1",
@@ -175,7 +190,9 @@
 										{
 											"label": "屏幕外观",
 											"type": "radio",
-											"props": {},
+											"props": {
+												"rules": [{ "required": true, "message": "请选择屏幕外观" }]
+											},
 											"options": [
 												{
 													"itemName": "屏幕外观1",
@@ -204,7 +221,9 @@
 										{
 											"label": "屏幕显示",
 											"type": "radio",
-											"props": {},
+											"props": {
+												"rules": [{ "required": true, "message": "请选择屏幕显示" }]
+											},
 											"options": [
 												{
 													"itemName": "屏幕显示",
@@ -231,19 +250,41 @@
 						{
 							"label": "竞品价(元)",
 							"type": "input",
-							"name": [["竞品价(元)", "有此问题价格"], ["竞品价(元)", "无此问题价格"]],
+							"name": [
+								["竞品价(元)", "有此问题价格"],
+								["竞品价(元)", "无此问题价格"]
+							],
 							"props": {
-								"className": "inputList"
+								"className": "inputList",
+								"required": true
 							},
 							"options": [
-								{ "placeholder": "有此问题价格" },
-								{ "placeholder": "无此问题价格" }
+								{
+									"props": {
+										"rules": [{ "required": true, "message": "请填写有此问题价格" }]
+									},
+									"childrenProps": {
+										"placeholder": "有此问题价格",
+										"addonAfter": "元"
+									}
+								},
+								{
+									"props": {
+										"rules": [{ "required": true, "message": "请填写无此问题价格" }]
+									},
+									"childrenProps": {
+										"placeholder": "无此问题价格",
+										"addonAfter": "元"
+									}
+								}
 							]
 						},
 						{
 							"label": "协商结果",
 							"type": "radio",
-							"props": {},
+							"props": {
+								"rules": [{ "required": true, "message": "请选择协商结果" }]
+							},
 							"options": [
 								{
 									"itemName": "召回质检",
@@ -252,7 +293,9 @@
 										{
 											"label": "召回原因",
 											"type": "radio",
-											"props": {},
+											"props": {
+												"rules": [{ "required": true, "message": "请选择召回原因" }]
+											},
 											"options": [
 												{
 													"itemName": "买家不同意补差",
@@ -273,7 +316,9 @@
 										{
 											"label": "责任归属",
 											"type": "radio",
-											"props": {},
+											"props": {
+												"rules": [{ "required": true, "message": "请选择责任归属" }]
+											},
 											"options": [
 												{
 													"itemName": "卖家责任",
@@ -282,7 +327,9 @@
 														{
 															"label": "问题一级分类",
 															"type": "radio",
-															"props": {},
+															"props": {
+																"rules": [{ "required": true, "message": "请选择问题一级分类" }]
+															},
 															"options": [
 																{
 																	"itemName": "高危项目",
@@ -304,19 +351,23 @@
 														},
 														{
 															"label": "建议补差金额",
-															"type": "String",
+															"type": "string",
 															"value": "0",
 															"props": {}
 														},
 														{
 															"label": "卖家补差(元)",
 															"type": "input",
-															"props": {}
+															"props": {
+																"rules": [{ "required": true, "message": "请填写卖家补差(元)" }]
+															}
 														},
 														{
 															"label": "平台补差(元)",
 															"type": "input",
-															"props": {}
+															"props": {
+																"rules": [{ "required": true, "message": "请填写平台补差(元)" }]
+															}
 														}
 													]
 												},
