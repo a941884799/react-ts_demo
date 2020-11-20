@@ -49,7 +49,11 @@ const FormDemo = (): ReactNode => {
 	const onFinish = values => {
 		console.log('onFinish', values);
 	};
-
+	// 重置表单
+	const onReset = () => {
+		form.resetFields();
+		recordedValues = {};
+	};
 	// 加载表单配置数据
 	const getConfigs = async () => {
 		setLoading(true);
@@ -152,7 +156,7 @@ const FormDemo = (): ReactNode => {
 						<Button type="primary" htmlType="submit">
 							提交
 						</Button>
-						<Button htmlType="button" onClick={() => form.resetFields()}>
+						<Button htmlType="button" onClick={onReset}>
 							重置
 						</Button>
 					</Form.Item>
