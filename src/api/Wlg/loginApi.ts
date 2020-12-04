@@ -1,5 +1,5 @@
-import { createGetApi } from '@utils/api';
-
+import { createGetApi, createPostApi } from '@utils/api';
+import fetch from '@api/fetch';
 /**
  * @name getUserInfo
  * @desc 获取用户信息
@@ -8,5 +8,8 @@ import { createGetApi } from '@utils/api';
  * @return {AxiosPromise<UserInfo>}
  */
 
-// export const getUserInfo = createGetApi('/api1/user');
-export const getUserInfo = createGetApi('/static/userInfo.json');
+export const getUserInfo = createGetApi('/wlg', {
+	noHandleError: true, // 不使用 handleError 全局提示错误信息
+});
+
+// export const getUserInfo = createGetApi('/static/userInfo.json');

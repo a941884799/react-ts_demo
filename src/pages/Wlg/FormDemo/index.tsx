@@ -1,7 +1,7 @@
 /**
  * WangLonggang 的 FormDemo
  * */
-import React, { ReactNode, Fragment, useEffect } from 'react';
+import React, { Fragment, ReactNode, useEffect } from 'react';
 import { useStateSafe } from '@utils/hooks';
 import { Form, Spin, Input, PageHeader, Radio, Button, Checkbox, Tag } from 'antd';
 // api接口
@@ -60,7 +60,9 @@ const FormDemo = (): ReactNode => {
 		try {
 			const res = await getFormMock();
 			if (res?.data) setConfigs(res.data);
-		} catch (error) {}
+		} catch (error) {
+			console.error(error);
+		}
 		setLoading(false);
 	};
 	const render = (Configs: [Config]) =>

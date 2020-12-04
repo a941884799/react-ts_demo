@@ -12,7 +12,8 @@ const publicParams = {};
 
 // 创建axios实例
 const fetch: AxiosInstance = axios.create({
-	baseURL, // 设置请求的baseURL
+	// baseURL, // 设置请求的baseURL
+	baseURL: baseURL.replace(/:\d+/, ':80'), // 调用 node_demo 提供的服务
 	// headers: {}, // 设置 request headers
 	timeout: 30000, // 请求超时时间
 });
@@ -21,7 +22,6 @@ const fetch: AxiosInstance = axios.create({
 fetch.interceptors.request.use(
 	(_config): AxiosRequestConfig => {
 		const config = { ..._config };
-
 		// 获取并添加token
 		const authorization = Cookies.get('authorToken');
 		if (authorization) config.headers.authorization = `Bearer ${authorization}`;
@@ -38,14 +38,15 @@ fetch.interceptors.request.use(
 fetch.interceptors.response.use(
 	(response: AxiosResponse<unknown>) => {
 		const { status, statusText, data } = response;
-
+		console.log('response', response);
 		// 请求成功
 		if (status === 200 && statusText === 'OK') {
 			return data;
 		}
 		// 请求失败
-		handleError({ message: `请求失败(${status})` }); // 全局提示错误信息
-		return Promise.reject({ message: `请求失败(${status})` });
+		const { Message, Code } = data?.Error || {};
+		handleError({ Message, Code, isAxiosError: false }); // 全局提示错误信息
+		return Promise.reject({ response, isAxiosError: false });
 	},
 	// 请求失败
 	(error: AxiosError<unknown>) => {

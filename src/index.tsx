@@ -30,10 +30,9 @@ locale('zh-cn');
 
 // 配置全局 message
 message.config({
-	top: 30,
-	duration: 2,
-	maxCount: 2,
-	prefixCls: 'my-message ant-message',
+	// duration: 6,
+	// maxCount: 4,
+	rootPrefixCls: 'my-message ant-message', // ant-message 必须放最后，否则默认样式无法生效
 });
 
 // 注册全局变量，解决按需引入polyfill的缺陷
