@@ -10,7 +10,7 @@ type Params = Record<string, unknown>;
  * @time 2020年11月09日 16:14:03 星期一
  * @param {string} path: 接口路径
  * @param {AxiosRequestConfig} config: axios配置
- * @param {Object} params: 接口的参数
+ * @param {Params} params: 接口的参数
  * @return  {Api}
  */
 
@@ -24,7 +24,7 @@ export const createPostApi = (path: string, config: AxiosRequestConfig = {}) => 
  * @time 2020年11月09日 16:15:00 星期一
  * @param {string} path: 接口路径
  * @param {AxiosRequestConfig} config: axios配置
- * @param {Object} params: 接口的参数
+ * @param {Params} params: 接口的参数
  * @return  {Api}
  */
 

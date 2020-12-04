@@ -11,7 +11,6 @@ import './index.scss';
 interface Config {
 	label: string;
 	type: string;
-	parantItemId?: number | string; // 父控件的Id值
 	options: [
 		{
 			itemName: string;
@@ -123,11 +122,11 @@ const FormDemo = (): ReactNode => {
 						if (type === 'checkbox') {
 							return (
 								<Form.Item label={label + '值'} className="vertical-form-item">
-									{render(childrenList, name)}
+									{render(childrenList)}
 								</Form.Item>
 							);
 						}
-						return render(childrenList, name);
+						return render(childrenList);
 					})()}
 				</Fragment>
 			);

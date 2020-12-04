@@ -1,5 +1,4 @@
-import { createGetApi, createPostApi } from '@utils/api';
-import fetch from '@api/fetch';
+import { createGetApi } from '@utils/api';
 /**
  * @name getUserInfo
  * @desc 获取用户信息
