@@ -11,13 +11,13 @@ import { Spin } from 'antd';
 import './index.scss';
 
 const TransitionComponent = ({ Loding, delay = 200 }: { Loding?: ReactNode; delay?: number }): ReactNode => {
-	const [isShow, setIsShow] = useState<boolean>(false);
-	useEffect(() => {
-		const timer = setTimeout(() => setIsShow(true), delay);
-		return () => clearTimeout(timer);
-	}, []);
-	if (!isShow) return <></>;
-	return Loding ? <Loding /> : <Spin className="TransitionComponent" tip="正在加载......" />;
+  const [isShow, setIsShow] = useState<boolean>(false);
+  useEffect(() => {
+    const timer = setTimeout(() => setIsShow(true), delay);
+    return () => clearTimeout(timer);
+  }, []);
+  if (!isShow) return <></>;
+  return Loding ? <Loding /> : <Spin className="TransitionComponent" tip="正在加载......" />;
 };
 
 export default TransitionComponent;

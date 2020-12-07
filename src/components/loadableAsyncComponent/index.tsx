@@ -11,13 +11,13 @@ import React, { ReactNode, lazy, Suspense } from 'react';
 import TransitionComponent from '@src/components/TransitionComponent';
 
 const loadable = (loader: () => Promise<ReactNode>, Loading?: ReactNode): ReactNode => {
-	const AsyncComponent = lazy(loader);
-	const LoadableCom = props => (
-		<Suspense fallback={<TransitionComponent Loading={Loading} />}>
-			<AsyncComponent {...props} />
-		</Suspense>
-	);
-	return LoadableCom;
+  const AsyncComponent = lazy(loader);
+  const LoadableCom = props => (
+    <Suspense fallback={<TransitionComponent Loading={Loading} />}>
+      <AsyncComponent {...props} />
+    </Suspense>
+  );
+  return LoadableCom;
 };
 
 export default loadable;

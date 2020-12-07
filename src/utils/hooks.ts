@@ -10,9 +10,9 @@ import { useState, useEffect, useRef, SetStateAction, Dispatch } from 'react';
  * @return {Record<'current', boolean>} isMounted
  */
 export function useIsMounted(): boolean {
-	const isMounted = useRef(true);
-	useEffect(() => () => (isMounted.current = false), []);
-	return isMounted;
+  const isMounted = useRef(true);
+  useEffect(() => () => (isMounted.current = false), []);
+  return isMounted;
 }
 
 /**
@@ -23,14 +23,14 @@ export function useIsMounted(): boolean {
  * @return 返回一个状态值和一个处理后的更新它的函数。
  */
 export function useStateSafe<S>(initialState?: S | (() => S)): [S, Dispatch<SetStateAction<S>>] {
-	const [state, setState] = useState<S>(initialState);
-	const isMounted = useIsMounted();
-	const setStateSafe = (value: SetStateAction<S>) => {
-		if (isMounted.current) {
-			setState(value);
-		}
-	};
-	return [state, setStateSafe];
+  const [state, setState] = useState<S>(initialState);
+  const isMounted = useIsMounted();
+  const setStateSafe = (value: SetStateAction<S>) => {
+    if (isMounted.current) {
+      setState(value);
+    }
+  };
+  return [state, setStateSafe];
 }
 
 export default { useIsMounted, useStateSafe };

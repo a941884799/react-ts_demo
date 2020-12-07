@@ -30,21 +30,21 @@ locale('zh-cn');
 
 // 配置全局 message
 message.config({
-	// duration: 6,
-	// maxCount: 4,
-	rootPrefixCls: 'my-message ant-message', // ant-message 必须放最后，否则默认样式无法生效
+  // duration: 6,
+  // maxCount: 4,
+  rootPrefixCls: 'my-message ant-message', // ant-message 必须放最后，否则默认样式无法生效
 });
 
 // 注册全局变量，解决按需引入polyfill的缺陷
 globalVar();
 
 render(
-	<Provider store={store}>
-		<Router history={globalHistory}>
-			<ConfigProvider locale={zhCN}>
-				<App />
-			</ConfigProvider>
-		</Router>
-	</Provider>,
-	document.getElementById('root'),
+  <Provider store={store}>
+    <Router history={globalHistory}>
+      <ConfigProvider locale={zhCN}>
+        <App />
+      </ConfigProvider>
+    </Router>
+  </Provider>,
+  document.getElementById('root'),
 );

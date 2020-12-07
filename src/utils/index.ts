@@ -8,8 +8,8 @@
  * @return
  */
 export function globalVar(): void {
-	// 将Promise抛出为全局对象
-	window.Promise = Promise;
+  // 将Promise抛出为全局对象
+  window.Promise = Promise;
 }
 
 /**
@@ -21,11 +21,11 @@ export function globalVar(): void {
  * @return {object} 返回一个过滤后的对象
  */
 export function filterObj(obj: Record<unknown, unknown>, excludeKeys: Array<unknown>): Record<string, unknown> {
-	const newObj = { ...obj };
-	Object.keys(newObj).forEach(key => {
-		if (excludeKeys.includes(key)) delete newObj[key];
-	});
-	return newObj;
+  const newObj = { ...obj };
+  Object.keys(newObj).forEach(key => {
+    if (excludeKeys.includes(key)) delete newObj[key];
+  });
+  return newObj;
 }
 
 /**
@@ -35,7 +35,7 @@ export function filterObj(obj: Record<unknown, unknown>, excludeKeys: Array<unkn
  * @return  {boolean}
  */
 export function hasOwn(obj: Record<string, unknown>, key: string): boolean {
-	return obj && hasOwnProperty.call(obj, key);
+  return obj && hasOwnProperty.call(obj, key);
 }
 
 /**
@@ -47,29 +47,29 @@ export function hasOwn(obj: Record<string, unknown>, key: string): boolean {
  * @return {string} type
  */
 export function getType(v: unknown): string {
-	const { toString } = Object.prototype;
-	const map: {
-		[key: string]: string;
-	} = {
-		'[object Boolean]': 'boolean',
-		'[object Number]': 'number',
-		'[object String]': 'string',
-		'[object Function]': 'function',
-		'[object Array]': 'array',
-		'[object Date]': 'date',
-		'[object RegExp]': 'regExp',
-		'[object Undefined]': 'undefined',
-		'[object Null]': 'null',
-		'[object Object]': 'object',
-	};
-	if (v instanceof Element) {
-		return 'element';
-	}
-	const temp = toString.call(v);
-	if (hasOwn(map, temp)) {
-		return map[temp];
-	}
-	return typeof v;
+  const { toString } = Object.prototype;
+  const map: {
+    [key: string]: string;
+  } = {
+    '[object Boolean]': 'boolean',
+    '[object Number]': 'number',
+    '[object String]': 'string',
+    '[object Function]': 'function',
+    '[object Array]': 'array',
+    '[object Date]': 'date',
+    '[object RegExp]': 'regExp',
+    '[object Undefined]': 'undefined',
+    '[object Null]': 'null',
+    '[object Object]': 'object',
+  };
+  if (v instanceof Element) {
+    return 'element';
+  }
+  const temp = toString.call(v);
+  if (hasOwn(map, temp)) {
+    return map[temp];
+  }
+  return typeof v;
 }
 
 /**
@@ -81,8 +81,8 @@ export function getType(v: unknown): string {
  * @param {Function} cd 延迟后执行函数
  */
 export const sleep = (delay = 0, cb = () => null): void =>
-	new Promise(resolve => {
-		setTimeout(() => {
-			resolve(typeof cb === 'function' && cb());
-		}, delay);
-	});
+  new Promise(resolve => {
+    setTimeout(() => {
+      resolve(typeof cb === 'function' && cb());
+    }, delay);
+  });
