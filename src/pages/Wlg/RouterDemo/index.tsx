@@ -10,7 +10,7 @@ import { pathToRoute } from '@router/index';
 
 let initUnlisten = null;
 let initUnblock = null;
-const RouterDemo = ({ history, ...props }: { history: History }): ReactNode => {
+const RouterDemo = ({ history }: { history: History }): ReactNode => {
   const [unlisten, setUnlisten] = useState<() => void>(() => initUnlisten);
   const [unblock, setUnblock] = useState<() => void>(() => initUnblock);
   // 开启路由监听
@@ -52,6 +52,7 @@ const RouterDemo = ({ history, ...props }: { history: History }): ReactNode => {
   useEffect(() => {
     console.log('unlisten或unblock更新');
   }, [unblock, unlisten]);
+
   return (
     <div className="page-WlgRouterDemo">
       <PageHeader

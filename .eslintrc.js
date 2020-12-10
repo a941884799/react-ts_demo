@@ -39,6 +39,7 @@ module.exports = {
   rules: {
     'import/named': 2, // 确保命名导入对应于远程文件中的命名导出
     'arrow-body-style': ['error', 'as-needed'], // 箭头函数主体样式,不使用括号将其省略（默认）
+    'prefer-template': 1, // 要求使用模板字面量而非字符串连接
   },
   // 忽略文件和目录
   ignorePatterns: ['node_modules', 'dist'],

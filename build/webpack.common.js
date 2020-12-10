@@ -1,11 +1,11 @@
 /** @format */
-
 const path = require('path');
 const Webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPluginLoader = require('mini-css-extract-plugin').loader;
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'); // react组件热更新
 
 module.exports = env => ({
   // 入口
@@ -26,7 +26,12 @@ module.exports = env => ({
         exclude: path.resolve(__dirname, '../node_modules'),
         options: {
           presets: ['@babel/env', '@babel/preset-react', '@babel/preset-typescript'],
-          plugins: [['@babel/plugin-transform-runtime', { corejs: 3 }], ['@babel/plugin-syntax-dynamic-import']],
+          plugins: [
+            ['@babel/plugin-transform-runtime', { corejs: 3 }],
+            ['@babel/plugin-syntax-dynamic-import'],
+            // react热更新
+            env.mode === 'dev' && require.resolve('react-refresh/babel'),
+          ].filter(Boolean),
         },
       },
       {
@@ -40,8 +45,8 @@ module.exports = env => ({
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
-          // 生产环境使用 MiniCssExtractPlugin.loader拆除css,开发环境使用 style-loader
-          env.mode === 'prod' ? { loader: MiniCssExtractPluginLoader, options: { esModule: true } } : 'style-loader',
+          // 开发环境使用 style-loader, 生产环境使用 MiniCssExtractPlugin.loader分离css,
+          env.mode === 'dev' ? 'style-loader' : { loader: MiniCssExtractPluginLoader, options: { esModule: true } },
           { loader: 'css-loader', options: { sourceMap: true } },
           'sass-loader',
         ],
@@ -54,7 +59,7 @@ module.exports = env => ({
             options: {
               esModule: false,
               limit: 3072,
-              name: env.mode === 'prod' ? 'images/[name].[hash:8].[ext]' : '[name].[ext]',
+              name: env.mode === 'dev' ? '[name].[ext]' : 'images/[name].[hash:8].[ext]',
             },
           },
         ],
@@ -85,7 +90,9 @@ module.exports = env => ({
     }),
     // 将运行时模块内联到html中
     new ScriptExtHtmlWebpackPlugin({ inline: /runtime(\..*)?\.js$/ }),
-  ],
+    // react 热更新
+    env.mode === 'dev' && new ReactRefreshWebpackPlugin(),
+  ].filter(Boolean),
   resolve: {
     alias: {
       '@src': path.resolve(__dirname, '../src'),

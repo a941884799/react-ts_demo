@@ -14,6 +14,7 @@ const UPTATAUSERINFO = 'UPTATAUSERINFO';
 export const fetchUserInfo = async (dispatch: DispatchProp): void => {
   try {
     const res = await getUserInfo();
+    console.log(res);
     if (res?.UserInfo) dispatch({ type: UPTATAUSERINFO, UserInfo: res.UserInfo });
   } catch (error) {
     console.log(error, 'error');

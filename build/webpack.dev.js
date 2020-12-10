@@ -27,10 +27,10 @@ module.exports = merge(commonConfig, {
     // 正向代理
     proxy: [
       {
-        context: ['/api6'],
-        target: 'http://localhost:3000',
+        context: ['/api'],
+        target: 'http://localhost',
         changeOrigin: true, // 默认值：false - true为开启跨域代理
-        pathRewrite: { '^/api': '' }, // 重写路径
+        pathRewrite: { '^/api': '/api' }, // 重写路径
         // secure: false, // 接受运行在 HTTPS 上，且使用了无效证书的后端服务器
       },
       {

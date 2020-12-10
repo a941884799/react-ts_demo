@@ -52,13 +52,14 @@ const FormDemo = (): ReactNode => {
   const onReset = () => {
     form.resetFields();
     recordedValues = {};
+    setFieldsValue({});
   };
   // 加载表单配置数据
   const getConfigs = async () => {
     setLoading(true);
     try {
       const res = await getFormMock();
-      if (res?.data) setConfigs(res.data);
+      if (res?.configs?.length) setConfigs(res.configs);
     } catch (error) {
       console.error(error);
     }
@@ -121,7 +122,7 @@ const FormDemo = (): ReactNode => {
             if (childrenList.length === 0) return <></>;
             if (type === 'checkbox') {
               return (
-                <Form.Item label={label + '值'} className="vertical-form-item">
+                <Form.Item label={`${label}值`} className="vertical-form-item">
                   {render(childrenList)}
                 </Form.Item>
               );
@@ -138,7 +139,7 @@ const FormDemo = (): ReactNode => {
   }, []);
   return (
     <div className="page-WlgFormDemo">
-      <PageHeader title="表单练习" subTitle="This is Form demo" tags={<Tag color="red">demo</Tag>} />
+      <PageHeader title="动态表单练习" subTitle="This is Form demo" tags={<Tag color="red">demo</Tag>} />
       <Spin tip="正在加载表单" spinning={Loading}>
         <Form
           name="WlgFormDemo"
@@ -151,7 +152,6 @@ const FormDemo = (): ReactNode => {
           }}
           onFinish={onFinish}
         >
-          <Form.Item label="动态表单练习"></Form.Item>
           {render(Configs)}
           <Form.Item key="submit" label=" " colon={false}>
             <Button type="primary" htmlType="submit">

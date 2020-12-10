@@ -11,7 +11,10 @@ import { useState, useEffect, useRef, SetStateAction, Dispatch } from 'react';
  */
 export function useIsMounted(): boolean {
   const isMounted = useRef(true);
-  useEffect(() => () => (isMounted.current = false), []);
+  useEffect(() => {
+    isMounted.current = true;
+    return () => (isMounted.current = false);
+  }, []);
   return isMounted;
 }
 
@@ -26,9 +29,7 @@ export function useStateSafe<S>(initialState?: S | (() => S)): [S, Dispatch<SetS
   const [state, setState] = useState<S>(initialState);
   const isMounted = useIsMounted();
   const setStateSafe = (value: SetStateAction<S>) => {
-    if (isMounted.current) {
-      setState(value);
-    }
+    if (isMounted.current) setState(value);
   };
   return [state, setStateSafe];
 }

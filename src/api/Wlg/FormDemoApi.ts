@@ -6,5 +6,4 @@ import { createGetApi } from '@utils/api';
  * @return {AxiosPromise<any>}
  */
 
-// export const getUserInfo = createGetApi('/api1/user');
-export const getFormMock = createGetApi('/static/formMock.json');
+export const getFormMock = createGetApi('/api/getFormConfigs');
