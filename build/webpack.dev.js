@@ -17,8 +17,7 @@ module.exports = merge(commonConfig, {
     stats: 'errors-only',
     // progress: true, // 将运行进度输出到控制台(会导致构建速度缓慢)
     // clientLogLevel: 'silent', // 使用inline mode时，在开发工具控制台将显示消息,设为'silent'可关闭日志
-    // 在浏览器上全屏显示编译的errors或warnings。
-    overlay: { errors: true, warnings: false },
+    overlay: true, // 在浏览器上全屏显示编译的errors信息。如果要显示警告和错误 { errors: true, warnings: true }
     disableHostCheck: true, // 绕过主机检查,不建议这样做，因为不检查主机的应用程序容易受到 DNS 重新连接攻击。
     host: 'localhost', // 主机名，默认为localhost,设置0.0.0.0则服务器外部可访问
     port: 9000, // 端口号
