@@ -3,6 +3,7 @@ import { AxiosError, AxiosRequestConfig } from 'axios';
 import { message as antdMessage } from 'antd';
 
 type Params = Record<string, unknown>;
+
 /**
  * @name createPostApi
  * @desc 创建 post 类型 api接口
@@ -28,7 +29,7 @@ export const createPostApi = (path: string, config: AxiosRequestConfig = {}) => 
  * @return  {Api}
  */
 
-export const createGetApi = (path: string, config: AxiosRequestConfig) => (params: Params = {}): Promise =>
+export const createGetApi = (path: string, config: AxiosRequestConfig = {}) => (params: Params = {}): Promise =>
   fetch.get(path, { params, ...config });
 
 /**
