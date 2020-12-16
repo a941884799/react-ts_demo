@@ -2,8 +2,6 @@
 
 /**
  * @Descripttion: 过滤对象中的某些属性
- * @Author: WangLonggang
- * @Date: 2020-09-24 11:41:48
  * @param {object} obj 原始对象
  * @param {array} excludeKeys 要排除的属性列表
  * @return {object} 返回一个过滤后的对象
@@ -20,19 +18,14 @@ export function filterObj(obj: Record<unknown, unknown>, excludeKeys: Array<unkn
  * @desc 检查 obj 是否包含 key
  * @param {Object} obj 要检查的对象
  * @param {string} key 要检查的key
- * @return  {boolean}
  */
 export function hasOwn(obj: Record<string, unknown>, key: string): boolean {
   return obj && hasOwnProperty.call(obj, key);
 }
 
 /**
- * @name getType
  * @desc 获取某个元素的类型
- * @author 王龙岗
- * @time 2020年11月10日 15:16:24 星期二
  * @param {unknown} v 要获取类型的元素
- * @return {string} type
  */
 export function getType(v: unknown): string {
   const { toString } = Object.prototype;
@@ -61,10 +54,7 @@ export function getType(v: unknown): string {
 }
 
 /**
- * @name	sleep
  * @desc	等待延迟
- * @author 王龙岗
- * @time 2020年11月11日 09:59:03 星期三
  * @param {Number} delay 延迟时间
  * @param {Function} cd 延迟后执行函数
  */
