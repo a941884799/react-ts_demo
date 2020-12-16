@@ -4,6 +4,7 @@
  */
 import React, { Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import ErrorBoundary from '@src/components/ErrorBoundary';
 import TransitionComponent from '@src/components/TransitionComponent';
 import { createHashHistory } from 'history';
 import Home from '@pages/Home'; // 首页组件
@@ -66,16 +67,18 @@ function createRoute(route: Route.RouteConfig, parentKey?: string, rootKey?: str
 
 // 路由组件
 const RouterComponents = (): ReactNode => (
-  <Suspense fallback={<TransitionComponent />}>
-    <Switch>
-      {RouteList.concat(
-        <Redirect exact from="/" to="/Home" key="/" />,
-        <Route path="*" key="404">
-          <div style={{ fontSize: 20, marginTop: 300, textAlign: 'center' }}>404</div>
-        </Route>,
-      )}
-    </Switch>
-  </Suspense>
+  <ErrorBoundary>
+    <Suspense fallback={<TransitionComponent />}>
+      <Switch>
+        {RouteList.concat(
+          <Redirect exact from="/" to="/Home" key="/" />,
+          <Route path="*" key="404">
+            <div style={{ fontSize: 20, marginTop: 300, textAlign: 'center' }}>404</div>
+          </Route>,
+        )}
+      </Switch>
+    </Suspense>
+  </ErrorBoundary>
 );
 
 export default RouterComponents;

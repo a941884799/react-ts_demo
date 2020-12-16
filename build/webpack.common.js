@@ -25,12 +25,37 @@ module.exports = env => ({
         loader: 'babel-loader?cacheDirectory',
         exclude: path.resolve(__dirname, '../node_modules'),
         options: {
-          presets: ['@babel/env', '@babel/preset-react', '@babel/preset-typescript'],
+          // 预设
+          presets: [
+            [
+              '@babel/env',
+              {
+                // 目标环境
+                targets: {
+                  browsers: ['last 2 versions', 'ie >= 10'], // 浏览器
+                  node: 'current', // node
+                },
+                useBuiltIns: 'usage', // 怎么运用 polyfill
+                corejs: { version: 3, proposals: false },
+                modules: false, // 是否转译module syntax，默认是 commonjs
+                debug: false, // 是否输出启用的plugins列表
+                spec: false, // 是否允许more spec compliant，但可能转译出的代码更慢
+                loose: false, // 是否允许生成更简单es5的代码，但可能不那么完全符合ES6语义
+                include: [], // 总是启用的 plugins
+                exclude: [], // 强制不启用的 plugins
+                forceAllTransforms: false, // 强制使用所有的plugins，用于只能支持ES5的uglify可以正确压缩代码
+              },
+            ],
+            '@babel/preset-react',
+            '@babel/preset-typescript',
+          ],
+          // 插件
           plugins: [
-            ['@babel/plugin-transform-runtime', { corejs: 3 }],
+            ['@babel/plugin-proposal-class-properties'], // 编译类
+            ['@babel/plugin-transform-runtime'],
             ['@babel/plugin-syntax-dynamic-import'],
-            // react热更新
-            env.mode === 'dev' && require.resolve('react-refresh/babel'),
+            env.mode === 'dev' && 'react-refresh/babel', // react热更新
+            env.mode === 'dev' && '@babel/plugin-transform-react-jsx-source', // 组件栈追踪(显示报错的具体行数)
           ].filter(Boolean),
         },
       },
@@ -70,9 +95,6 @@ module.exports = env => ({
   plugins: [
     // 定义全局常量
     new Webpack.DefinePlugin({
-      globalBoolean: JSON.stringify(true),
-      globalAge: JSON.stringify(25),
-      globalName: JSON.stringify('王龙岗'),
       globalObj: JSON.stringify({ name: '王龙岗', sex: '男', age: 25 }),
     }),
     // 全局引入lodash，并命名为_
@@ -91,7 +113,14 @@ module.exports = env => ({
     // 将运行时模块内联到html中
     new ScriptExtHtmlWebpackPlugin({ inline: /runtime(\..*)?\.js$/ }),
     // react 热更新
-    env.mode === 'dev' && new ReactRefreshWebpackPlugin(),
+    env.mode === 'dev' &&
+      new ReactRefreshWebpackPlugin({
+        overlay: false, // 禁用此插件的错误覆盖
+        // overlay: {
+        //   // sockHost默认为location.hostname，但有使用代理，所以需要自己再指定 sockHost
+        //   sockHost: 'localhost:9000',
+        // },
+      }),
   ].filter(Boolean),
   resolve: {
     alias: {

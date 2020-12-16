@@ -7,7 +7,6 @@ import { Form, Spin, Input, PageHeader, Radio, Button, Checkbox, Tag } from 'ant
 // api接口
 import { getFormMock } from '@api/Wlg/FormDemoApi';
 import './index.scss';
-
 interface Config {
   label: string;
   type: string;
@@ -22,7 +21,10 @@ interface Config {
 
 // 记录的表单值，反正跳转页面时被销毁
 let recordedValues = {};
+// 保存 表单配置数据
+let storeConfigs = [];
 
+// 表单布局
 const formLayout = {
   labelAlign: 'right',
   wrapperCol: { span: 16 },
@@ -39,11 +41,11 @@ const FormDemo = (): ReactNode => {
   // 经 Form.useForm() 创建的 form 控制实例，不提供时会自动创建
   const [form] = Form.useForm();
   // 表单配置数据
-  const [Configs, setConfigs] = useStateSafe<[Config] | []>([]);
+  const [Configs, setConfigs] = useStateSafe<[Config] | []>([...storeConfigs]);
   // 当前表单值
   const [FieldsValue, setFieldsValue] = useStateSafe(recordedValues);
   // 表单配置数据加载状态
-  const [Loading, setLoading] = useStateSafe(true);
+  const [Loading, setLoading] = useStateSafe(false);
   // 提交表单且数据验证成功后回调事件
   const onFinish = values => {
     console.log('onFinish', values);
@@ -56,10 +58,11 @@ const FormDemo = (): ReactNode => {
   };
   // 加载表单配置数据
   const getConfigs = async () => {
+    if (storeConfigs.length) return;
     setLoading(true);
     try {
       const res = await getFormMock();
-      if (res?.configs?.length) setConfigs(res.configs);
+      if (res?.configs?.length) setConfigs((storeConfigs = res.configs));
     } catch (error) {
       console.error(error);
     }
@@ -139,7 +142,7 @@ const FormDemo = (): ReactNode => {
   }, []);
   return (
     <div className="page-WlgFormDemo">
-      <PageHeader title="动态表单练习" subTitle="This is Form demo" tags={<Tag color="red">demo</Tag>} />
+      <PageHeader title="动态表单练习" tags={<Tag color="red">demo</Tag>} />
       <Spin tip="正在加载表单" spinning={Loading}>
         <Form
           name="WlgFormDemo"

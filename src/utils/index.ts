@@ -1,18 +1,6 @@
 /** @format */
 
 /**
- * @Descripttion: 注册全局变量，解决按需引入polyfill的缺陷
- * @Author: WangLonggang
- * @Date: 2020-09-24 11:41:48
- * @param
- * @return
- */
-export function globalVar(): void {
-  // 将Promise抛出为全局对象
-  window.Promise = Promise;
-}
-
-/**
  * @Descripttion: 过滤对象中的某些属性
  * @Author: WangLonggang
  * @Date: 2020-09-24 11:41:48

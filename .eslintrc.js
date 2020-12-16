@@ -18,9 +18,6 @@ module.exports = {
   // 全局变量 'readonly' 'writable' 'off'
   globals: {
     _: 'readonly', // Lodash
-    globalBoolean: 'readonly',
-    globalAge: 'readonly',
-    globalName: 'readonly',
     globalObj: 'readonly',
   },
   // 定义了该eslint文件所依赖的插件

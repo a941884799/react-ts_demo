@@ -1,11 +1,14 @@
 /**
  * 入口文件
  */
+// '@babel/env'的useBuiltIns为false或'entry'时需在入口处引入下面两项
+// import 'core-js/stable';
+// import 'regenerator-runtime/runtime';
+
 import React from 'react';
 import { render } from 'react-dom';
 import App from './App';
 import '@styles/global';
-import { globalVar } from '@utils/index';
 
 /** =========== router全局配置 =========== **/
 import { Router } from 'react-router-dom';
@@ -34,9 +37,6 @@ message.config({
   // maxCount: 4,
   rootPrefixCls: 'my-message ant-message', // ant-message 必须放最后，否则默认样式无法生效
 });
-
-// 注册全局变量，解决按需引入polyfill的缺陷
-globalVar();
 
 render(
   <Provider store={store}>

@@ -3,13 +3,14 @@ import Cookies from 'js-cookie';
 // 全局提示错误信息
 import { handleError } from '@utils/api';
 
+const isProduction = process?.env?.NODE_ENV === 'production';
 // 接口公共参数
 const publicData = {};
 const publicParams = {};
 
 // 创建axios实例
 const fetch: AxiosInstance = axios.create({
-  // baseURL: location.origin, // 设置请求的baseURL
+  baseURL: isProduction ? 'http://localhost:9090' : location.origin, // 设置请求的baseURL
   // headers: {}, // 设置 request headers
   timeout: 30000, // 请求超时时间
 });
