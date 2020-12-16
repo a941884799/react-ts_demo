@@ -17,7 +17,7 @@ const TransitionComponent = ({ Loding, delay = 200 }: { Loding?: ReactNode; dela
     return () => clearTimeout(timer);
   }, []);
   if (!isShow) return <></>;
-  return Loding ? <Loding /> : <Spin className="TransitionComponent" tip="正在加载......" />;
+  return Loding ? <Loding /> : <Spin size="large" className="TransitionComponent" tip="Loading..." />;
 };
 
 export default TransitionComponent;

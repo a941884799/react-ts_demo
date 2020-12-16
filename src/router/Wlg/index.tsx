@@ -1,4 +1,5 @@
-import React, { lazy } from 'react';
+import React from 'react';
+import _import from '@utils/_import';
 import { DatabaseFilled } from '@ant-design/icons';
 
 const WlgRoutes: Route.RouteConfig = {
@@ -13,8 +14,8 @@ const WlgRoutes: Route.RouteConfig = {
       key: 'WlgReduxDemo',
       path: '/Wlg/ReduxDemo',
       isMenu: true,
-      // component: lazy(() => import(/* webpackChunkName: "ReduxDemo" */ '@pages/Wlg/ReduxDemo')),
-      component: lazy(() => import('@pages/Wlg/ReduxDemo')),
+      // component: lazy(() => import(/* webpackChunkName: "ReduxDemo" */ 'Wlg/ReduxDemo')),
+      component: _import('Wlg/ReduxDemo'),
       icon: <DatabaseFilled />,
     },
     {
@@ -22,7 +23,7 @@ const WlgRoutes: Route.RouteConfig = {
       key: 'WlgRouterDemo',
       path: '/Wlg/RouterDemo',
       isMenu: true,
-      component: lazy(() => import('@pages/Wlg/RouterDemo')),
+      component: _import('Wlg/RouterDemo'),
       icon: <DatabaseFilled />,
     },
     {
@@ -30,7 +31,7 @@ const WlgRoutes: Route.RouteConfig = {
       key: 'WlgFormDemo',
       path: '/Wlg/FormDemo',
       isMenu: true,
-      component: lazy(() => import('@pages/Wlg/FormDemo')),
+      component: _import('Wlg/FormDemo'),
       icon: <DatabaseFilled />,
     },
   ],

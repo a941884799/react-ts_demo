@@ -14,7 +14,7 @@ module.exports = merge(commonConfig, {
     modules: false, // 取消模块构建信息
   },
   output: {
-    filename: 'js/[name].[contenthash:8].js',
+    filename: 'js/[name].[contenthash:6].js',
     publicPath: '/',
   },
   plugins: [
