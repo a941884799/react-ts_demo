@@ -1,13 +1,34 @@
 const merge = require('webpack-merge');
 const commonConfig = require('./webpack.common')({ mode: 'dev' });
 const path = require('path');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'); // react组件热更新
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = merge(commonConfig, {
   mode: 'development',
   devtool: 'source-map', // 可以切换成"inline-cheap-source-map"优化性能，但是不利于debug
   output: {
     filename: '[name].js',
+    pathinfo: false, // 输出结果不携带路径信息
   },
+  optimization: {
+    // 避免额外的优化步骤
+    removeAvailableModules: false,
+    removeEmptyChunks: false,
+    splitChunks: false,
+  },
+  plugins: [
+    // 用于Webpack的ESLint插件
+    new ESLintPlugin({ fix: true, extensions: ['js', 'jsx', 'ts', 'tsx'] }),
+    // react 热更新
+    new ReactRefreshWebpackPlugin({
+      overlay: false, // 禁用此插件的错误覆盖
+      // overlay: {
+      //   // sockHost默认为location.hostname，但有使用代理，所以需要自己再指定 sockHost
+      //   sockHost: 'localhost:9000',
+      // },
+    }),
+  ],
   devServer: {
     contentBase: path.resolve(__dirname, '../dist'),
     publicPath: '/',

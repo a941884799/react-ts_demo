@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPluginLoader = require('mini-css-extract-plugin').loader;
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'); // react组件热更新
 
 module.exports = env => ({
   // 入口
@@ -22,8 +21,9 @@ module.exports = env => ({
     rules: [
       {
         test: /\.(j|t)sx?$/,
+        include: path.resolve(__dirname, '../src'),
+        // enforce: 'pre', // 最高权重,最先加载
         loader: 'babel-loader?cacheDirectory',
-        exclude: path.resolve(__dirname, '../node_modules'),
         options: {
           // 预设
           presets: [
@@ -60,14 +60,6 @@ module.exports = env => ({
         },
       },
       {
-        enforce: 'pre',
-        test: /\.(j|t)sx?$/,
-        loader: 'eslint-loader',
-        exclude: [path.resolve(__dirname, '../node_modules'), path.resolve(__dirname, '../dist')],
-        // include: [path.resolve(__dirname, '../src')],
-        options: { cache: true, fix: false },
-      },
-      {
         test: /\.(sa|sc|c)ss$/,
         use: [
           // 开发环境使用 style-loader, 生产环境使用 MiniCssExtractPlugin.loader分离css,
@@ -94,9 +86,9 @@ module.exports = env => ({
   // 插件
   plugins: [
     // 定义全局常量
-    new Webpack.DefinePlugin({
-      globalObj: JSON.stringify({ name: '王龙岗', sex: '男', age: 25 }),
-    }),
+    // new Webpack.DefinePlugin({
+    //   globalObj: JSON.stringify({ name: '王龙岗', sex: '男', age: 25 }),
+    // }),
     // 全局引入lodash，并命名为_
     new Webpack.ProvidePlugin({
       _: 'lodash',
@@ -112,16 +104,7 @@ module.exports = env => ({
     }),
     // 将运行时模块内联到html中
     new ScriptExtHtmlWebpackPlugin({ inline: /runtime(\..*)?\.js$/ }),
-    // react 热更新
-    env.mode === 'dev' &&
-      new ReactRefreshWebpackPlugin({
-        overlay: false, // 禁用此插件的错误覆盖
-        // overlay: {
-        //   // sockHost默认为location.hostname，但有使用代理，所以需要自己再指定 sockHost
-        //   sockHost: 'localhost:9000',
-        // },
-      }),
-  ].filter(Boolean),
+  ],
   resolve: {
     alias: {
       '@src': path.resolve(__dirname, '../src'),
@@ -135,6 +118,6 @@ module.exports = env => ({
       '@styles': path.resolve(__dirname, '../src/assets/styles'),
       '@images': path.resolve(__dirname, '../src/assets/images'),
     },
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.scss'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.scss', '.css'],
   },
 });
