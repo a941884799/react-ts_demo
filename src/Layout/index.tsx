@@ -7,6 +7,8 @@ import { Layout, Menu, Breadcrumb, message } from 'antd';
 // 路由配置
 import RouterComponents, { pathToRoute, keyToRoute, keyToPath, routesConfig } from '@router/index';
 import { useLocation, useHistory } from 'react-router';
+
+import { uniq } from 'lodash';
 import { filterObj } from '@utils/index';
 import './index.scss';
 
@@ -109,7 +111,7 @@ const MyLayout = (): ReactNode => {
   useEffect(() => {
     const newOpenKeys = openKeys.concat(getOpenKeys(currentRoute.parentKey));
     // 去重
-    setOpenKeys(_.uniq(newOpenKeys));
+    setOpenKeys(uniq(newOpenKeys));
   }, [currentRoute.parentKey]);
   return (
     <Layout className="root-layout">
@@ -144,7 +146,7 @@ const MyLayout = (): ReactNode => {
                 // onCollapse 会自动触发 onOpenChange([])
                 if (collapsed) return;
                 const newOpenKeys = openKeys.concat(getOpenKeys(currentRoute.parentKey));
-                setOpenKeys(_.uniq(newOpenKeys));
+                setOpenKeys(uniq(newOpenKeys));
               }}
             >
               <Menu

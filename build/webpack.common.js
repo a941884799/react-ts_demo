@@ -1,10 +1,17 @@
 /** @format */
 const path = require('path');
-const Webpack = require('webpack');
+// const Webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPluginLoader = require('mini-css-extract-plugin').loader;
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+// const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const threadLoader = require('thread-loader');
+
+// 通过预热worker池（worker pool）来防止启动worker时的高延迟(约600ms)。
+const jsWorkerPool = { poolTimeout: 2000 };
+threadLoader.warmup(jsWorkerPool, ['babel-loader']);
+const cssWorkerPool = { poolTimeout: 2000, poolParallelJobs: 2 };
+threadLoader.warmup(cssWorkerPool, ['css-loader', 'sass-loader']);
 
 module.exports = env => ({
   // 入口
@@ -16,60 +23,74 @@ module.exports = env => ({
     // 创建一个 所有chunk 共享的运行时文件,别名为 runtime
     runtimeChunk: { name: 'runtime' },
   },
+  stats: {
+    assets: false, // 取消资源信息，如果资源过多可启用
+    warnings: false, // 取消警告信息
+    children: false, // 取消子级信息
+    modules: false, // 取消模块构建信息
+  },
   // 模组
   module: {
     rules: [
       {
+        // enforce: 'pre', // 最高权重,最先加载
         test: /\.(j|t)sx?$/,
         include: path.resolve(__dirname, '../src'),
-        // enforce: 'pre', // 最高权重,最先加载
-        loader: 'babel-loader?cacheDirectory',
-        options: {
-          // 预设
-          presets: [
-            [
-              '@babel/env',
-              {
-                // 目标环境
-                targets: {
-                  browsers: ['last 2 versions', 'ie >= 10'], // 浏览器
-                  node: 'current', // node
-                },
-                useBuiltIns: 'usage', // 怎么运用 polyfill
-                corejs: { version: 3, proposals: false },
-                modules: false, // 是否转译module syntax，默认是 commonjs
-                debug: false, // 是否输出启用的plugins列表
-                spec: false, // 是否允许more spec compliant，但可能转译出的代码更慢
-                loose: false, // 是否允许生成更简单es5的代码，但可能不那么完全符合ES6语义
-                include: [], // 总是启用的 plugins
-                exclude: [], // 强制不启用的 plugins
-                forceAllTransforms: false, // 强制使用所有的plugins，用于只能支持ES5的uglify可以正确压缩代码
-              },
-            ],
-            '@babel/preset-react',
-            '@babel/preset-typescript',
-          ],
-          // 插件
-          plugins: [
-            ['@babel/plugin-proposal-class-properties'], // 编译类
-            ['@babel/plugin-transform-runtime'],
-            ['@babel/plugin-syntax-dynamic-import'],
-            env.mode === 'dev' && 'react-refresh/babel', // react热更新
-            env.mode === 'dev' && '@babel/plugin-transform-react-jsx-source', // 组件栈追踪(显示报错的具体行数)
-          ].filter(Boolean),
-        },
+        exclude: [path.resolve(__dirname, '../node_modules')],
+        use: [
+          { loader: 'thread-loader', options: jsWorkerPool }, // 分流,请仅在耗时的 loader 上使用
+          {
+            loader: 'babel-loader?cacheDirectory',
+            options: {
+              // 预设
+              presets: [
+                [
+                  '@babel/env',
+                  {
+                    // 目标环境
+                    targets: {
+                      browsers: ['last 2 versions', 'ie >= 10'], // 浏览器
+                      node: 'current', // node
+                    },
+                    useBuiltIns: 'usage', // 怎么运用 polyfill
+                    corejs: { version: 3, proposals: false },
+                    modules: false, // 是否转译module syntax，默认是 commonjs
+                    debug: false, // 是否输出启用的plugins列表
+                    spec: false, // 是否允许more spec compliant，但可能转译出的代码更慢
+                    loose: false, // 是否允许生成更简单es5的代码，但可能不那么完全符合ES6语义
+                    include: [], // 总是启用的 plugins
+                    exclude: [], // 强制不启用的 plugins
+                    forceAllTransforms: false, // 强制使用所有的plugins，用于只能支持ES5的uglify可以正确压缩代码
+                  },
+                ],
+                '@babel/preset-react',
+                '@babel/preset-typescript',
+              ],
+              // 插件
+              plugins: [
+                ['@babel/plugin-proposal-class-properties'], // 编译类
+                ['@babel/plugin-transform-runtime'],
+                ['@babel/plugin-syntax-dynamic-import'],
+                env.mode === 'dev' && 'react-refresh/babel', // react热更新
+                env.mode === 'dev' && '@babel/plugin-transform-react-jsx-source', // 组件栈追踪(显示报错的具体行数)
+              ].filter(Boolean),
+            },
+          },
+        ],
       },
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
           // 开发环境使用 style-loader, 生产环境使用 MiniCssExtractPlugin.loader分离css,
           env.mode === 'dev' ? 'style-loader' : { loader: MiniCssExtractPluginLoader, options: { esModule: true } },
-          { loader: 'css-loader', options: { sourceMap: true } },
+          { loader: 'thread-loader', options: cssWorkerPool }, // 分流,请仅在耗时的 loader 上使用
+          env.mode === 'dev' ? { loader: 'css-loader', options: { sourceMap: true } } : 'css-loader',
           'sass-loader',
         ],
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg|ico)$/,
+        include: path.resolve(__dirname, '../src'),
         use: [
           {
             loader: 'url-loader',
@@ -86,24 +107,18 @@ module.exports = env => ({
   // 插件
   plugins: [
     // 定义全局常量
-    // new Webpack.DefinePlugin({
-    //   globalObj: JSON.stringify({ name: '王龙岗', sex: '男', age: 25 }),
-    // }),
+    // new Webpack.DefinePlugin({ globalObj: JSON.stringify({ name: '王xx' }) }),
     // 全局引入lodash，并命名为_
-    new Webpack.ProvidePlugin({
-      _: 'lodash',
-    }),
+    // new Webpack.ProvidePlugin({ _: 'lodash' }),
     // 直接拷贝 static 目录的东西,不进行打包压缩
-    new CopyWebpackPlugin({
-      patterns: [{ from: 'static', to: 'static' }],
-    }),
+    new CopyWebpackPlugin({ patterns: [{ from: 'static', to: 'static' }] }),
     // 使用 template 目录设为 index.html 作为html模板
     new HtmlWebpackPlugin({
       favicon: path.resolve(__dirname, '../src/assets/images/favicon.ico'),
       template: path.resolve(__dirname, '../template/index.html'),
     }),
     // 将运行时模块内联到html中
-    new ScriptExtHtmlWebpackPlugin({ inline: /runtime(\..*)?\.js$/ }),
+    // new ScriptExtHtmlWebpackPlugin({ inline: /runtime(\..*)?\.js$/ }),
   ],
   resolve: {
     alias: {
@@ -118,6 +133,6 @@ module.exports = env => ({
       '@styles': path.resolve(__dirname, '../src/assets/styles'),
       '@images': path.resolve(__dirname, '../src/assets/images'),
     },
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.scss', '.css'],
+    extensions: ['.js', '.ts', '.tsx', '.json', '.css', '.scss'],
   },
 });
