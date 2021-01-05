@@ -58,7 +58,7 @@ function createRoute(route: Route.RouteConfig, parentKey?: string, rootKey?: str
     // 添加 Redirect 组件
     RouteList.push(<Redirect exact from={path} to={redirect} key={path} />);
   } else if (Component) {
-    // 添加 Route 组件,如果Component是Promise,则用lazy包装
+    // 添加 Route 组件
     RouteList.push(<Route trict exact key={key} path={path} component={Component} />);
   }
   // 创建子路由

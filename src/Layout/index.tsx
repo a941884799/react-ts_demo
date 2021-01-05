@@ -8,7 +8,7 @@ import { Layout, Menu, Breadcrumb, message } from 'antd';
 import RouterComponents, { pathToRoute, keyToRoute, keyToPath, routesConfig } from '@router/index';
 import { useLocation, useHistory } from 'react-router';
 
-import { uniq } from 'lodash';
+import uniq from 'lodash/uniq';
 import { filterObj } from '@utils/index';
 import './index.scss';
 
