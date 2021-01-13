@@ -1,14 +1,17 @@
 const merge = require('webpack-merge');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 module.exports = (args, process) => {
   const commonConfig = require('./webpack.common')(args, process); // webpack通用配置
   return merge(commonConfig, {
     mode: 'production',
-    output: {
-      publicPath: '/',
-      filename: 'js/[name].[chunkhash:6].js',
+    // 优化
+    optimization: {
+      moduleIds: 'hashed',
+      // 创建一个 所有chunk 共享的运行时文件,别名为 runtime
+      runtimeChunk: { name: 'runtime' },
     },
     plugins: [
       // 打包时先删除dist目录
@@ -19,6 +22,8 @@ module.exports = (args, process) => {
       new MiniCssExtractPlugin({
         filename: 'css/[name].[contenthash:6].css',
       }),
+      // 将运行时模块内联到html中
+      new ScriptExtHtmlWebpackPlugin({ inline: /runtime(\..*)?\.js$/ }),
     ],
   });
 };

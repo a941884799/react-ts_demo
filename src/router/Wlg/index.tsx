@@ -3,26 +3,23 @@ import _import from '@utils/_import';
 import { DatabaseFilled } from '@ant-design/icons';
 
 const WlgRoutes: Route.RouteConfig = {
-  title: "Wlg'sDemo",
+  title: '我的Demo',
   key: 'Wlg',
   path: '/Wlg',
   redirect: '/Wlg/ReduxDemo',
-  isMenu: true,
   children: [
     {
-      title: 'ReduxDemo',
+      title: 'Redux练习',
       key: 'WlgReduxDemo',
       path: '/Wlg/ReduxDemo',
-      isMenu: true,
       // component: lazy(() => import(/* webpackChunkName: "ReduxDemo" */ 'Wlg/ReduxDemo')),
       component: _import('Wlg/ReduxDemo'),
       icon: <DatabaseFilled />,
     },
     {
-      title: 'RouterDemo',
+      title: 'Router练习',
       key: 'WlgRouterDemo',
       path: '/Wlg/RouterDemo',
-      isMenu: true,
       component: _import('Wlg/RouterDemo'),
       icon: <DatabaseFilled />,
     },
@@ -30,8 +27,14 @@ const WlgRoutes: Route.RouteConfig = {
       title: '表单练习',
       key: 'WlgFormDemo',
       path: '/Wlg/FormDemo',
-      isMenu: true,
       component: _import('Wlg/FormDemo'),
+      icon: <DatabaseFilled />,
+    },
+    {
+      title: 'Modal练习',
+      key: 'WlgModal',
+      path: '/Wlg/Modal',
+      component: _import('Wlg/ModalDemo'),
       icon: <DatabaseFilled />,
     },
   ],

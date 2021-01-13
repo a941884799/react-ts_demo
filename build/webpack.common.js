@@ -4,19 +4,17 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPluginLoader = require('mini-css-extract-plugin').loader;
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 module.exports = args => {
   const { mode } = args;
   return {
     // 入口
-    entry: [path.resolve(__dirname, '../src/index')],
+    entry: path.resolve(__dirname, '../src/index'),
     // 出口
-    output: { path: path.resolve(__dirname, '../dist') },
-    // 优化
-    optimization: {
-      // 创建一个 所有chunk 共享的运行时文件,别名为 runtime
-      runtimeChunk: { name: 'runtime' },
+    output: {
+      path: path.resolve(__dirname, '../dist'),
+      publicPath: '/',
+      filename: mode === 'dev' ? '[name].js' : 'js/[name].[chunkhash:6].js',
     },
     cache: true,
     stats: {
@@ -42,20 +40,8 @@ module.exports = args => {
                   [
                     '@babel/env',
                     {
-                      // 目标环境
-                      targets: {
-                        browsers: ['last 2 versions', 'ie >= 10'], // 浏览器
-                        node: 'current', // node
-                      },
                       useBuiltIns: 'usage', // 怎么运用 polyfill
                       corejs: { version: 3, proposals: false },
-                      modules: false, // 是否转译module syntax，默认是 commonjs
-                      debug: false, // 是否输出启用的plugins列表
-                      spec: false, // 是否允许more spec compliant，但可能转译出的代码更慢
-                      loose: false, // 是否允许生成更简单es5的代码，但可能不那么完全符合ES6语义
-                      include: [], // 总是启用的 plugins
-                      exclude: [], // 强制不启用的 plugins
-                      forceAllTransforms: false, // 强制使用所有的plugins，用于只能支持ES5的uglify可以正确压缩代码
                     },
                   ],
                   '@babel/preset-react',
@@ -115,8 +101,6 @@ module.exports = args => {
         favicon: path.resolve(__dirname, '../src/assets/images/favicon.ico'),
         js: ['/static/hello.js'],
       }),
-      // 将运行时模块内联到html中
-      new ScriptExtHtmlWebpackPlugin({ inline: /runtime(\..*)?\.js$/ }),
     ],
     resolve: {
       alias: {
@@ -131,7 +115,7 @@ module.exports = args => {
         '@styles': path.resolve(__dirname, '../src/assets/styles'),
         '@images': path.resolve(__dirname, '../src/assets/images'),
       },
-      extensions: ['.tsx', '.ts', '.js', '.scss', '.css', '.json'],
+      extensions: ['.tsx', '.ts', '.js'],
     },
   };
 };

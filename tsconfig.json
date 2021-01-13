@@ -6,7 +6,7 @@
     "sourceMap": true,
     "removeComments": true,
     "noImplicitAny": true,
-    "allowSyntheticDefaultImports": true, 
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "preserveConstEnums": true,
     "rootDir": "./src",
@@ -22,7 +22,7 @@
       "@router/*": ["src/router/*"],
       "@assets/*": ["src/assets/*"],
       "@images/*": ["src/assets/images/*"],
-      "@styles/*": ["src/assets/styles/*"],
+      "@styles/*": ["src/assets/styles/*"]
     }
-  },
+  }
 }

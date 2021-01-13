@@ -8,7 +8,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import App from './App';
-import '@styles/global';
+import '@styles/global.scss';
 
 /** =========== router全局配置 =========== **/
 import { Router } from 'react-router-dom';

@@ -1,6 +1,6 @@
 module.exports = {
   // 定义ESLint的解析器（esprima babel-eslint @typescript-eslint/parser）
-  parser: 'babel-eslint',
+  parser: '@typescript-eslint/parser',
   // parser 解析代码时的参数
   parserOptions: {
     ecmaVersion: 2020, // 允许解析较新的ES特性
@@ -63,6 +63,7 @@ module.exports = {
       version: 'detect',
     },
     'import/parsers': {
+      'babel-eslint': ['.js', '.jsx'],
       // 扩展文件后缀，识别.ts,.tsx文件
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },

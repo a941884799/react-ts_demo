@@ -1,45 +1,54 @@
 /** @format */
-@import '~@styles/variable';
+.site-layout-background {
+  background: #fff;
+}
 
 .root-layout {
+  // 顶部
   .root-header {
-    position: relative;
-    padding-left: 200px;
     .logo {
-      position: absolute;
-      left: 0;
-      z-index: 10;
-      width: 200px;
-      height: 100%;
       text-align: center;
       color: #fff;
       font-size: 24px;
-      background: rgba(255, 255, 255, 0.2);
+      float: left;
+      width: 120px;
+      height: 31px;
+      margin: 16px 24px 16px 0;
+      background: rgba(255, 255, 255, 0.3);
     }
   }
+  // 左侧
   .root-sider {
     overflow-y: auto;
     overflow-x: hidden;
-    .root-sider-menus {
-      height: auto;
-      min-height: '100%';
+    .sider-menus {
+      height: 100%;
       border-right: 0;
+      > .ant-menu-item:first-child {
+        margin-top: 0;
+      }
     }
   }
-  .root-content-container {
-    padding: 0 24px 24px;
-    .root-breadcrumb {
-      margin: 16px 0;
+  // 面包屑部分
+  .root-breadcrumb {
+    background: #fff;
+    padding: 13px 25px;
+    .active {
+      font-weight: 600;
     }
-    .root-content {
-      margin: 0;
-      min-height: 280px;
-      background: #fff;
-      overflow-y: auto;
-      overflow-x: hidden;
-      border: 1px solid #e5e5e5;
-      box-shadow: $box-shadow-base;
-      padding: 15px;
+  }
+  // 内容容器
+  .root-content-container {
+    margin: 20px;
+    overflow: auto;
+    border: 1px solid #eee;
+    // 路由页面
+    > div {
+      padding: 20px;
+      .ant-page-header {
+        padding: 0;
+        margin-bottom: 20px;
+      }
     }
   }
 }

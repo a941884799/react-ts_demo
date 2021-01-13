@@ -68,8 +68,8 @@ const RouterDemo = ({ history }: { history: History }): ReactNode => {
           </Button>,
         ]}
       />
-      <Spin tip="路由监听中..." spinning={unlisten} />
-      <Spin tip="路由拦截中..." spinning={unblock} />
+      <Spin className="flex-x-y-center" tip="路由监听中..." spinning={unlisten} />
+      <Spin className="flex-x-y-center" tip="路由拦截中..." spinning={unblock} />
     </div>
   );
 };
