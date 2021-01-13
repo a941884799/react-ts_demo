@@ -3,7 +3,7 @@
  * */
 import React, { Fragment, ReactNode, useEffect } from 'react';
 import { useStateSafe } from '@utils/hooks';
-import { Form, Spin, Input, PageHeader, Radio, Button, Checkbox, Tag } from 'antd';
+import { PageHeader, Tag, Form, Spin, Input, Radio, Button, Checkbox, Switch } from 'antd';
 // api接口
 import { getFormMock } from '@api/Wlg/FormDemoApi';
 import './index.scss';
@@ -142,7 +142,7 @@ const FormDemo = (): ReactNode => {
   }, []);
   return (
     <div className="page-WlgFormDemo">
-      <PageHeader title="动态表单练习" tags={<Tag color="red">demo</Tag>} />
+      <PageHeader title="动态表单" tags={<Tag color="green">demo</Tag>} />
       <Spin tip="正在加载表单" spinning={Loading}>
         <Form
           name="WlgFormDemo"

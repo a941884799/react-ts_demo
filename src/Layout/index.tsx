@@ -3,7 +3,7 @@
  * 整体页面布局文件
  */
 import React, { useState, useCallback, useEffect, ReactNode, useMemo } from 'react';
-import { useLocation, useHistory, Link } from 'react-router-dom';
+import { useLocation, useHistory, NavLink } from 'react-router-dom';
 import { Layout, Menu, message, Breadcrumb } from 'antd';
 import GoBack from '@components/GoBack';
 // 路由配置
@@ -47,7 +47,7 @@ const getOpenKeys = (parentKey: string): string[] => {
  * @param {RouteConfig} route 路由配置
  * @return {ReactNode} 格式化后的数据
  */
-const RouteToMenuList = (route: RouteConfig): React.ReactNode => {
+const renderMenuList = (route: RouteConfig): React.ReactNode => {
   const { hideMenu, children } = route;
   if (hideMenu) return null;
   // 存在子路由时遍历子路由配置渲染子节点
@@ -56,11 +56,11 @@ const RouteToMenuList = (route: RouteConfig): React.ReactNode => {
       const menuProps = filterRouteConfig(sonRoute);
       switch (sonRoute.menuCategory) {
         case 'SubMenu':
-          return <SubMenu {...menuProps}>{RouteToMenuList(sonRoute)}</SubMenu>;
+          return <SubMenu {...menuProps}>{renderMenuList(sonRoute)}</SubMenu>;
         case 'ItemGroup':
-          return <ItemGroup {...menuProps}>{RouteToMenuList(sonRoute)}</ItemGroup>;
+          return <ItemGroup {...menuProps}>{renderMenuList(sonRoute)}</ItemGroup>;
         default:
-          return RouteToMenuList(sonRoute);
+          return renderMenuList(sonRoute);
       }
     });
   }
@@ -75,9 +75,10 @@ const RouteToMenuList = (route: RouteConfig): React.ReactNode => {
  * @param {RouteConfig} _currentRoute 路由配置
  * @return {ReactNode} 格式化后的数据
  */
-const RouteToBreadcrumbList = (_currentRoute: RouteConfig): React.ReactNode => {
+const renderBreadcrumbs = (_currentRoute: RouteConfig): React.ReactNode => {
   let currentRoute = { ..._currentRoute };
-  const RouteList: RouteConfig[] = [currentRoute];
+  const RouteList: RouteConfig[] = [];
+  if (currentRoute?.key) RouteList.unshift(currentRoute);
   while (currentRoute.parentKey) {
     currentRoute = keyToRoute.get(currentRoute.parentKey);
     RouteList.unshift(currentRoute);
@@ -87,9 +88,9 @@ const RouteToBreadcrumbList = (_currentRoute: RouteConfig): React.ReactNode => {
       {index === RouteList.length - 1 ? (
         <span style={{ fontWeight: 700 }}>{route.title}</span>
       ) : (
-        <Link exact to={route.path}>
+        <NavLink exact to={route.path}>
           {route.title}
-        </Link>
+        </NavLink>
       )}
     </Breadcrumb.Item>
   ));
@@ -124,17 +125,6 @@ const MyLayout = (): ReactNode => {
     }, 0);
   }, []);
 
-  /**
-   * 设置面包屑及侧边导航栏
-   */
-  const { BreadcrumbItemList, SideMenuList } = useMemo(
-    () => ({
-      SideMenuList: RouteToMenuList(currentRootRoute),
-      BreadcrumbItemList: RouteToBreadcrumbList(currentRoute),
-    }),
-    [currentRoute],
-  );
-
   // 路由变化，重新设置展开的 SubMenu 菜单项 key 数组
   useEffect(() => {
     const newOpenKeys = openKeys.concat(getOpenKeys(currentRoute.parentKey));
@@ -143,17 +133,11 @@ const MyLayout = (): ReactNode => {
   }, [currentRoute.parentKey]);
 
   return (
-    <Layout className="root-layout">
+    <Layout className="root-layout-container">
       <Header className="root-header">
         <div className="logo" />
         {/* 顶部导航,只渲染根路由 */}
-        <Menu
-          className="root-header-menus"
-          theme="dark"
-          mode="horizontal"
-          selectedKeys={[currentRootRoute.key]}
-          onClick={toPage}
-        >
+        <Menu theme="dark" mode="horizontal" selectedKeys={[currentRootRoute.key]} onClick={toPage}>
           {routesConfig.map((rootRoute: RouteConfig) => (
             <Menu.Item key={rootRoute.key}>{rootRoute.title}</Menu.Item>
           ))}
@@ -161,45 +145,38 @@ const MyLayout = (): ReactNode => {
       </Header>
       <Layout>
         {/* 根据当前根路由配置设置侧边导航栏 */}
-        {(function () {
-          const { hideSider }: unknown = currentRootRoute;
-          // 隐藏侧边导航栏
-          if (hideSider) return <></>;
-          return (
-            <Sider
-              className="root-sider"
-              width={200}
-              breakpoint="md"
-              collapsible
-              onCollapse={collapsed => {
-                // onCollapse 会自动触发 onOpenChange([])
-                if (collapsed) return;
-                const newOpenKeys = openKeys.concat(getOpenKeys(currentRoute.parentKey));
-                setOpenKeys(uniq(newOpenKeys));
-              }}
+        {!currentRootRoute?.hideSider && (
+          <Sider
+            className="root-sider"
+            width={200}
+            breakpoint="md"
+            collapsible
+            onCollapse={collapsed => {
+              // onCollapse 会自动触发 onOpenChange([])
+              if (collapsed) return;
+              const newOpenKeys = openKeys.concat(getOpenKeys(currentRoute.parentKey));
+              setOpenKeys(uniq(newOpenKeys));
+            }}
+          >
+            <Menu
+              mode="inline"
+              theme="dark"
+              openKeys={openKeys}
+              selectedKeys={[currentRoute.key]}
+              onClick={toPage}
+              onOpenChange={onOpenChange}
             >
-              <Menu
-                className="sider-menus"
-                mode="inline"
-                theme="dark"
-                openKeys={openKeys}
-                selectedKeys={[currentRoute.key]}
-                onClick={toPage}
-                onOpenChange={onOpenChange}
-              >
-                {/* 将路由转化为菜单列表 */}
-                {SideMenuList}
-              </Menu>
-            </Sider>
-          );
-        })()}
+              {renderMenuList(currentRootRoute)}
+            </Menu>
+          </Sider>
+        )}
         <Layout>
           {/* 根据路由层级，设置面包屑 */}
-          <div className="root-breadcrumb flex-y-center">
+          <div className="root-breadcrumb flex-y-center flex-1">
             <GoBack key="GoBack" />
-            <Breadcrumb className="flex-1">{BreadcrumbItemList}</Breadcrumb>
+            <Breadcrumb className="flex-1 text-ellipsis">{renderBreadcrumbs(currentRoute)}</Breadcrumb>
           </div>
-          <Content className="root-content-container site-layout-background">
+          <Content className="root-content">
             <RouterComponents />
           </Content>
         </Layout>

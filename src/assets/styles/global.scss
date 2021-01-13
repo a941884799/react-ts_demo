@@ -1,6 +1,7 @@
 @import './reset';
 @import './variable.scss';
 
+// 弹性盒样式
 .flex {
   display: flex;
 }
@@ -22,7 +23,7 @@
   justify-content: center;
 }
 
-// 文本
+// 文本样式
 .text-center {
   text-align: center;
 }

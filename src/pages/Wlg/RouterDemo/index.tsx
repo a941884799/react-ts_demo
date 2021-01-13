@@ -56,8 +56,7 @@ const RouterDemo = ({ history }: { history: History }): ReactNode => {
   return (
     <div className="page-WlgRouterDemo">
       <PageHeader
-        title="RouterDemo"
-        subTitle="This is router demo"
+        title="测试路由监听及拦截"
         tags={<Tag color="green">demo</Tag>}
         extra={[
           <Button key="1" onClick={unlisten ? onUnlisten : onListen}>

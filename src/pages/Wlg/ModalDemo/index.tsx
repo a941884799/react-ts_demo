@@ -11,10 +11,14 @@ const Modal = {};
 
 const ModalMain = props => {
   console.log(props);
-  return <div className="Modal">这是一个弹窗</div>;
+  return (
+    <div className="overlay">
+      <div className="Modal">这是一个弹窗</div>
+    </div>
+  );
 };
 
-Modal.alert = () => {
+Modal.alert = (props = {}) => {
   let root = root || document.getElementById(rootId);
   if (!root) {
     root = document.createElement('div');
@@ -22,14 +26,19 @@ Modal.alert = () => {
     window.root = root;
     document.body.appendChild(root);
   }
-  render(ModalMain, root);
+  render(createPortal(<ModalMain {...props} />, root), document.getElementById('wlg'));
 };
 
 const ModalDemo = props => {
   console.log(props);
   return (
     <div className="page-ModalDemo">
-      <Button onClick={Modal.alert}>打开弹窗</Button>
+      <PageHeader
+        title="用ReactDom.createPortal创建弹窗组件"
+        tags={<Tag color="green">demo</Tag>}
+        extra={<Button onClick={() => Modal.alert(props)}>打开弹窗</Button>}
+      />
+      <div id="wlg" style={{ display: 'none' }}></div>
     </div>
   );
 };

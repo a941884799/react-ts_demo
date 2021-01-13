@@ -1,27 +1,31 @@
 /** @format */
-.site-layout-background {
-  background: #fff;
-}
-
-.root-layout {
+.root-layout-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   // 顶部
   .root-header {
+    padding-left: 0;
     .logo {
       text-align: center;
       color: #fff;
       font-size: 24px;
       float: left;
-      width: 120px;
-      height: 31px;
-      margin: 16px 24px 16px 0;
+      width: 140px;
+      height: 38px;
+      margin: 15px 30px;
       background: rgba(255, 255, 255, 0.3);
+      background-origin: content-box;
+    }
+    .ant-menu {
+      margin-left: 200px;
     }
   }
   // 左侧
   .root-sider {
     overflow-y: auto;
     overflow-x: hidden;
-    .sider-menus {
+    .ant-menu {
       height: 100%;
       border-right: 0;
       > .ant-menu-item:first-child {
@@ -32,16 +36,17 @@
   // 面包屑部分
   .root-breadcrumb {
     background: #fff;
-    padding: 13px 25px;
-    .active {
-      font-weight: 600;
-    }
+    padding: 0 25px;
+    height: 47px!important;
+    flex: 0 0 auto;
+    border-bottom: 1px solid #dddddd;
   }
   // 内容容器
-  .root-content-container {
+  .root-content {
     margin: 20px;
     overflow: auto;
-    border: 1px solid #eee;
+    background-color: #fff;
+    border: 1px solid #dddddd;
     // 路由页面
     > div {
       padding: 20px;

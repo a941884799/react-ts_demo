@@ -13,7 +13,7 @@ const ReduxDemo = (): ReactNode => {
   const counter: number = useSelector((store: unknown) => store.counter);
   return (
     <div className="wlg-ReduxDemo" style={{ height: 3000 }}>
-      <PageHeader title="Redux练习" tags={<Tag color="red">demo</Tag>} />
+      <PageHeader title="Redux练习" tags={<Tag color="green">demo</Tag>} />
       <Space direction="vertical">
         <Input.Search
           size="large"
