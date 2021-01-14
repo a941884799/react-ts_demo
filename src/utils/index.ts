@@ -60,7 +60,8 @@ export function getType(v: unknown): string {
  */
 export const sleep = (delay = 0, cb = () => null): void =>
   new Promise(resolve => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
+      clearTimeout(timer);
       resolve(typeof cb === 'function' && cb());
     }, delay);
   });

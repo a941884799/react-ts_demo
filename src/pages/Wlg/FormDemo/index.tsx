@@ -3,7 +3,7 @@
  * */
 import React, { Fragment, ReactNode, useEffect } from 'react';
 import { useStateSafe } from '@utils/hooks';
-import { PageHeader, Tag, Form, Spin, Input, Radio, Button, Checkbox, Switch } from 'antd';
+import { PageHeader, Tag, Form, Spin, Input, Radio, Button, Checkbox } from 'antd';
 // api接口
 import { getFormMock } from '@api/Wlg/FormDemoApi';
 import './index.scss';

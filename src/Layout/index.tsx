@@ -2,7 +2,7 @@
 /**
  * 整体页面布局文件
  */
-import React, { useState, useCallback, useEffect, ReactNode, useMemo } from 'react';
+import React, { useState, useCallback, useEffect, ReactNode } from 'react';
 import { useLocation, useHistory, NavLink } from 'react-router-dom';
 import { Layout, Menu, message, Breadcrumb } from 'antd';
 import GoBack from '@components/GoBack';
@@ -10,7 +10,7 @@ import GoBack from '@components/GoBack';
 import RouterComponents, { pathToRoute, keyToRoute, keyToPath, routesConfig } from '@router/index';
 
 import uniq from 'lodash/uniq';
-import { filterObj } from '@utils/index';
+import { filterObj, sleep } from '@utils/index';
 import './index.scss';
 
 const { SubMenu, ItemGroup } = Menu;
@@ -119,10 +119,7 @@ const MyLayout = (): ReactNode => {
   // 展开收起SubMenu的回调
   const onOpenChange = useCallback((newOpenKeys: string[]) => {
     // onCollapse 触发的 onOpenChange有bug，需要延时一下
-    const timer = setTimeout(() => {
-      setOpenKeys(newOpenKeys);
-      clearTimeout(timer);
-    }, 0);
+    sleep(0, () => setOpenKeys(newOpenKeys));
   }, []);
 
   // 路由变化，重新设置展开的 SubMenu 菜单项 key 数组

@@ -1,5 +1,6 @@
-@import './reset';
-@import './variable.scss';
+@import './reset.scss'; // 样式重置
+@import './theme.scss'; // 主题样式
+@import './overlayRoot.scss'; // 浮层样式
 
 // 弹性盒样式
 .flex {
@@ -35,9 +36,9 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
 // 边距
 @for $i from 0 through 10 {
-  // padding
   .pd#{$i}0 {
     padding: (10px * $i);
   }
@@ -53,7 +54,6 @@
   .pr#{$i}0 {
     padding-right: (10px * $i);
   }
-  // margin
   .m#{$i}0 {
     margin: (10px * $i);
   }
@@ -70,59 +70,26 @@
     margin-right: (10px * $i);
   }
 }
+
 // 字体 fz10 - fz10
 @for $i from 5 through 10 {
   .fz#{$i*2} {
     font-size: (2px * $i);
   }
 }
+
+// 元素类型
 .block {
   display: block;
 }
 .inline-block {
   display: inline-block;
 }
-// float
-.pull-right {
+
+// 浮动
+.float-right {
   float: right;
 }
-.pull-left {
+.float-left {
   float: left;
-}
-
-.primary-color {
-  color: $primary-color!important; // 全局主色
-}
-.link-color {
-  color: $link-color; // 链接色
-}
-.success-color {
-  color: $success-color; // 成功色
-}
-.warning-color {
-  color: $warning-color; // 警告色
-}
-.error-color {
-  color: $error-color; // 错误色
-}
-.font-size-base {
-  font-size: $font-size-base; // 主字号
-}
-.heading-color {
-  color: $heading-color; // 标题色
-}
-.text-color {
-  color: $text-color; // 主文本色
-}
-.text-color-secondary {
-  color: $text-color-secondary; // 次文本色
-}
-.border-radius-base {
-  border-radius: $border-radius-base; // 组件/浮层圆角
-}
-.border-color-base {
-  border-color: $border-color-base; // 边框色
-}
-.box-shadow-base {
-  box-shadow: $box-shadow-base; // 浮层阴影
 }
