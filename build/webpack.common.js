@@ -14,7 +14,7 @@ module.exports = args => {
     output: {
       path: path.resolve(__dirname, '../dist'),
       publicPath: '/',
-      filename: mode === 'dev' ? '[name].js' : 'js/[name].[chunkhash:6].js',
+      filename: mode === 'dev' ? '[name].js' : 'js/[name].[chunkhash:8].js',
     },
     cache: true,
     stats: {
@@ -65,7 +65,13 @@ module.exports = args => {
             // 开发环境使用 style-loader, 生产环境使用 MiniCssExtractPlugin.loader分离css,
             mode === 'dev' ? 'style-loader' : { loader: MiniCssExtractPluginLoader, options: { esModule: true } },
             mode === 'dev' ? { loader: 'css-loader', options: { sourceMap: true } } : 'css-loader',
-            'sass-loader',
+            {
+              loader: 'sass-loader',
+              options: {
+                implementation: require('sass'),
+                sassOptions: { fiber: require('fibers') },
+              },
+            },
           ],
         },
         {
@@ -115,7 +121,7 @@ module.exports = args => {
         '@styles': path.resolve(__dirname, '../src/assets/styles'),
         '@images': path.resolve(__dirname, '../src/assets/images'),
       },
-      extensions: ['.tsx', '.ts', '.js'],
+      extensions: ['.tsx', '.ts', '.js', '.jsx'],
     },
   };
 };

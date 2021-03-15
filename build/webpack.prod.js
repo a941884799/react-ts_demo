@@ -20,7 +20,7 @@ module.exports = (args, process) => {
       }),
       // 提取css,为每个包含CSS的JS文件创建一个CSS文件,并且支持CSS和SourceMaps的按需加载。
       new MiniCssExtractPlugin({
-        filename: 'css/[name].[contenthash:6].css',
+        filename: 'css/[name].[contenthash:8].css',
       }),
       // 将运行时模块内联到html中
       new ScriptExtHtmlWebpackPlugin({ inline: /runtime(\..*)?\.js$/ }),

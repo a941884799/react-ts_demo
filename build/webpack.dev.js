@@ -42,7 +42,7 @@ module.exports = (args, process) => {
       proxy: [
         {
           context: ['/api'],
-          target: 'http://localhost:9090',
+          target: 'http://localhost:9999',
           changeOrigin: true, // 默认值：false - true为开启跨域代理
           pathRewrite: { '^/api': '/api' }, // 重写路径
           // secure: false, // 接受运行在 HTTPS 上，且使用了无效证书的后端服务器
