@@ -1,6 +1,13 @@
-@import './reset.scss'; // 样式重置
+@import './reset.css'; // 样式重置
 @import './theme.scss'; // 主题样式
 @import './overlayRoot.scss'; // 浮层样式
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 
 // 弹性盒样式
 .flex {
