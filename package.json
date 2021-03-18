@@ -75,10 +75,12 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",
+    "@types/js-cookie": "^2.2.6",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.5",
+    "@types/redux": "^3.6.0",
     "antd": "^4.6.5",
     "axios": "^0.21.0",
     "core-js": "^3.8.1",

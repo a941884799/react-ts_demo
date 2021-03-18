@@ -1,35 +1,35 @@
 /** @format */
 import { cr } from '@utils/store';
-import { ActionTypes } from '@store/actions/common';
+import { ActionTypes } from '@store/actions';
 
 // 用户信息类型
-interface UserInfo {
-  name: string;
-  qq: number;
-  age: number;
-  sex: '男' | '女';
-}
+type UserInfo = {
+  name?: string;
+  qq?: number;
+  age?: number;
+  sex?: '男' | '女';
+} | null;
 
 const commonReducer: Record<string, Store.Reducer> = {
-  todos: cr([], {
-    [ActionTypes.ADD_TODO](state: unknown[], action: { text: unknown }) {
+  todos: cr<unknown[]>([], {
+    [ActionTypes.ADD_TODO](state, action) {
       return state.concat([action.text]);
     },
   }),
-  counter: cr(1, {
-    [ActionTypes.INCREMENT](state: number) {
+  counter: cr<number>(1, {
+    [ActionTypes.INCREMENT](state) {
       return state + 1;
     },
-    [ActionTypes.DECREMENT](state: number) {
+    [ActionTypes.DECREMENT](state) {
       return state - 1;
     },
-    [ActionTypes.UPDATA](state: number, { number }: { number: number }) {
-      return number;
+    [ActionTypes.UPDATA](state, action) {
+      return action.number;
     },
   }),
   // 用户信息
-  UserInfo: cr(null, {
-    [ActionTypes.UPTATAUSERINFO](state: UserInfo | null, { UserInfo }: { UserInfo: UserInfo }) {
+  UserInfo: cr<UserInfo>(null, {
+    [ActionTypes.UPTATAUSERINFO](state, { UserInfo }) {
       return UserInfo;
     },
   }),
