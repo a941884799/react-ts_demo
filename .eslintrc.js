@@ -18,7 +18,7 @@ module.exports = {
   // 全局变量 'readonly' 'writable' 'off'
   globals: {
     _: 'readonly', // Lodash
-    globalObj: 'readonly',
+    globalConfig: 'readonly',
   },
   // 定义了该eslint文件所依赖的插件
   plugins: [],
@@ -52,7 +52,8 @@ module.exports = {
       ],
       rules: {
         // '@typescript-eslint/no-explicit-any': 2, // 禁止使用any类型
-        '@typescript-eslint/explicit-module-boundary-types': 0, // 要求定义函数返回值和参数的显式类型
+        // '@typescript-eslint/explicit-module-boundary-types': 0, // 要求定义函数返回值和参数的显式类型
+        '@typescript-eslint/no-var-requires': 0,
       },
     },
   ],

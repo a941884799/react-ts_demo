@@ -6,7 +6,6 @@
   "scripts": {
     "start": "webpack-dev-server --env.mode=dev",
     "dev": "npm start",
-    "test": "webpack --watch --env.mode=test",
     "build": "webpack --env.mode=prod",
     "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx ./",
     "precommit": "lint-staged"
