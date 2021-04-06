@@ -35,7 +35,7 @@ fetch.interceptors.response.use(
   (response: AxiosResponse<unknown>) => {
     const { status, statusText, data } = response;
     // 请求成功
-    console.log(response, 'response');
+
     if ((status === 200 || statusText === 'OK') && (data?.code === 0 || data?.msg === 'succ')) {
       return data?.Response || data;
     }
