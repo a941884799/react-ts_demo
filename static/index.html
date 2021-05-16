@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>函数柯里化</title>
+</head>
+<body>
+  <script>
+    const add = (...arg) => {
+      const _add = (...arg2) => add(...arg, ...arg2);
+      _add.toString = () => arg.reduce((a, b) => a + b, 0);
+      return _add;
+    }
+    console.log(add());
+    console.log(add(1));
+    console.log(add(1)(2)(3)(4));
+    console.log(add(1, 2)(3, 4));
+  </script>
+</body>
+</html>
