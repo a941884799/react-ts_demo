@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>按‘name’进行模糊搜索</title>
+  </head>
+  <body>
+    <input class="searchKeyInput" type="text" />
+    <button class="searchBtn">检索</button>
+    <div>以下为检索到的内容：</div>
+    <pre class="showResultDiv"></pre>
+  </body>
+  <script>
+    const tree = [
+      {
+        name: 'a',
+        children: [
+          {
+            name: 'a-1',
+          },
+          {
+            name: 'a-2',
+            children: [
+              {
+                name: 'a-2-1',
+              },
+              {
+                name: 'a-2-2',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'b',
+        children: [
+          {
+            name: 'b-1',
+          },
+          {
+            name: 'b-2',
+            children: [
+              {
+                name: 'b-2-1',
+              },
+              {
+                name: 'b-2-2',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+
+    function searchTreeNode(nodes, searchKey, parantNodeList = []) {
+      for (let i = 0; i < nodes.length; i++) {
+        let node = nodes[i];
+        if (node.name.includes(searchKey)) {
+          parantNodeList.push(node)
+          parantNodeList.forEach((item, index) => {
+            if (index + 1 !== parantNodeList.length) {
+              item.children = parantNodeList[index + 1];
+            }
+          });
+          return [parantNodeList[0]];
+        }
+
+        // 当前node存在children时搜索children是否存在匹配项
+        if (node.children) {
+          const copyNode = { ...node };
+          copyNode.children = undefined;
+          let result = searchTreeNode(node.children, searchKey, [...parantNodeList, copyNode]);
+          if (result) {
+            return result;
+          }
+        }
+      }
+    }
+
+    const searchKeyInput = document.querySelector('.searchKeyInput')
+    const searchBtn = document.querySelector('.searchBtn')
+    const showResultDiv = document.querySelector('.showResultDiv')
+
+    searchBtn.onclick = () => {
+      const searchKey = searchKeyInput.value
+      console.log('result', searchKey?.trim());
+      if (!searchKey?.trim()) return
+      const result = searchTreeNode(tree, searchKey.trim())
+      if (result) {
+        showResultDiv.innerHTML = JSON.stringify(result)
+      } else {
+        showResultDiv.innerHTML = '搜索结果为空'
+      }
+    }
+  </script>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>发布订阅模式</title>
+  </head>
+  <body>
+    <button class="onBtn">订阅</button>
+    <button class="emitBtn">发布</button>
+    <button class="offBtn">取消订阅</button>
+    <br />
+    <button class="onceBtn">单次订阅</button>
+    <button class="onceEmitBtn">发布单次订阅的事件</button>
+  </body>
+  <script>
+    class EventBus {
+      constructor() {
+        // 创建数组存储方法
+        this.eventList = {};
+      }
+
+      // 订阅
+      on(name, cb) {
+        if (typeof cb !== 'function') return;
+
+        let eventList = this.eventList;
+
+        if (!eventList[name]) {
+          eventList[name] = [];
+        }
+
+        // 将传入的方法存储至对应的队列中
+        eventList[name].push(cb);
+      }
+
+      // 监听并且只执行一次 之后取消订阅
+      once(name, cb) {
+        // 包装cb回调函数
+        const _cb = (...args) => {
+          // 当一次 emit 执行事件的时候，进行解绑事件操作
+          this.off(name, _cb);
+          // 执行一次事件函数
+          cb(...args);
+        };
+
+        this.on(name, _cb);
+      }
+
+      // 发布
+      emit(name, ...args) {
+        const eventList = this.eventList[name];
+        if (!eventList?.length) return;
+        // 触发已经存储的方法
+        eventList.forEach(cb => {
+          cb(...args);
+        });
+      }
+
+      // 取消订阅
+      off(name, cb) {
+        if (typeof cb !== 'function') return;
+        let eventList = this.eventList[name];
+        if (!eventList?.length) return;
+        // 删除传入的方法
+        this.eventList[name] = eventList.filter(item => item !== cb);
+      }
+    }
+
+    const myBus = new EventBus()
+    const onBtn = document.querySelector('.onBtn')
+    const offBtn = document.querySelector('.offBtn')
+    const emitBtn = document.querySelector('.emitBtn')
+    const onceBtn = document.querySelector('.onceBtn')
+    const onceEmitBtn = document.querySelector('.onceEmitBtn')
+    
+
+    const fn = () => window.alert('xxx发布')
+    const onceFn = () => window.alert('***发布')
+
+    onBtn.onclick = function () {
+      console.log('订阅');
+      myBus.on('cb', fn)
+    }
+
+    offBtn.onclick = function () {
+      console.log('删除');
+      myBus.off('cb', fn)
+    }
+
+    emitBtn.onclick = function () {
+      console.log('发布');
+      myBus.emit('cb')
+    }
+
+    
+    onceBtn.onclick = function () {
+      console.log('单次订阅');
+      myBus.once('onceFn', onceFn)
+    }
+
+    
+    onceEmitBtn.onclick = function () {
+      console.log('发布单次订阅');
+      myBus.emit('onceFn', onceFn)
+    }
+  </script>
+</html>

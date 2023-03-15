@@ -1,0 +1,24 @@
+.parant {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 方案二 */
+.parant {
+  display: flex;
+}
+.son {
+  margin: auto;
+}
+
+/* 方案三 */
+.parant {
+  position: relative;
+}
+.son {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

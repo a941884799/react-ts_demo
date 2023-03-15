@@ -1,0 +1,54 @@
+<!-- html -->
+<!-- html -->
+<div class="container"> 
+  <div class="left">这是左边栏</div>
+  <div class="middle">这是中间烂</div>
+  <div class="right">这是右边栏</div>
+</div>
+
+<script>
+class Stack {
+    constructor(initData = []) {
+        this.data = initData
+    }
+    in(value) {
+        // 数据进栈
+        // todo: 你的代码
+        this.data.unshift(value)
+        return this.data
+    }
+    out() {
+        // 数据出栈
+        // todo: 你的代码
+        const delItem = this.data.shift()
+        console.log(delItem)
+        return delItem
+    }
+    top() {
+        // 返回栈顶的数据
+        // todo: 你的代码
+        const topItem = this.data[0]
+        console.log(topItem)
+        return topItem
+    }
+    size() {
+        // 返回栈数据的长度
+        // todo: 你的代码
+        const size = this.data.length
+        console.log(size)
+    }
+}
+
+// 要求当执行下列代码时，能输出预期的结果
+const stack = new Stack()
+stack.in('x')
+stack.in('y')
+stack.in('z')
+
+stack.top() // 输出 'z'
+stack.size() // 输出 3
+
+stack.out() // 输出 'z'
+stack.top() // 输出 'y'
+stack.size() // 输出 2
+</script>
