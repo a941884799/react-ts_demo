@@ -1,6 +1,6 @@
 /** @format */
 const path = require('path');
-// const Webpack = require('webpack');
+const Webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPluginLoader = require('mini-css-extract-plugin').loader;
@@ -93,12 +93,12 @@ module.exports = args => {
     // 插件
     plugins: [
       // 定义全局常量
-      // new Webpack.DefinePlugin({ globalObj: JSON.stringify({ name: '王xx' }) }),
+      new Webpack.DefinePlugin({ mode: JSON.stringify(mode) }),
       // 全局引入lodash，并命名为_
       // new Webpack.ProvidePlugin({ _: 'lodash' }),
       // 直接拷贝 static 目录的东西,不进行打包压缩
       new CopyWebpackPlugin({
-        patterns: [{ from: 'static', to: 'static' }],
+        patterns: [{ from: 'src/static', to: 'static' }],
       }),
       // 使用 template 目录设为 index.html 作为html模板
       new HtmlWebpackPlugin({

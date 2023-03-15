@@ -7,6 +7,6 @@ import { createGetApi } from '@utils/api';
  * @return {AxiosPromise<UserInfo>}
  */
 
-export const getUserInfo = createGetApi('/api/getUser', {
+export const getUserInfo = createGetApi('/static/userInfo.json', {
   noHandleError: true, // 不使用 handleError 全局提示错误信息
 });
