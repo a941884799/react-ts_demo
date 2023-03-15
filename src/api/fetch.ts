@@ -16,20 +16,18 @@ const fetch: AxiosInstance = axios.create({
 });
 
 /** ============== 设置 request 拦截器 ============== **/
-fetch.interceptors.request.use(
-  (_config): AxiosRequestConfig => {
-    const config = { ..._config };
-    // 获取并添加token
-    const authorization = Cookies.get('authorToken');
-    if (authorization) config.headers.authorization = `Bearer ${authorization}`;
+fetch.interceptors.request.use((_config): AxiosRequestConfig => {
+  const config = { ..._config };
+  // 获取并添加token
+  const authorization = Cookies.get('authorToken');
+  if (authorization) config.headers.authorization = `Bearer ${authorization}`;
 
-    // 添加公共参数
-    config.data = Object.assign({}, config.data, publicData);
-    config.params = Object.assign({}, config.params, publicParams);
+  // 添加公共参数
+  config.data = Object.assign({}, config.data, publicData);
+  config.params = Object.assign({}, config.params, publicParams);
 
-    return config;
-  },
-);
+  return config;
+});
 
 /** ============== 设置response拦截器 ============== **/
 fetch.interceptors.response.use(

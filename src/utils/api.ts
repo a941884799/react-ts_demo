@@ -12,8 +12,10 @@ type Params = Record<string, unknown>;
  * @return  {Api} 返回一个 post 类型api接口
  */
 
-export const createPostApi = (path: string, config: AxiosRequestConfig = {}) => (params: Params = {}): Promise =>
-  fetch.post(path, params, config);
+export const createPostApi =
+  (path: string, config: AxiosRequestConfig = {}) =>
+  (params: Params = {}): Promise =>
+    fetch.post(path, params, config);
 
 /**
  * @name createGetApi
@@ -24,8 +26,10 @@ export const createPostApi = (path: string, config: AxiosRequestConfig = {}) => 
  * @return  {Api} 返回一个get类型api接口
  */
 
-export const createGetApi = (path: string, config: AxiosRequestConfig = {}) => (params: Params = {}): Promise =>
-  fetch.get(path, { params, ...config });
+export const createGetApi =
+  (path: string, config: AxiosRequestConfig = {}) =>
+  (params: Params = {}): Promise =>
+    fetch.get(path, { params, ...config });
 
 // 扩展错误信息类型
 interface Error extends AxiosError {
