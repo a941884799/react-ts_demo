@@ -24,5 +24,6 @@
       "@images/*": ["src/assets/images/*"],
       "@styles/*": ["src/assets/styles/*"],
     }
-  }
+  },
+  "exclude": ["node_modules", "dist"]
 }
