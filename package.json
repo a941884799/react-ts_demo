@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
+  "engines": {
+    "node": "v14.17.0"
+  },
   "scripts": {
     "start": "webpack-dev-server --env.mode=dev",
     "dev": "npm start",
@@ -75,6 +78,7 @@
   "dependencies": {
     "@babel/runtime": "^7.12.5",
     "@types/js-cookie": "^2.2.6",
+    "@types/prop-types": "^15.7.5",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.9",
