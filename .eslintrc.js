@@ -51,7 +51,7 @@ module.exports = {
         'prettier/@typescript-eslint', // 禁用@typescript-eslint/eslint-plugin中与prettier冲突的ESLint规则
       ],
       rules: {
-        // '@typescript-eslint/no-explicit-any': 2, // 禁止使用any类型
+        '@typescript-eslint/no-explicit-any': 0, // 禁止使用any类型
         // '@typescript-eslint/explicit-module-boundary-types': 0, // 要求定义函数返回值和参数的显式类型
         '@typescript-eslint/no-var-requires': 0,
       },

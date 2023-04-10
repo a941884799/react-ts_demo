@@ -5,27 +5,22 @@
  * @param {props} {children} react组件
  * @return  {ReactNode} ErrorBoundary 组件
  */
-import React, { Component } from 'react';
+import React, { Component, PropsWithChildren } from 'react';
 import { Result, Button } from 'antd';
-import { node } from 'prop-types';
 
-class ErrorBoundary extends Component {
-  static propTypes = {
-    children: node,
-  };
-
-  constructor(props) {
+class ErrorBoundary extends Component<PropsWithChildren<Record<string, any>>, any> {
+  constructor(props: Record<string, any>) {
     super(props);
     this.state = { hasError: false };
   }
 
-  reload = () => {
+  reload: () => void = () => {
     this.setState({ loading: true });
     setTimeout(() => this.setState({ hasError: false, loading: false }), 500);
   };
 
   // 接收作为参数抛出的错误，并应返回值以更新 state
-  static getDerivedStateFromError() {
+  static getDerivedStateFromError(): Record<string, boolean> {
     // 更新状态，以便下一个渲染器显示回退UI。
     return { hasError: true };
   }
@@ -35,18 +30,18 @@ class ErrorBoundary extends Component {
    * error - 抛出的错误。
    * info - 包含 componentStack 键的对象，其中包含 有关哪个组件引发错误的信息 。
    */
-  componentDidCatch(error /*, info*/) {
+  componentDidCatch(error: Error /*, info*/): void {
     // 可以将错误记录到错误报告服务
     console.error('error', error);
     // console.error('componentStack', info.componentStack);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Record<string, unknown>): void {
     // Typical usage (don't forget to compare props):
     if (prevProps.children !== this.props.children) this.setState({ hasError: false });
   }
 
-  render() {
+  render(): React.ReactNode {
     const { children } = this.props;
     const { loading, hasError } = this.state;
     if (hasError) {

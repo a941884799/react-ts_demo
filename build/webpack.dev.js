@@ -37,7 +37,7 @@ module.exports = (args, process) => {
       disableHostCheck: true, // 绕过主机检查,不建议这样做，因为不检查主机的应用程序容易受到 DNS 重新连接攻击。
       port: 9000, // 端口号
       open: true, // 自动打开浏览器
-      // openPage: 'http://reacts.com', // 指定要打开的页面,(用了whistle代理，所以指定为'http://reacts.com')
+      openPage: 'http://react-demo.com', // 指定要打开的页面,(需要配置代理，所以指定为'http://react-demo.com')
       // 正向代理
       proxy: [
         {

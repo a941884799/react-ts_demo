@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 class EventBus {
   constructor() {
     // 创建数组存储方法
@@ -23,10 +24,10 @@ class EventBus {
     // 包装cb回调函数
     const _cb = (...args) => {
       // 当一次 emit 执行事件的时候，进行解绑事件操作
-      const eventList = this.events[type] || [];
+      const eventList = this.events[name] || [];
       this.off(name, _cb);
       // 执行一次事件函数
-      eventList(...args);
+      cb(...args);
     };
 
     this.on(name, _cb);
