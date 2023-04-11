@@ -1,7 +1,7 @@
 /**
  * WangLonggang 的 ModalDemo
  * */
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { createPortal, render } from 'react-dom';
 import { PageHeader, Button, Tag } from 'antd';
 import { getOverlayRoot } from '@utils/getOverlayRoot';
@@ -26,7 +26,9 @@ Modal.alert = (props = {}) => {
 };
 
 const ModalDemo = props => {
-  console.log(props);
+  const [value, setValue] = useState(1);
+
+  console.log(value, 'value1');
   return (
     <div className="page-ModalDemo">
       <PageHeader
@@ -34,6 +36,15 @@ const ModalDemo = props => {
         tags={<Tag color="green">demo</Tag>}
         extra={<Button onClick={() => Modal.alert(props)}>打开弹窗</Button>}
       />
+      <div>value: {value}</div>
+      <div
+        onClick={() => {
+          setValue(value => value + 1);
+          console.log(value, 'value2');
+        }}
+      >
+        add
+      </div>
     </div>
   );
 };
