@@ -69,7 +69,6 @@ module.exports = args => {
               loader: 'sass-loader',
               options: {
                 implementation: require('sass'),
-                sassOptions: { fiber: require('fibers') },
               },
             },
           ],
