@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.bat text eol=crlf
+*.png binary
+
+# 含义：
+# 所有文本文件默认 LF；
+# Windows 批处理文件例外，保持 CRLF；
+# 图片等二进制文件不参与转换。
